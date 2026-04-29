@@ -266,8 +266,15 @@
 
       <!-- Apply again (if rejected) -->
       {% if app.final_status == 'rejected' %}
-      <a href="{% url 'apply_loan' %}" class="btn btn-primary" style="justify-content:center;padding:12px;">
+      <a href="{% url 'whatif_simulator' app.pk %}" class="btn btn-primary" style="justify-content:center;padding:12px;">
+        🔮 What-If Simulator
+      </a>
+      <a href="{% url 'apply_loan' %}" class="btn btn-outline" style="justify-content:center;padding:12px;">
         Apply Again
+      </a>
+      {% elif app.final_status == 'approved' %}
+      <a href="{% url 'whatif_simulator' app.pk %}" class="btn btn-outline" style="justify-content:center;padding:12px;">
+        🔮 Explore What-If
       </a>
       {% endif %}
 

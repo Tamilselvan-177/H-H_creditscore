@@ -1,0 +1,228 @@
+{% extends 'loans/base.html' %}
+{% block title %}Audit Chain — Smart Money Lender{% endblock %}
+{% block content %}
+<div style="display:flex;flex-direction:column;gap:24px;">
+
+  <!-- Header -->
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+    <div>
+      <h1 style="font-size:28px;font-weight:700;color:#0f172a;letter-spacing:-.02em;">
+        🔗 Tamper-Evident Audit Chain
+      </h1>
+      <p style="color:#64748b;font-size:14px;margin-top:4px;">
+        SHA-256 hash chain — every decision is cryptographically linked to the previous one.
+        Any modification to a past record breaks the chain.
+      </p>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      {% if chain_valid %}
+      <div style="display:flex;align-items:center;gap:8px;padding:10px 18px;background:#f0fdf4;border:2px solid #059669;border-radius:10px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#166534;">Chain Intact</div>
+          <div style="font-size:11px;color:#166534;opacity:.8;">All {{ total }} records verified</div>
+        </div>
+      </div>
+      {% else %}
+      <div style="display:flex;align-items:center;gap:8px;padding:10px 18px;background:#fff1f2;border:2px solid #e11d48;border-radius:10px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#9f1239;">⚠ Chain Broken!</div>
+          <div style="font-size:11px;color:#9f1239;opacity:.8;">Tamper detected at record #{{ first_broken }}</div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px 20px;">
+    <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:10px;">How SHA-256 Hash Chaining Works</div>
+    <div style="display:flex;align-items:center;gap:0;flex-wrap:wrap;">
+      <div style="padding:10px 14px;background:white;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;text-align:center;">
+        <div style="font-weight:600;color:#374151;">Record #1</div>
+        <div style="font-family:monospace;font-size:10px;color:#94a3b8;margin-top:3px;">prev: 0000...0000</div>
+        <div style="font-family:monospace;font-size:10px;color:#2d4fa1;margin-top:2px;">hash: a3f9...b2c1</div>
+      </div>
+      <div style="padding:0 8px;color:#94a3b8;font-size:18px;">→</div>
+      <div style="padding:10px 14px;background:white;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;text-align:center;">
+        <div style="font-weight:600;color:#374151;">Record #2</div>
+        <div style="font-family:monospace;font-size:10px;color:#94a3b8;margin-top:3px;">prev: a3f9...b2c1</div>
+        <div style="font-family:monospace;font-size:10px;color:#2d4fa1;margin-top:2px;">hash: 7d2e...f4a8</div>
+      </div>
+      <div style="padding:0 8px;color:#94a3b8;font-size:18px;">→</div>
+      <div style="padding:10px 14px;background:white;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;text-align:center;">
+        <div style="font-weight:600;color:#374151;">Record #N</div>
+        <div style="font-family:monospace;font-size:10px;color:#94a3b8;margin-top:3px;">prev: 7d2e...f4a8</div>
+        <div style="font-family:monospace;font-size:10px;color:#2d4fa1;margin-top:2px;">hash: c8b1...e3d7</div>
+      </div>
+      <div style="padding:0 12px;font-size:12px;color:#64748b;max-width:220px;">
+        Each hash = SHA256(prev_hash + record_id + user + decision + risk_score + SHAP).<br/>
+        Modify any field → hash changes → chain breaks.
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats row -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+    <div class="stat-card" style="border-left:3px solid #2d4fa1;">
+      <div class="stat-label">Total Records</div>
+      <div class="stat-value">{{ total }}</div>
+    </div>
+    <div class="stat-card" style="border-left:3px solid {% if chain_valid %}#059669{% else %}#e11d48{% endif %};">
+      <div class="stat-label">Chain Status</div>
+      <div class="stat-value" style="font-size:18px;color:{% if chain_valid %}#059669{% else %}#e11d48{% endif %};">
+        {% if chain_valid %}✓ INTACT{% else %}✗ BROKEN{% endif %}
+      </div>
+    </div>
+    <div class="stat-card" style="border-left:3px solid #7c3aed;">
+      <div class="stat-label">Hash Algorithm</div>
+      <div class="stat-value" style="font-size:16px;font-family:monospace;">SHA-256</div>
+    </div>
+    <div class="stat-card" style="border-left:3px solid #0891b2;">
+      <div class="stat-label">Verified Records</div>
+      <div class="stat-value" style="color:#059669;">
+        {{ chain_records|length }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Chain visualization -->
+  {% if chain_records %}
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Decision Audit Chain</div>
+      <div class="card-desc">Each block is cryptographically linked — hover a hash to see the full value</div>
+    </div>
+    <div class="card-body" style="padding:0;">
+
+      <!-- Visual chain blocks (first 5) -->
+      <div style="padding:20px 24px;overflow-x:auto;">
+        <div style="display:flex;align-items:stretch;gap:0;min-width:max-content;">
+          {% for rec in chain_records|slice:":6" %}
+          <div style="display:flex;align-items:center;gap:0;">
+            <!-- Block -->
+            <div style="width:160px;border:2px solid {% if rec.hash_ok %}#bbf7d0{% else %}#fecdd3{% endif %};
+              border-radius:10px;padding:12px;background:{% if rec.hash_ok %}#f0fdf4{% else %}#fff1f2{% endif %};
+              position:relative;">
+              <!-- Status icon -->
+              <div style="position:absolute;top:-10px;right:-10px;width:20px;height:20px;border-radius:50%;
+                background:{% if rec.hash_ok %}#059669{% else %}#e11d48{% endif %};
+                display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:700;">
+                {% if rec.hash_ok %}✓{% else %}✗{% endif %}
+              </div>
+              <div style="font-size:11px;font-weight:700;color:#374151;margin-bottom:6px;">Block #{{ rec.id }}</div>
+              <div style="font-size:10px;color:#64748b;margin-bottom:2px;">{{ rec.user }}</div>
+              <div style="font-size:10px;color:#374151;font-weight:600;text-transform:capitalize;margin-bottom:4px;">
+                {{ rec.loan_type }} · ₹{{ rec.amount|floatformat:0 }}
+              </div>
+              <div style="margin-bottom:4px;">
+                <span style="font-size:10px;padding:1px 6px;border-radius:9999px;font-weight:600;
+                  {% if rec.ai_decision == 'approved' %}background:#f0fdf4;color:#166534;
+                  {% else %}background:#fff1f2;color:#9f1239;{% endif %}">
+                  {{ rec.ai_decision|upper }}
+                </span>
+              </div>
+              <div style="font-size:9px;color:#94a3b8;margin-top:6px;border-top:1px solid #e2e8f0;padding-top:4px;">
+                <div>prev: <span style="font-family:monospace;color:#64748b;">{{ rec.previous_hash }}</span></div>
+                <div style="margin-top:2px;">hash: <span style="font-family:monospace;color:#2d4fa1;" title="{{ rec.full_hash }}">{{ rec.current_hash }}</span></div>
+              </div>
+            </div>
+            <!-- Arrow -->
+            {% if not forloop.last %}
+            <div style="display:flex;align-items:center;padding:0 6px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+            {% endif %}
+          </div>
+          {% endfor %}
+          {% if chain_records|length > 6 %}
+          <div style="display:flex;align-items:center;padding:0 12px;font-size:13px;color:#94a3b8;">
+            +{{ chain_records|length|add:"-6" }} more
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Full table -->
+      <div style="border-top:1px solid #f1f5f9;overflow-x:auto;">
+        <table class="data-table" style="font-size:12px;">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>User</th>
+              <th>Loan</th>
+              <th>Amount</th>
+              <th>AI Decision</th>
+              <th>Risk</th>
+              <th>Date</th>
+              <th>Prev Hash</th>
+              <th>Current Hash</th>
+              <th>Verified</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for rec in chain_records %}
+            <tr style="{% if not rec.hash_ok %}background:#fff1f2;{% endif %}">
+              <td style="font-weight:600;">{{ rec.id }}</td>
+              <td style="font-family:monospace;font-size:11px;">{{ rec.user }}</td>
+              <td style="text-transform:capitalize;">{{ rec.loan_type }}</td>
+              <td>₹{{ rec.amount|floatformat:0 }}</td>
+              <td>
+                <span class="badge {% if rec.ai_decision == 'approved' %}badge-approved{% else %}badge-rejected{% endif %}">
+                  {{ rec.ai_decision|upper }}
+                </span>
+              </td>
+              <td style="font-weight:600;{% if rec.risk_score < 30 %}color:#059669;{% elif rec.risk_score < 60 %}color:#f59e0b;{% else %}color:#e11d48;{% endif %}">
+                {{ rec.risk_score|floatformat:0 }}
+              </td>
+              <td style="font-size:11px;color:#64748b;">{{ rec.created_at|date:"d M Y H:i" }}</td>
+              <td>
+                <span style="font-family:monospace;font-size:10px;color:#64748b;cursor:help;" title="{{ rec.full_hash }}">
+                  {{ rec.previous_hash }}
+                </span>
+              </td>
+              <td>
+                <span style="font-family:monospace;font-size:10px;color:#2d4fa1;cursor:help;" title="{{ rec.full_hash }}">
+                  {{ rec.current_hash }}
+                </span>
+              </td>
+              <td>
+                {% if rec.hash_ok %}
+                <span style="color:#059669;font-weight:700;font-size:13px;">✓</span>
+                {% else %}
+                <span style="color:#e11d48;font-weight:700;font-size:13px;">✗ TAMPERED</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  {% else %}
+  <div class="card">
+    <div class="card-body" style="text-align:center;padding:48px;">
+      <div style="font-size:40px;margin-bottom:12px;">🔗</div>
+      <div style="font-size:16px;font-weight:600;color:#374151;margin-bottom:6px;">No records yet</div>
+      <div style="font-size:14px;color:#94a3b8;">Submit a loan application to start the audit chain.</div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Technical note -->
+  <div style="padding:14px 18px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;font-size:13px;color:#1e40af;line-height:1.6;">
+    <strong>Technical implementation:</strong>
+    <code style="background:#dbeafe;padding:1px 6px;border-radius:4px;font-size:12px;">
+      hash = SHA256(prev_hash + id + user_id + loan_type + amount + ai_decision + risk_score + shap_factors[:100])
+    </code>
+    <br/>
+    Stored in Django DB. Verified on every page load by recomputing all hashes from genesis (record #1 with prev=0×64).
+    Any retroactive modification to any field changes the hash and breaks all subsequent links.
+  </div>
+
+</div>
+{% endblock %}

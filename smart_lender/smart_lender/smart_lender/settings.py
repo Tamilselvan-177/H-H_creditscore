@@ -144,6 +144,10 @@ STATIC_URL = '/static/'
 # STATICFILES_DIRS only needed if you have a custom static folder
 # STATICFILES_DIRS = [BASE_DIR / 'static']
 
+# Media (user uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/login/'

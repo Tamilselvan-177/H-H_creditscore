@@ -1,7 +1,7 @@
 {% extends 'loans/base.html' %}
 {% block title %}Apply for a Loan — Smart Money Lender{% endblock %}
 {% block content %}
-<div style="max-width:600px;margin:0 auto;display:flex;flex-direction:column;gap:24px;">
+<div style="max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:24px;">
 
   <div>
     <h1 style="font-size:28px;font-weight:700;color:#0f172a;letter-spacing:-.02em;">Apply for a Loan</h1>
@@ -10,135 +10,474 @@
     </p>
   </div>
 
-  <!-- Profile info card -->
+  <!-- Status banner -->
   {% if profile and profile.csv_user_id %}
-  <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:12px;">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+  <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:14px 20px;display:flex;align-items:center;gap:12px;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     <div>
-      <div style="font-size:13px;font-weight:600;color:#1e40af;">Linked to dataset user: {{ profile.csv_user_id }}</div>
-      <div style="font-size:12px;color:#3b82f6;">
-        Income: ₹{{ profile.monthly_income|floatformat:0 }}/mo ·
-        {{ profile.employment_type|capfirst }} ·
-        {% if profile.cibil_score %}CIBIL: {{ profile.cibil_score|floatformat:0 }}{% else %}No CIBIL{% endif %}
-      </div>
+      <div style="font-size:13px;font-weight:600;color:#1e40af;">Dataset user: {{ profile.csv_user_id }} · {{ profile.employment_type|capfirst }} · ₹{{ profile.monthly_income|floatformat:0 }}/mo</div>
+      <div style="font-size:12px;color:#3b82f6;">All fields below are pre-filled from your profile. Only loan details need your input.</div>
     </div>
-    <div style="margin-left:auto;">
-      <span style="background:#dbeafe;color:#1e40af;padding:3px 10px;border-radius:9999px;font-size:11px;font-weight:600;">
-        ✓ Features Ready
-      </span>
-    </div>
-  </div>
-  {% elif profile %}
-  <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:12px;">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-    <div style="font-size:13px;color:#92400e;">
-      No dataset user linked. Default behavior profile will be used for demo.
-      <a href="{% url 'register' %}" style="color:#d97706;font-weight:600;">Re-register with a USR_XXXX ID</a> to use real data.
-    </div>
+    <span style="margin-left:auto;background:#dbeafe;color:#1e40af;padding:3px 10px;border-radius:9999px;font-size:11px;font-weight:600;white-space:nowrap;">✓ Auto-filled</span>
   </div>
   {% endif %}
 
-  <!-- Application form -->
+  <form method="post" id="loanForm" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <!-- ── SECTION 1: Basic Personal Details ─────────────────────────────── -->
   <div class="card">
-    <div style="padding:20px 24px 0;">
-      <div class="card-title">Loan Application</div>
-      <div class="card-desc">Fill in the loan details. Your financial profile is loaded automatically.</div>
+    <div style="padding:18px 24px 0;display:flex;align-items:center;gap:8px;">
+      <span style="width:24px;height:24px;border-radius:50%;background:hsl(226,58%,39%);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">1</span>
+      <div class="card-title">Basic Personal Details</div>
     </div>
-    <div style="padding:20px 24px 24px;">
-      <form method="post" id="loanForm">
-        {% csrf_token %}
-        <div style="display:flex;flex-direction:column;gap:18px;">
+    <div style="padding:16px 24px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
 
-          <!-- Loan Type -->
-          <div>
-            <label class="form-label">Loan Type</label>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;">
-              <label id="lbl-personal" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border:2px solid hsl(226,58%,39%);border-radius:10px;cursor:pointer;background:hsl(226,58%,95%);">
-                <input type="radio" name="loan_type" value="personal" checked onchange="toggleLoanType()" style="accent-color:hsl(226,58%,39%);">
-                <div>
-                  <div style="font-weight:600;font-size:14px;color:#0f172a;">Personal Loan</div>
-                  <div style="font-size:12px;color:#64748b;">For any personal need</div>
-                </div>
-              </label>
-              <label id="lbl-vehicle" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border:2px solid #e2e8f0;border-radius:10px;cursor:pointer;background:white;">
-                <input type="radio" name="loan_type" value="vehicle" onchange="toggleLoanType()" style="accent-color:hsl(226,58%,39%);">
-                <div>
-                  <div style="font-weight:600;font-size:14px;color:#0f172a;">Vehicle Loan</div>
-                  <div style="font-size:12px;color:#64748b;">Two-wheeler or car</div>
-                </div>
-              </label>
-            </div>
-          </div>
+      <div>
+        <label class="form-label">Full Name</label>
+        <input type="text" name="full_name" value="{% if demo %}{{ demo.full_name }}{% else %}{{ request.user.get_full_name|default:request.user.username }}{% endif %}"
+          class="form-input" style="margin-top:4px;" placeholder="As per Aadhaar"/>
+      </div>
+      <div>
+        <label class="form-label">Date of Birth</label>
+        <input type="date" name="dob" value="{% if demo %}{{ demo.dob }}{% endif %}" class="form-input" style="margin-top:4px;"/>
+      </div>
+      <div>
+        <label class="form-label">Age</label>
+        <input type="number" name="age" value="{% if profile %}{{ profile.age }}{% endif %}"
+          class="form-input" style="margin-top:4px;background:#f8fafc;" readonly/>
+      </div>
+      <div>
+        <label class="form-label">Gender</label>
+        <select name="gender" class="form-input form-select" style="margin-top:4px;">
+          <option value="">Select</option>
+          <option value="male" {% if demo and demo.gender == 'male' %}selected{% endif %}>Male</option>
+          <option value="female" {% if demo and demo.gender == 'female' %}selected{% endif %}>Female</option>
+          <option value="other" {% if demo and demo.gender == 'other' %}selected{% endif %}>Other</option>
+        </select>
+      </div>
+      <div>
+        <label class="form-label">Mobile Number</label>
+        <input type="tel" name="mobile" value="{% if demo %}{{ demo.mobile }}{% endif %}" class="form-input" style="margin-top:4px;" placeholder="10-digit mobile"/>
+      </div>
+      <div>
+        <label class="form-label">Email Address</label>
+        <input type="email" name="email" value="{{ request.user.email }}"
+          class="form-input" style="margin-top:4px;" readonly style="background:#f8fafc;"/>
+      </div>
+      <div>
+        <label class="form-label">PAN Number</label>
+        <input type="text" name="pan" value="{% if demo %}{{ demo.pan }}{% endif %}" class="form-input" style="margin-top:4px;" placeholder="ABCDE1234F" maxlength="10"/>
+      </div>
+      <div>
+        <label class="form-label">Aadhaar Number</label>
+        <input type="text" name="aadhaar" value="{% if demo %}{{ demo.aadhaar }}{% endif %}" class="form-input" style="margin-top:4px;" placeholder="XXXX XXXX XXXX" maxlength="14"/>
+      </div>
+      <div>
+        <label class="form-label">Marital Status</label>
+        <select name="marital_status" class="form-input form-select" style="margin-top:4px;">
+          <option value="">Select</option>
+          <option value="single" {% if demo and demo.marital_status == 'single' %}selected{% endif %}>Single</option>
+          <option value="married" {% if demo and demo.marital_status == 'married' %}selected{% endif %}>Married</option>
+          <option value="divorced" {% if demo and demo.marital_status == 'divorced' %}selected{% endif %}>Divorced</option>
+          <option value="widowed" {% if demo and demo.marital_status == 'widowed' %}selected{% endif %}>Widowed</option>
+        </select>
+      </div>
 
-          <!-- Amount + Tenure -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-            <div>
-              <label class="form-label">Loan Amount (₹)</label>
-              <input type="number" name="loan_amount_rupees" value="100000" min="10000" max="10000000"
-                class="form-input" style="margin-top:6px;"/>
-              {% if form.loan_amount_rupees.errors %}
-                <p style="color:#e11d48;font-size:12px;margin-top:4px;">{{ form.loan_amount_rupees.errors.0 }}</p>
-              {% endif %}
-            </div>
-            <div>
-              <label class="form-label">Tenure (Months)</label>
-              <input type="number" name="tenure_months" value="12" min="3" max="360"
-                class="form-input" style="margin-top:6px;"/>
-            </div>
-          </div>
-
-          <!-- Vehicle purpose (conditional) -->
-          <div id="vehiclePurposeDiv" style="display:none;">
-            <label class="form-label">Vehicle Purpose</label>
-            <input type="text" name="vehicle_purpose" placeholder="e.g. Daily commute, Business use"
-              class="form-input" style="margin-top:6px;"/>
-            {% if form.vehicle_purpose.errors %}
-              <p style="color:#e11d48;font-size:12px;margin-top:4px;">{{ form.vehicle_purpose.errors.0 }}</p>
-            {% endif %}
-          </div>
-
-          {% if form.non_field_errors %}
-          <div style="background:#fff1f2;border:1px solid #fecdd3;color:#9f1239;padding:12px;border-radius:8px;font-size:13px;">
-            {{ form.non_field_errors.0 }}
-          </div>
-          {% endif %}
-
-          <!-- What happens next -->
-          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;">
-            <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:8px;">What happens after you submit:</div>
-            <div style="display:flex;flex-direction:column;gap:6px;">
-              <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#64748b;">
-                <span style="width:20px;height:20px;border-radius:50%;background:hsl(226,58%,39%);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">1</span>
-                AI model analyzes your financial behavior instantly
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#64748b;">
-                <span style="width:20px;height:20px;border-radius:50%;background:hsl(226,58%,39%);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">2</span>
-                Application goes to a banker for review
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#64748b;">
-                <span style="width:20px;height:20px;border-radius:50%;background:hsl(226,58%,39%);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">3</span>
-                Once approved or rejected — you see the full explanation
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <button type="submit" id="submitBtn" class="btn btn-primary"
-          style="width:100%;margin-top:20px;padding:13px;font-size:15px;justify-content:center;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          Submit Application
-        </button>
-      </form>
     </div>
   </div>
 
+  <!-- ── SECTION 2: Address Details ────────────────────────────────────── -->
+  <div class="card">
+    <div style="padding:18px 24px 0;display:flex;align-items:center;gap:8px;">
+      <span style="width:24px;height:24px;border-radius:50%;background:hsl(226,58%,39%);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">2</span>
+      <div class="card-title">Address Details</div>
+    </div>
+    <div style="padding:16px 24px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+
+      <div style="grid-column:1/-1;">
+        <label class="form-label">Current Address</label>
+        <input type="text" name="address" value="{% if demo %}{{ demo.address }}{% endif %}" class="form-input" style="margin-top:4px;" placeholder="House/Flat No, Street, Area"/>
+      </div>
+      <div>
+        <label class="form-label">City</label>
+        <input type="text" name="city" value="{% if demo %}{{ demo.city }}{% endif %}" class="form-input" style="margin-top:4px;" placeholder="City"/>
+      </div>
+      <div>
+        <label class="form-label">State</label>
+        <input type="text" name="state" value="{% if profile %}{{ profile.state }}{% endif %}"
+          class="form-input" style="margin-top:4px;background:#f8fafc;" readonly/>
+      </div>
+      <div>
+        <label class="form-label">Pincode</label>
+        <input type="text" name="pincode" value="{% if demo %}{{ demo.pincode }}{% endif %}" class="form-input" style="margin-top:4px;" placeholder="6-digit pincode" maxlength="6"/>
+      </div>
+      <div>
+        <label class="form-label">Residence Type</label>
+        <select name="residence_type" class="form-input form-select" style="margin-top:4px;">
+          <option value="">Select</option>
+          <option value="owned" {% if demo and demo.residence_type == 'owned' %}selected{% endif %}>Owned</option>
+          <option value="rented" {% if demo and demo.residence_type == 'rented' %}selected{% endif %}>Rented</option>
+          <option value="family" {% if demo and demo.residence_type == 'family' %}selected{% endif %}>Family-owned</option>
+          <option value="company" {% if demo and demo.residence_type == 'company' %}selected{% endif %}>Company provided</option>
+        </select>
+      </div>
+      <div>
+        <label class="form-label">Years at Current Address</label>
+        <input type="number" name="years_at_address" value="{% if demo %}{{ demo.years_at_address }}{% endif %}" min="0" max="50" class="form-input" style="margin-top:4px;"/>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SECTION 3: Employment & Income Details ─────────────────────────── -->
+  <div class="card">
+    <div style="padding:18px 24px 0;display:flex;align-items:center;gap:8px;">
+      <span style="width:24px;height:24px;border-radius:50%;background:hsl(226,58%,39%);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">3</span>
+      <div class="card-title">Employment &amp; Income Details</div>
+      {% if profile %}<span style="margin-left:8px;font-size:11px;color:#059669;font-weight:600;">✓ Pre-filled from profile</span>{% endif %}
+    </div>
+    <div style="padding:16px 24px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+
+      <div>
+        <label class="form-label">Employment Type</label>
+        <input type="text" name="employment_type_display"
+          value="{% if profile %}{{ profile.employment_type|capfirst }}{% endif %}"
+          class="form-input" style="margin-top:4px;background:#f8fafc;" readonly/>
+        <input type="hidden" name="employment_type_val" value="{% if profile %}{{ profile.employment_type }}{% endif %}"/>
+      </div>
+      <div>
+        <label class="form-label">Company / Employer Name</label>
+        <input type="text" name="company_name" value="{% if demo %}{{ demo.company_name }}{% endif %}" class="form-input" style="margin-top:4px;" placeholder="Company name"/>
+      </div>
+      <div>
+        <label class="form-label">Job Role / Designation</label>
+        <input type="text" name="job_role" value="{% if demo %}{{ demo.job_role }}{% endif %}" class="form-input" style="margin-top:4px;" placeholder="e.g. Software Engineer"/>
+      </div>
+      <div>
+        <label class="form-label">Work Experience (years)</label>
+        <input type="number" name="work_experience" value="{% if demo %}{{ demo.work_experience }}{% endif %}" min="0" max="50" class="form-input" style="margin-top:4px;"/>
+      </div>
+      <div>
+        <label class="form-label">Monthly Income (Net) ₹</label>
+        <input type="number" name="monthly_income"
+          value="{% if profile %}{{ profile.monthly_income|floatformat:0 }}{% endif %}"
+          class="form-input" style="margin-top:4px;background:#f8fafc;" readonly/>
+      </div>
+      <div>
+        <label class="form-label">Salary Credit Method</label>
+        <select name="salary_credit_method" class="form-input form-select" style="margin-top:4px;">
+          <option value="bank_transfer">Bank Transfer / NEFT</option>
+          <option value="cash">Cash</option>
+          <option value="cheque">Cheque</option>
+        </select>
+      </div>
+      <div>
+        <label class="form-label">Account Age (months)</label>
+        <input type="number" name="account_age_months"
+          value="{% if profile %}{{ profile.account_age_months }}{% endif %}"
+          class="form-input" style="margin-top:4px;background:#f8fafc;" readonly/>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SECTION 4: Financial Snapshot ─────────────────────────────────── -->
+  <div class="card">
+    <div style="padding:18px 24px 0;display:flex;align-items:center;gap:8px;">
+      <span style="width:24px;height:24px;border-radius:50%;background:hsl(226,58%,39%);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">4</span>
+      <div class="card-title">Financial Snapshot</div>
+      {% if profile %}<span style="margin-left:8px;font-size:11px;color:#059669;font-weight:600;">✓ Pre-filled from transaction data</span>{% endif %}
+    </div>
+    <div style="padding:16px 24px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+
+      <div>
+        <label class="form-label">Annual Income (₹)</label>
+        <input type="number" name="annual_income"
+          value="{% if profile %}{{ profile.monthly_income|floatformat:0|add:'0' }}{% endif %}"
+          class="form-input" style="margin-top:4px;background:#f8fafc;" readonly/>
+        <div style="font-size:11px;color:#94a3b8;margin-top:3px;">₹{{ profile.monthly_income|floatformat:0 }}/mo × 12</div>
+      </div>
+      <div>
+        <label class="form-label">Monthly Expenses (₹)</label>
+        <input type="number" name="monthly_expenses"
+          value="{% if profile %}{{ profile.existing_emi|floatformat:0 }}{% endif %}"
+          class="form-input" style="margin-top:4px;background:#f8fafc;" readonly/>
+        <div style="font-size:11px;color:#94a3b8;margin-top:3px;">From transaction history</div>
+      </div>
+      <div>
+        <label class="form-label">Other Income (₹/mo)</label>
+        <input type="number" name="other_income" value="0" min="0"
+          class="form-input" style="margin-top:4px;" placeholder="Rental, freelance, etc."/>
+      </div>
+      <div>
+        <label class="form-label">Existing EMI (₹/mo)</label>
+        <input type="number" name="existing_emi"
+          value="{% if profile %}{{ profile.existing_emi|floatformat:0 }}{% endif %}"
+          class="form-input" style="margin-top:4px;background:#f8fafc;" readonly/>
+        <div style="font-size:11px;color:#94a3b8;margin-top:3px;">From profile</div>
+      </div>
+      <div>
+        <label class="form-label">Number of Active Loans</label>
+        <input type="number" name="active_loans" value="0" min="0" max="20"
+          class="form-input" style="margin-top:4px;" placeholder="0"/>
+      </div>
+      <div>
+        <label class="form-label">CIBIL Score</label>
+        <input type="text" name="cibil_score_display"
+          value="{% if profile and profile.cibil_score %}{{ profile.cibil_score|floatformat:0 }}{% else %}Not available{% endif %}"
+          class="form-input" style="margin-top:4px;background:#f8fafc;" readonly/>
+      </div>
+
+    </div>
+
+    <!-- 8 Behavior Features Preview -->
+    {% if features %}
+    <div style="margin:0 24px 20px;padding:14px 16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;">
+      <div style="font-size:12px;font-weight:700;color:#374151;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="hsl(226,58%,39%)" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg>
+        AI Behavior Features (auto-computed from your transactions)
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+        <div style="text-align:center;padding:8px;background:white;border-radius:8px;border:1px solid #e2e8f0;">
+          <div style="font-size:10px;color:#94a3b8;margin-bottom:3px;">Income Regularity</div>
+          <div style="font-size:15px;font-weight:700;color:{% if features.income_regularity >= 0.5 %}#059669{% else %}#e11d48{% endif %};">{{ features.income_regularity|floatformat:2 }}</div>
+        </div>
+        <div style="text-align:center;padding:8px;background:white;border-radius:8px;border:1px solid #e2e8f0;">
+          <div style="font-size:10px;color:#94a3b8;margin-bottom:3px;">Spending Consistency</div>
+          <div style="font-size:15px;font-weight:700;color:{% if features.spending_consistency >= 0.5 %}#059669{% else %}#e11d48{% endif %};">{{ features.spending_consistency|floatformat:2 }}</div>
+        </div>
+        <div style="text-align:center;padding:8px;background:white;border-radius:8px;border:1px solid #e2e8f0;">
+          <div style="font-size:10px;color:#94a3b8;margin-bottom:3px;">Bill Payment Ratio</div>
+          <div style="font-size:15px;font-weight:700;color:{% if features.bill_payment_ratio >= 0.8 %}#059669{% else %}#e11d48{% endif %};">{{ features.bill_payment_ratio|floatformat:2 }}</div>
+        </div>
+        <div style="text-align:center;padding:8px;background:white;border-radius:8px;border:1px solid #e2e8f0;">
+          <div style="font-size:10px;color:#94a3b8;margin-bottom:3px;">Savings Rate</div>
+          <div style="font-size:15px;font-weight:700;color:{% if features.savings_rate >= 0.1 %}#059669{% else %}#e11d48{% endif %};">{{ features.savings_rate|floatformat:2 }}</div>
+        </div>
+        <div style="text-align:center;padding:8px;background:white;border-radius:8px;border:1px solid #e2e8f0;">
+          <div style="font-size:10px;color:#94a3b8;margin-bottom:3px;">EMI Burden</div>
+          <div style="font-size:15px;font-weight:700;color:{% if features.emi_burden_ratio <= 0.5 %}#059669{% else %}#e11d48{% endif %};">{{ features.emi_burden_ratio|floatformat:2 }}</div>
+        </div>
+        <div style="text-align:center;padding:8px;background:white;border-radius:8px;border:1px solid #e2e8f0;">
+          <div style="font-size:10px;color:#94a3b8;margin-bottom:3px;">UPI Activity</div>
+          <div style="font-size:15px;font-weight:700;color:{% if features.upi_activity_volume >= 5 %}#059669{% else %}#e11d48{% endif %};">{{ features.upi_activity_volume|floatformat:1 }}</div>
+        </div>
+        <div style="text-align:center;padding:8px;background:white;border-radius:8px;border:1px solid #e2e8f0;">
+          <div style="font-size:10px;color:#94a3b8;margin-bottom:3px;">Rent Regularity</div>
+          <div style="font-size:15px;font-weight:700;color:{% if features.rent_payment_regularity >= 0.6 %}#059669{% else %}#e11d48{% endif %};">{{ features.rent_payment_regularity|floatformat:2 }}</div>
+        </div>
+        <div style="text-align:center;padding:8px;background:white;border-radius:8px;border:1px solid #e2e8f0;">
+          <div style="font-size:10px;color:#94a3b8;margin-bottom:3px;">Cash Withdrawal</div>
+          <div style="font-size:15px;font-weight:700;color:{% if features.cash_withdrawal_ratio <= 0.2 %}#059669{% else %}#e11d48{% endif %};">{{ features.cash_withdrawal_ratio|floatformat:2 }}</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#94a3b8;margin-top:8px;">Green = healthy · Red = below threshold · These 8 features drive the AI decision</div>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- ── SECTION 5: Banking Details ────────────────────────────────────── -->
+  <div class="card">
+    <div style="padding:18px 24px 0;display:flex;align-items:center;gap:8px;">
+      <span style="width:24px;height:24px;border-radius:50%;background:hsl(226,58%,39%);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">5</span>
+      <div class="card-title">Banking Details</div>
+    </div>
+    <div style="padding:16px 24px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+
+      <div>
+        <label class="form-label">Primary Bank Name</label>
+        <input type="text" name="bank_name" class="form-input" style="margin-top:4px;" placeholder="e.g. SBI, HDFC, ICICI"/>
+      </div>
+      <div>
+        <label class="form-label">Account Number</label>
+        <input type="text" name="account_number" class="form-input" style="margin-top:4px;" placeholder="Bank account number"/>
+      </div>
+      <div>
+        <label class="form-label">IFSC Code</label>
+        <input type="text" name="ifsc" class="form-input" style="margin-top:4px;" placeholder="e.g. SBIN0001234" maxlength="11"/>
+      </div>
+      <div>
+        <label class="form-label">Account Type</label>
+        <select name="account_type" class="form-input form-select" style="margin-top:4px;">
+          <option value="savings">Savings</option>
+          <option value="current">Current</option>
+          <option value="salary">Salary</option>
+        </select>
+      </div>
+      <div>
+        <label class="form-label">Account Age (months)</label>
+        <input type="number" name="bank_account_age"
+          value="{% if profile %}{{ profile.account_age_months }}{% endif %}"
+          class="form-input" style="margin-top:4px;background:#f8fafc;" readonly/>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SECTION 6: Loan Request Details ───────────────────────────────── -->
+  <div class="card">
+    <div style="padding:18px 24px 0;display:flex;align-items:center;gap:8px;">
+      <span style="width:24px;height:24px;border-radius:50%;background:hsl(226,58%,39%);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">6</span>
+      <div class="card-title">Loan Request Details</div>
+    </div>
+    <div style="padding:16px 24px 20px;display:flex;flex-direction:column;gap:16px;">
+
+      <!-- Loan Type toggle -->
+      <div>
+        <label class="form-label">Loan Type</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;">
+          <label id="lbl-personal" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border:2px solid hsl(226,58%,39%);border-radius:10px;cursor:pointer;background:hsl(226,58%,95%);">
+            <input type="radio" name="loan_type" value="personal" checked onchange="toggleLoanType()" style="accent-color:hsl(226,58%,39%);">
+            <div>
+              <div style="font-weight:600;font-size:14px;color:#0f172a;">Personal Loan</div>
+              <div style="font-size:12px;color:#64748b;">For any personal need</div>
+            </div>
+          </label>
+          <label id="lbl-vehicle" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border:2px solid #e2e8f0;border-radius:10px;cursor:pointer;background:white;">
+            <input type="radio" name="loan_type" value="vehicle" onchange="toggleLoanType()" style="accent-color:hsl(226,58%,39%);">
+            <div>
+              <div style="font-weight:600;font-size:14px;color:#0f172a;">Vehicle Loan</div>
+              <div style="font-size:12px;color:#64748b;">Two-wheeler or car</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+        <div>
+          <label class="form-label">Loan Amount (₹)</label>
+          <input type="number" name="loan_amount_rupees" value="100000" min="10000" max="10000000"
+            class="form-input" style="margin-top:4px;"/>
+          {% if form.loan_amount_rupees.errors %}<p style="color:#e11d48;font-size:12px;margin-top:4px;">{{ form.loan_amount_rupees.errors.0 }}</p>{% endif %}
+        </div>
+        <div>
+          <label class="form-label">Tenure (Months)</label>
+          <input type="number" name="tenure_months" value="12" min="3" max="360"
+            class="form-input" style="margin-top:4px;"/>
+        </div>
+        <div>
+          <label class="form-label">Preferred EMI (₹/mo)</label>
+          <input type="number" name="preferred_emi" class="form-input" style="margin-top:4px;" placeholder="Optional"/>
+        </div>
+      </div>
+
+      <!-- Vehicle-specific fields -->
+      <div id="vehicleSection" style="display:none;border:1px solid #e2e8f0;border-radius:10px;padding:16px;background:#f8fafc;">
+        <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:12px;">Vehicle Details</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+          <div>
+            <label class="form-label">Vehicle Purpose</label>
+            <input type="text" name="vehicle_purpose" class="form-input" style="margin-top:4px;" placeholder="e.g. Daily commute"/>
+          </div>
+          <div>
+            <label class="form-label">Bike / Vehicle Model</label>
+            <input type="text" name="vehicle_model" class="form-input" style="margin-top:4px;" placeholder="e.g. Honda Activa 6G"/>
+          </div>
+          <div>
+            <label class="form-label">On-road Price (₹)</label>
+            <input type="number" name="vehicle_price" class="form-input" style="margin-top:4px;" placeholder="e.g. 85000"/>
+          </div>
+          <div>
+            <label class="form-label">Dealer Name</label>
+            <input type="text" name="dealer_name" class="form-input" style="margin-top:4px;" placeholder="Dealer name"/>
+          </div>
+          <div>
+            <label class="form-label">Down Payment (₹)</label>
+            <input type="number" name="down_payment" class="form-input" style="margin-top:4px;" placeholder="e.g. 10000"/>
+          </div>
+        </div>
+      </div>
+
+      {% if form.non_field_errors %}
+      <div style="background:#fff1f2;border:1px solid #fecdd3;color:#9f1239;padding:12px;border-radius:8px;font-size:13px;">
+        {{ form.non_field_errors.0 }}
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+  <!-- ── SECTION 7: Documents Checklist ────────────────────────────────── -->
+  <div class="card">
+    <div style="padding:18px 24px 0;display:flex;align-items:center;gap:8px;">
+      <span style="width:24px;height:24px;border-radius:50%;background:hsl(226,58%,39%);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">7</span>
+      <div class="card-title">Required Documents</div>
+      <div class="card-desc" style="margin-left:4px;">Upload scans or photos (PDF/JPG)</div>
+    </div>
+    <div style="padding:16px 24px 20px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+
+      <div style="padding:12px 14px;border:1px dashed #d1d5db;border-radius:8px;background:#fafafa;">
+        <div style="font-size:12px;font-weight:600;color:#374151;margin-bottom:4px;">KYC / Identity Proof</div>
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:8px;">Aadhaar / PAN / Passport / Voter ID / DL (any 1)</div>
+        <input type="file" name="doc_kyc" accept=".pdf,.jpg,.jpeg,.png" style="font-size:12px;"/>
+      </div>
+
+      <div style="padding:12px 14px;border:1px dashed #d1d5db;border-radius:8px;background:#fafafa;">
+        <div style="font-size:12px;font-weight:600;color:#374151;margin-bottom:4px;">Address Proof</div>
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:8px;">Utility bill / Rent agreement / Bank statement</div>
+        <input type="file" name="doc_address" accept=".pdf,.jpg,.jpeg,.png" style="font-size:12px;"/>
+      </div>
+
+      <div style="padding:12px 14px;border:1px dashed #d1d5db;border-radius:8px;background:#fafafa;">
+        <div style="font-size:12px;font-weight:600;color:#374151;margin-bottom:4px;">Income Proof</div>
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:8px;">3 months salary slips / Bank statements / Form 16</div>
+        <input type="file" name="doc_income" accept=".pdf,.jpg,.jpeg,.png" style="font-size:12px;"/>
+      </div>
+
+      <div id="vehicleDocDiv" style="display:none;padding:12px 14px;border:1px dashed #d1d5db;border-radius:8px;background:#fafafa;">
+        <div style="font-size:12px;font-weight:600;color:#374151;margin-bottom:4px;">Vehicle Invoice / Quotation</div>
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:8px;">Dealer invoice or proforma quotation</div>
+        <input type="file" name="doc_vehicle" accept=".pdf,.jpg,.jpeg,.png" style="font-size:12px;"/>
+      </div>
+
+    </div>
+
+    <!-- Consent -->
+    <div style="padding:0 24px 20px;">
+      <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;">
+        <input type="checkbox" name="consent" required style="margin-top:2px;accent-color:hsl(226,58%,39%);">
+        <span style="font-size:13px;color:#374151;line-height:1.5;">
+          I consent to a credit check and confirm all information provided is accurate.
+          I authorize Smart Money Lender to verify my details with relevant authorities.
+        </span>
+      </label>
+    </div>
+  </div>
+
+  <!-- ── What happens next ──────────────────────────────────────────────── -->
+  <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:16px 20px;">
+    <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:10px;">What happens after you submit:</div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:#64748b;">
+        <span style="width:22px;height:22px;border-radius:50%;background:hsl(226,58%,39%);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">1</span>
+        AI model analyzes your 8 behavior features from transaction history instantly
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:#64748b;">
+        <span style="width:22px;height:22px;border-radius:50%;background:hsl(226,58%,39%);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">2</span>
+        Application goes to a banker for review with full SHAP analysis
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:#64748b;">
+        <span style="width:22px;height:22px;border-radius:50%;background:hsl(226,58%,39%);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">3</span>
+        Once approved or rejected — you see the full explanation with improvement tips
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" id="submitBtn" class="btn btn-primary"
+    style="width:100%;padding:14px;font-size:15px;justify-content:center;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    Submit Application
+  </button>
+
+  </form>
 </div>
 
 <script>
 function toggleLoanType() {
   const isVehicle = document.querySelector('input[name="loan_type"]:checked').value === 'vehicle';
-  document.getElementById('vehiclePurposeDiv').style.display = isVehicle ? 'block' : 'none';
+  document.getElementById('vehicleSection').style.display  = isVehicle ? 'block' : 'none';
+  document.getElementById('vehicleDocDiv').style.display   = isVehicle ? 'block' : 'none';
   document.getElementById('lbl-personal').style.borderColor = isVehicle ? '#e2e8f0' : 'hsl(226,58%,39%)';
   document.getElementById('lbl-personal').style.background  = isVehicle ? 'white' : 'hsl(226,58%,95%)';
   document.getElementById('lbl-vehicle').style.borderColor  = isVehicle ? 'hsl(226,58%,39%)' : '#e2e8f0';

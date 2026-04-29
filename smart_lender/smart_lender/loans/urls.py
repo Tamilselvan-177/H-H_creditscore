@@ -16,4 +16,8 @@ urlpatterns = [
 
     # Regulator
     path('regulator/', views.regulator_dashboard, name='regulator_dashboard'),
+    path('audit-chain/', views.audit_chain, name='audit_chain'),
+    path('loans/<int:pk>/whatif/', views.whatif_simulator, name='whatif_simulator'),
+    path('api/whatif/', views.whatif_api, name='whatif_api'),
+    path('api/recourse/<int:pk>/', views.recourse_api, name='recourse_api'),
 ]

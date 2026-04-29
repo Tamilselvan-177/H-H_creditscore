@@ -6,8 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Avg, Sum
+from django.http import JsonResponse
 
-from .models import LoanApplication, UserProfile, CsvUserFeature, CsvTransaction
+from .models import LoanApplication, UserProfile, CsvUserFeature, CsvTransaction, DemoProfile
 from .forms import RegisterForm, LoanApplicationForm, BankerReviewForm
 from .ml_engine import run_ml_decision
 
@@ -159,6 +160,7 @@ def apply_loan(request):
         csv_uid = None
 
     feature_record = CsvUserFeature.objects.filter(csv_user_id=csv_uid).first() if csv_uid else None
+    demo_profile   = DemoProfile.objects.filter(csv_user_id=csv_uid).first() if csv_uid else None
 
     if request.method == 'POST':
         form = LoanApplicationForm(request.POST)
@@ -187,13 +189,21 @@ def apply_loan(request):
             except Exception as e:
                 messages.error(request, f'AI model error: {e}')
                 return render(request, 'loans/apply_loan.html', {
-                    'form': form, 'profile': profile, 'has_features': bool(feature_record)
+                    'form': form,
+                    'profile': profile,
+                    'has_features': bool(feature_record),
+                    'demo': demo_profile,
+                    'csv_uid': csv_uid,
                 })
 
             # ── Save application — final_status stays PENDING ─────────────────
             # Compute actual monthly expenses from transactions (excluding EMI)
             computed_expenses = compute_monthly_expenses(csv_uid) if csv_uid else 0
-            
+
+            # ── Get previous hash for chain ───────────────────────────────────
+            last_app = LoanApplication.objects.order_by('-created_at').first()
+            prev_hash = last_app.current_hash if last_app and last_app.current_hash else '0' * 64
+
             app = LoanApplication.objects.create(
                 user=request.user,
                 loan_type=data['loan_type'],
@@ -202,12 +212,12 @@ def apply_loan(request):
                 vehicle_purpose=data.get('vehicle_purpose') or None,
                 # Demographics from profile
                 annual_income_rupees=profile.monthly_income * 12 if profile else 0,
-                monthly_expenses_rupees=computed_expenses,  # ✓ FIXED: Actual expenses from transactions
+                monthly_expenses_rupees=computed_expenses,
                 employment_type=profile.employment_type if profile else 'salaried',
                 existing_loans_count=0,
                 existing_emi_rupees=profile.existing_emi if profile else 0,
                 credit_score=int(profile.cibil_score) if profile and profile.cibil_score else 0,
-                # AI result — stored but NOT shown until banker acts
+                # AI result
                 ai_decision=ml_result['decision'],
                 risk_score=ml_result['risk_score'],
                 user_explanation=ml_result['user_explanation'],
@@ -216,10 +226,15 @@ def apply_loan(request):
                 fairness_check_passed=ml_result['fairness_check_passed'],
                 fairness_note=ml_result['fairness_note'],
                 feature_values_json=json.dumps(ml_result['feature_values']),
-                # Banker fields — empty until reviewed
+                # Banker fields
                 banker_decision='pending',
-                final_status='pending',   # ← always starts PENDING
+                final_status='pending',
+                # Hash chain
+                previous_hash=prev_hash,
             )
+            # Compute and save current hash now that we have the ID
+            app.current_hash = app.compute_hash(prev_hash)
+            app.save(update_fields=['current_hash'])
             messages.success(request, 'Application submitted successfully! A banker will review it shortly.')
             return redirect('loan_result', pk=app.pk)
 
@@ -231,6 +246,8 @@ def apply_loan(request):
         'profile':      profile,
         'has_features': bool(feature_record),
         'csv_uid':      csv_uid,
+        'features':     feature_record,
+        'demo':         demo_profile,   # ← all extra fields pre-filled
     })
 
 
@@ -250,6 +267,316 @@ def loan_result(request, pk):
         'decided':  decided,
         'shap_data': shap_data,
     })
+
+
+# ─── What-If Simulator ────────────────────────────────────────────────────────
+
+# Grok AI integration disabled — using built-in fallback explanations
+# To enable: GROK_API_KEY = os.environ.get('GROK_API_KEY')
+
+FEATURE_META = {
+    'income_regularity':       {'label': 'Income Regularity',       'min': 0.0,  'max': 1.0,  'step': 0.01, 'good': 'above', 'threshold': 0.5,  'unit': ''},
+    'spending_consistency':    {'label': 'Spending Consistency',     'min': 0.0,  'max': 1.0,  'step': 0.01, 'good': 'above', 'threshold': 0.5,  'unit': ''},
+    'bill_payment_ratio':      {'label': 'Bill Payment Ratio',       'min': 0.0,  'max': 1.0,  'step': 0.01, 'good': 'above', 'threshold': 0.8,  'unit': ''},
+    'savings_rate':            {'label': 'Savings Rate',             'min': -1.0, 'max': 1.0,  'step': 0.01, 'good': 'above', 'threshold': 0.1,  'unit': ''},
+    'emi_burden_ratio':        {'label': 'EMI Burden Ratio',         'min': 0.0,  'max': 1.0,  'step': 0.01, 'good': 'below', 'threshold': 0.5,  'unit': ''},
+    'upi_activity_volume':     {'label': 'UPI Activity (txns/mo)',   'min': 0.0,  'max': 20.0, 'step': 0.1,  'good': 'above', 'threshold': 5.0,  'unit': ''},
+    'rent_payment_regularity': {'label': 'Rent Payment Regularity',  'min': 0.0,  'max': 1.0,  'step': 0.01, 'good': 'above', 'threshold': 0.6,  'unit': ''},
+    'cash_withdrawal_ratio':   {'label': 'Cash Withdrawal Ratio',    'min': 0.0,  'max': 1.0,  'step': 0.01, 'good': 'below', 'threshold': 0.2,  'unit': ''},
+}
+
+
+def recourse_api(request, pk):
+    """
+    Compute recourse validity on page load — no slider interaction needed.
+    Returns the minimum improvements to flip the decision.
+    """
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': 'Login required'}, status=401)
+
+    if get_role(request.user) != 'user':
+        return JsonResponse({'error': 'Unauthorized'}, status=403)
+
+    app = get_object_or_404(LoanApplication, pk=pk, user=request.user)
+
+    if app.final_status not in ('approved', 'rejected'):
+        return JsonResponse({'needed': False, 'message': 'Decision pending.'})
+
+    from .ml_engine import run_ml_decision
+    fv = app.feature_values
+    try:
+        result = run_ml_decision(fv)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+    recourse = _compute_recourse(fv, fv, result)
+    return JsonResponse(recourse)
+
+
+@login_required
+def whatif_simulator(request, pk):
+    """What-If simulator page — user only, only after a decision."""
+    if get_role(request.user) != 'user':
+        return redirect('home')
+    app = get_object_or_404(LoanApplication, pk=pk, user=request.user)
+
+    if app.final_status not in ('approved', 'rejected'):
+        messages.info(request, 'What-If simulator is available after the banker reviews your application.')
+        return redirect('loan_result', pk=pk)
+
+    fv = app.feature_values
+    feature_list = [
+        {
+            'key':       k,
+            'label':     FEATURE_META[k]['label'],
+            'value':     round(fv.get(k, 0.0), 4),
+            'min':       FEATURE_META[k]['min'],
+            'max':       FEATURE_META[k]['max'],
+            'step':      FEATURE_META[k]['step'],
+            'threshold': FEATURE_META[k]['threshold'],
+            'good':      FEATURE_META[k]['good'],
+        }
+        for k in FEATURE_META
+    ]
+
+    return render(request, 'loans/whatif_simulator.html', {
+        'app':          app,
+        'feature_list': feature_list,
+        'feature_json': json.dumps({k: round(fv.get(k, 0.0), 4) for k in FEATURE_META}),
+        'original_risk':     app.risk_score,
+        'original_decision': app.ai_decision,
+    })
+
+
+def whatif_api(request):
+    """
+    AJAX endpoint — receives modified feature values,
+    runs real XGBoost model, calls Grok for explanation,
+    returns JSON with new score + decision + Grok reasoning.
+    """
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': 'Login required'}, status=401)
+
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST only'}, status=405)
+
+    if get_role(request.user) != 'user':
+        return JsonResponse({'error': 'Unauthorized'}, status=403)
+
+    try:
+        body = json.loads(request.body)
+        features = body.get('features', {})
+        original = body.get('original', {})
+        app_id   = body.get('app_id')
+    except Exception:
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+
+    # ── Run real model ────────────────────────────────────────────────────────
+    from .ml_engine import run_ml_decision
+    try:
+        result = run_ml_decision(features)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+    new_score    = result['risk_score']
+    new_decision = result['decision']
+    orig_score   = float(original.get('risk_score', new_score))
+
+    # ── Compute what changed ──────────────────────────────────────────────────
+    changes = []
+    for k, meta in FEATURE_META.items():
+        orig_val = float(original.get(k, features.get(k, 0)))
+        new_val  = float(features.get(k, 0))
+        delta    = new_val - orig_val
+        if abs(delta) > 0.001:
+            direction = 'improved' if (
+                (meta['good'] == 'above' and delta > 0) or
+                (meta['good'] == 'below' and delta < 0)
+            ) else 'worsened'
+            changes.append({
+                'feature':   meta['label'],
+                'key':       k,
+                'from':      round(orig_val, 3),
+                'to':        round(new_val, 3),
+                'delta':     round(delta, 3),
+                'direction': direction,
+            })
+
+    # ── Grok AI reasoning ─────────────────────────────────────────────────────
+    grok_explanation = _call_grok(
+        features=features,
+        original=original,
+        changes=changes,
+        orig_score=orig_score,
+        new_score=new_score,
+        orig_decision=original.get('decision', 'rejected'),
+        new_decision=new_decision,
+    )
+
+    return JsonResponse({
+        'new_score':       round(new_score, 1),
+        'new_decision':    new_decision,
+        'orig_score':      round(orig_score, 1),
+        'score_delta':     round(orig_score - new_score, 1),
+        'changes':         changes,
+        'grok_explanation': grok_explanation,
+        'shap_factors':    result['shap_factors'],
+        'recourse':        _compute_recourse(features, original, result),
+    })
+
+
+def _compute_recourse(current_features: dict, original: dict, current_result: dict) -> dict:
+    """
+    Recourse Validity Score:
+    1. Find the top hurting features from SHAP
+    2. Set each to its optimal value
+    3. Run the model to verify the decision flips
+    4. Return: which improvements are needed, approval probability after, validity confirmed
+    """
+    from .ml_engine import run_ml_decision, FEATURE_COLS
+
+    OPTIMAL_VALUES = {
+        'income_regularity':       0.75,
+        'spending_consistency':    0.70,
+        'bill_payment_ratio':      0.90,
+        'savings_rate':            0.15,
+        'emi_burden_ratio':        0.30,
+        'upi_activity_volume':     10.0,
+        'rent_payment_regularity': 0.80,
+        'cash_withdrawal_ratio':   0.10,
+    }
+
+    # Already approved — no recourse needed
+    if current_result['decision'] == 'approved':
+        return {
+            'needed': False,
+            'message': 'Already approved — no recourse needed.',
+            'steps': [],
+            'approval_prob_after': round((1 - current_result['risk_score_raw']) * 100, 1),
+            'valid': True,
+        }
+
+    # Get top hurting features sorted by SHAP impact (highest positive = most hurting)
+    hurters = sorted(
+        [f for f in current_result['shap_factors'] if f.get('impact_direction') == 'hurts'],
+        key=lambda x: abs(x['impact']),
+        reverse=True,
+    )
+
+    if not hurters:
+        return {'needed': False, 'message': 'No specific improvements identified.', 'steps': [], 'valid': False}
+
+    # Build recourse steps — fix top 3 hurting features
+    steps = []
+    improved = dict(current_features)
+
+    for factor in hurters[:3]:
+        key = factor.get('feature_key', '')
+        if not key or key not in OPTIMAL_VALUES:
+            continue
+        current_val = float(current_features.get(key, 0))
+        optimal_val = OPTIMAL_VALUES[key]
+
+        # Only suggest if there's meaningful room to improve
+        if abs(optimal_val - current_val) < 0.05:
+            continue
+
+        improved[key] = optimal_val
+
+        # Human-readable action
+        action_map = {
+            'income_regularity':       f'Ensure consistent monthly income (target: 75% regularity)',
+            'spending_consistency':    f'Stabilize monthly spending patterns (target: 70% consistency)',
+            'bill_payment_ratio':      f'Pay all utility bills on time (target: 90% on-time)',
+            'savings_rate':            f'Save at least 15% of monthly income',
+            'emi_burden_ratio':        f'Reduce EMI payments to below 30% of income',
+            'upi_activity_volume':     f'Increase digital transactions to 10+ per month',
+            'rent_payment_regularity': f'Pay rent consistently every month (target: 80% regularity)',
+            'cash_withdrawal_ratio':   f'Reduce cash usage to below 10% of spending',
+        }
+        steps.append({
+            'feature':     factor['feature'],
+            'feature_key': key,
+            'current':     round(current_val, 3),
+            'target':      optimal_val,
+            'action':      action_map.get(key, f'Improve {key}'),
+            'shap_impact': round(abs(factor['impact']), 4),
+        })
+
+    if not steps:
+        return {'needed': False, 'message': 'Your values are already near optimal.', 'steps': [], 'valid': False}
+
+    # Validate: run model with improved values
+    try:
+        validated = run_ml_decision(improved)
+        flips     = validated['decision'] == 'approved'
+        prob_after = round((1 - validated['risk_score_raw']) * 100, 1)
+        score_after = round(validated['risk_score'], 1)
+    except Exception:
+        flips      = False
+        prob_after = 0
+        score_after = 0
+
+    return {
+        'needed':            True,
+        'steps':             steps,
+        'flips_decision':    flips,
+        'approval_prob_after': prob_after,
+        'score_after':       score_after,
+        'valid':             flips,
+        'message': (
+            f'If you make these {len(steps)} improvements, your approval probability becomes {prob_after}% '
+            f'and the decision {"FLIPS TO APPROVED ✓" if flips else "remains rejected (more work needed)"}.'
+        ),
+    }
+
+
+def _call_grok(features, original, changes, orig_score, new_score, orig_decision, new_decision):
+    """Call Groq API for plain-language What-If reasoning. Falls back to built-in logic if API fails."""
+    if not changes:
+        return "No changes were made to the features. Adjust the sliders to see what-if scenarios."
+
+    delta = orig_score - new_score
+    changes_text = '\n'.join([f"- {c['feature']}: {c['from']} → {c['to']} ({c['direction']})" for c in changes])
+    decision_change = (
+        f"The decision CHANGED from {orig_decision.upper()} to {new_decision.upper()}."
+        if orig_decision != new_decision else
+        f"The decision remains {new_decision.upper()}."
+    )
+    prompt = (
+        f"You are an AI credit advisor. Explain this What-If scenario in 2-3 simple sentences.\n\n"
+        f"Original: {orig_score:.0f}/100 ({orig_decision.upper()}) → New: {new_score:.0f}/100 ({new_decision.upper()})\n"
+        f"Changes: {changes_text}\n{decision_change}\n\n"
+        f"Be encouraging, under 70 words, plain paragraph, no bullet points."
+    )
+
+    try:
+        import requests as req_lib
+        response = req_lib.post(
+            'https://api.groq.com/openai/v1/chat/completions',
+            headers={'Authorization': f'Bearer {GROK_API_KEY}', 'Content-Type': 'application/json'},
+            json={'model': 'llama-3.3-70b-versatile', 'messages': [{'role': 'user', 'content': prompt}], 'max_tokens': 120, 'temperature': 0.7},
+            timeout=10,
+        )
+        response.raise_for_status()
+        return response.json()['choices'][0]['message']['content'].strip()
+    except Exception:
+        pass  # Fall through to built-in logic
+    print(new_decision)
+    # Built-in fallback
+    if orig_decision != new_decision:
+        return (f"Great news! By adjusting these factors, your risk score changed from {orig_score:.0f} to {new_score:.0f}/100 "
+                f"and the decision flipped to {new_decision.upper()}. Maintain these improvements in your actual financial behavior.")
+    if delta > 10:
+        return (f"These changes reduced your risk score by {delta:.0f} points to {new_score:.0f}/100. "
+                f"You're moving toward the approval threshold (below 50). Keep improving these factors.")
+    if delta > 3:
+        return (f"Good progress — score improved by {delta:.0f} points to {new_score:.0f}/100. "
+                f"Focus on the highest-impact factors (Savings Rate, EMI Burden) to reach approval.")
+    if delta > 0:
+        return (f"Small improvement to {new_score:.0f}/100. Focus on Income Regularity, EMI Burden, and Savings Rate for bigger gains.")
+    return (f"These changes worsened your score to {new_score:.0f}/100. Adjust in the direction marked 'good' for better results.")
+
 
 
 # ─── Banker Views ─────────────────────────────────────────────────────────────
@@ -638,6 +965,54 @@ def _trace_transactions(app):
 
 
 # ─── Regulator Views ──────────────────────────────────────────────────────────
+
+@login_required
+def audit_chain(request):
+    """Tamper-evident audit chain page — visible to regulator and banker."""
+    role = get_role(request.user)
+    if role not in ('regulator', 'banker'):
+        return redirect('home')
+
+    import hashlib
+
+    apps = LoanApplication.objects.order_by('created_at')
+    chain_records = []
+    expected_prev = '0' * 64
+    chain_valid   = True
+    first_broken  = None
+
+    for app in apps:
+        # Recompute hash to verify
+        recomputed = app.compute_hash(app.previous_hash)
+        hash_ok    = (recomputed == app.current_hash) and (app.previous_hash == expected_prev)
+
+        if not hash_ok and chain_valid:
+            chain_valid  = False
+            first_broken = app.id
+
+        chain_records.append({
+            'id':             app.id,
+            'user':           app.user.username,
+            'loan_type':      app.loan_type,
+            'amount':         app.loan_amount_rupees,
+            'ai_decision':    app.ai_decision,
+            'risk_score':     app.risk_score,
+            'final_status':   app.final_status,
+            'created_at':     app.created_at,
+            'previous_hash':  app.previous_hash[:16] + '...' if app.previous_hash else '—',
+            'current_hash':   app.current_hash[:16] + '...' if app.current_hash else '—',
+            'full_hash':      app.current_hash,
+            'hash_ok':        hash_ok,
+        })
+        expected_prev = app.current_hash or expected_prev
+
+    return render(request, 'loans/audit_chain.html', {
+        'chain_records': chain_records,
+        'chain_valid':   chain_valid,
+        'first_broken':  first_broken,
+        'total':         len(chain_records),
+    })
+
 
 @login_required
 def regulator_dashboard(request):

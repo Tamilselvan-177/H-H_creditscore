@@ -1,0 +1,666 @@
+{% extends 'loans/base.html' %}
+{% block title %}What-If Simulator — Application #{{ app.id }}{% endblock %}
+{% block content %}
+<div style="max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:24px;">
+
+
+  <!-- Header -->
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+    <div>
+      <a href="{% url 'loan_result' app.pk %}" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#64748b;text-decoration:none;margin-bottom:8px;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to Result
+      </a>
+      <h1 style="font-size:28px;font-weight:700;color:#0f172a;letter-spacing:-.02em;">🔮 What-If Simulator</h1>
+      <p style="color:#64748b;font-size:14px;margin-top:4px;">
+        Drag the sliders to see how improving your financial habits would change your loan decision.
+        The real AI model recalculates instantly.
+      </p>
+    </div>
+    <div style="padding:14px 18px;background:#fff1f2;border:2px solid #fecdd3;border-radius:12px;text-align:center;min-width:140px;">
+      <div style="font-size:11px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Current Score</div>
+      <div style="font-size:32px;font-weight:700;color:#e11d48;">{{ app.risk_score|floatformat:0 }}</div>
+      <div style="font-size:11px;color:#9f1239;font-weight:600;">{{ app.ai_decision|upper }}</div>
+    </div>
+  </div>
+
+  <!-- Main grid -->
+  <div style="display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start;">
+
+    <!-- Left: Human-friendly sliders -->
+    <div style="display:flex;flex-direction:column;gap:12px;">
+
+      <!-- Feature cards -->
+      <div id="feature-income_regularity" class="feat-card" data-key="income_regularity" data-min="0" data-max="1" data-step="0.05" data-good="above" data-threshold="0.5">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#0f172a;">💰 Income Regularity</div>
+            <div style="font-size:12px;color:#64748b;">How consistently your salary arrives each month</div>
+          </div>
+          <div id="badge-income_regularity" style="padding:4px 12px;border-radius:9999px;font-size:12px;font-weight:600;background:#fff1f2;color:#9f1239;">🔴 Irregular</div>
+        </div>
+        <input type="range" id="slider-income_regularity" min="0" max="100" step="5" value="0"
+          oninput="onSlide('income_regularity', this.value)"
+          style="width:100%;accent-color:hsl(226,58%,39%);cursor:pointer;"/>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;margin-top:4px;">
+          <span>Very Irregular</span>
+          <span id="label-income_regularity" style="font-weight:600;color:#374151;">0% consistent</span>
+          <span>Very Regular</span>
+        </div>
+      </div>
+
+      <div id="feature-spending_consistency" class="feat-card" data-key="spending_consistency" data-min="0" data-max="1" data-step="0.05" data-good="above" data-threshold="0.5">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#0f172a;">🛒 Spending Consistency</div>
+            <div style="font-size:12px;color:#64748b;">How stable your monthly spending pattern is</div>
+          </div>
+          <div id="badge-spending_consistency" style="padding:4px 12px;border-radius:9999px;font-size:12px;font-weight:600;background:#f0fdf4;color:#166534;">🟢 Stable</div>
+        </div>
+        <input type="range" id="slider-spending_consistency" min="0" max="100" step="5" value="83"
+          oninput="onSlide('spending_consistency', this.value)"
+          style="width:100%;accent-color:hsl(226,58%,39%);cursor:pointer;"/>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;margin-top:4px;">
+          <span>Very Erratic</span>
+          <span id="label-spending_consistency" style="font-weight:600;color:#374151;">83% stable</span>
+          <span>Very Stable</span>
+        </div>
+      </div>
+
+      <div id="feature-bill_payment_ratio" class="feat-card" data-key="bill_payment_ratio" data-min="0" data-max="1" data-step="0.05" data-good="above" data-threshold="0.8">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#0f172a;">📄 Bill Payment</div>
+            <div style="font-size:12px;color:#64748b;">% of utility bills paid on time</div>
+          </div>
+          <div id="badge-bill_payment_ratio" style="padding:4px 12px;border-radius:9999px;font-size:12px;font-weight:600;background:#fff1f2;color:#9f1239;">🔴 Missed bills</div>
+        </div>
+        <input type="range" id="slider-bill_payment_ratio" min="0" max="100" step="5" value="63"
+          oninput="onSlide('bill_payment_ratio', this.value)"
+          style="width:100%;accent-color:hsl(226,58%,39%);cursor:pointer;"/>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;margin-top:4px;">
+          <span>0% on time</span>
+          <span id="label-bill_payment_ratio" style="font-weight:600;color:#374151;">63% on time</span>
+          <span>100% on time</span>
+        </div>
+      </div>
+
+      <div id="feature-savings_rate" class="feat-card" data-key="savings_rate" data-min="-100" data-max="100" data-step="5" data-good="above" data-threshold="10">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#0f172a;">🏦 Savings Rate</div>
+            <div style="font-size:12px;color:#64748b;">% of income saved after expenses</div>
+          </div>
+          <div id="badge-savings_rate" style="padding:4px 12px;border-radius:9999px;font-size:12px;font-weight:600;background:#fff1f2;color:#9f1239;">🔴 Spending more than earning</div>
+        </div>
+        <input type="range" id="slider-savings_rate" min="-100" max="100" step="5" value="-100"
+          oninput="onSlide('savings_rate', this.value)"
+          style="width:100%;accent-color:hsl(226,58%,39%);cursor:pointer;"/>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;margin-top:4px;">
+          <span>-100% (debt)</span>
+          <span id="label-savings_rate" style="font-weight:600;color:#374151;">-100% savings</span>
+          <span>+100% (all saved)</span>
+        </div>
+      </div>
+
+      <div id="feature-emi_burden_ratio" class="feat-card" data-key="emi_burden_ratio" data-min="0" data-max="100" data-step="5" data-good="below" data-threshold="50">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#0f172a;">💳 EMI Burden</div>
+            <div style="font-size:12px;color:#64748b;">% of income going to existing loan payments</div>
+          </div>
+          <div id="badge-emi_burden_ratio" style="padding:4px 12px;border-radius:9999px;font-size:12px;font-weight:600;background:#f0fdf4;color:#166534;">🟢 Manageable</div>
+        </div>
+        <input type="range" id="slider-emi_burden_ratio" min="0" max="100" step="5" value="44"
+          oninput="onSlide('emi_burden_ratio', this.value)"
+          style="width:100%;accent-color:hsl(226,58%,39%);cursor:pointer;"/>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;margin-top:4px;">
+          <span>0% (no EMIs)</span>
+          <span id="label-emi_burden_ratio" style="font-weight:600;color:#374151;">44% of income</span>
+          <span>100% (all income)</span>
+        </div>
+      </div>
+
+      <div id="feature-upi_activity_volume" class="feat-card" data-key="upi_activity_volume" data-min="0" data-max="20" data-step="1" data-good="above" data-threshold="5">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#0f172a;">📱 UPI Activity</div>
+            <div style="font-size:12px;color:#64748b;">Digital transactions per month (shows financial engagement)</div>
+          </div>
+          <div id="badge-upi_activity_volume" style="padding:4px 12px;border-radius:9999px;font-size:12px;font-weight:600;background:#f0fdf4;color:#166534;">🟢 Active</div>
+        </div>
+        <input type="range" id="slider-upi_activity_volume" min="0" max="20" step="1" value="7"
+          oninput="onSlide('upi_activity_volume', this.value)"
+          style="width:100%;accent-color:hsl(226,58%,39%);cursor:pointer;"/>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;margin-top:4px;">
+          <span>0 txns/mo</span>
+          <span id="label-upi_activity_volume" style="font-weight:600;color:#374151;">7 transactions/month</span>
+          <span>20+ txns/mo</span>
+        </div>
+      </div>
+
+      <div id="feature-rent_payment_regularity" class="feat-card" data-key="rent_payment_regularity" data-min="0" data-max="1" data-step="0.05" data-good="above" data-threshold="0.6">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#0f172a;">🏠 Rent Regularity</div>
+            <div style="font-size:12px;color:#64748b;">How consistently you pay rent on time</div>
+          </div>
+          <div id="badge-rent_payment_regularity" style="padding:4px 12px;border-radius:9999px;font-size:12px;font-weight:600;background:#f0fdf4;color:#166534;">🟢 Regular</div>
+        </div>
+        <input type="range" id="slider-rent_payment_regularity" min="0" max="100" step="5" value="81"
+          oninput="onSlide('rent_payment_regularity', this.value)"
+          style="width:100%;accent-color:hsl(226,58%,39%);cursor:pointer;"/>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;margin-top:4px;">
+          <span>Very Irregular</span>
+          <span id="label-rent_payment_regularity" style="font-weight:600;color:#374151;">81% regular</span>
+          <span>Very Regular</span>
+        </div>
+      </div>
+
+      <div id="feature-cash_withdrawal_ratio" class="feat-card" data-key="cash_withdrawal_ratio" data-min="0" data-max="100" data-step="5" data-good="below" data-threshold="20">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#0f172a;">💵 Cash Usage</div>
+            <div style="font-size:12px;color:#64748b;">% of spending done in cash (lower = more traceable)</div>
+          </div>
+          <div id="badge-cash_withdrawal_ratio" style="padding:4px 12px;border-radius:9999px;font-size:12px;font-weight:600;background:#f0fdf4;color:#166534;">🟢 Low cash</div>
+        </div>
+        <input type="range" id="slider-cash_withdrawal_ratio" min="0" max="100" step="5" value="11"
+          oninput="onSlide('cash_withdrawal_ratio', this.value)"
+          style="width:100%;accent-color:hsl(226,58%,39%);cursor:pointer;"/>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;margin-top:4px;">
+          <span>0% cash</span>
+          <span id="label-cash_withdrawal_ratio" style="font-weight:600;color:#374151;">11% in cash</span>
+          <span>100% cash</span>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div style="display:flex;gap:10px;margin-top:8px;">
+        <button onclick="resetAll()" class="btn btn-outline" style="flex:1;justify-content:center;">
+          ↺ Reset to My Current Values
+        </button>
+        <button onclick="setOptimal()" class="btn btn-primary" style="flex:1;justify-content:center;">
+          ✨ Show Best Case Scenario
+        </button>
+      </div>
+    </div>
+
+    <!-- Right: Live result panel -->
+    <div style="display:flex;flex-direction:column;gap:16px;position:sticky;top:80px;">
+
+      <!-- Score card -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">Live Result</div></div>
+        <div class="card-body" style="text-align:center;">
+          <div style="position:relative;width:180px;height:90px;margin:0 auto 8px;">
+            <svg viewBox="0 0 100 50" style="width:100%;height:100%;overflow:visible;">
+              <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e2e8f0" stroke-width="12" stroke-linecap="round"/>
+              <path id="gaugeFill" d="M 10 50 A 40 40 0 0 1 90 50" fill="none"
+                stroke="#e11d48" stroke-width="12" stroke-linecap="round"
+                style="stroke-dasharray:0 125.6;transition:all .4s ease;"/>
+            </svg>
+            <div style="position:absolute;bottom:0;left:0;right:0;text-align:center;">
+              <span id="scoreDisplay" style="font-size:34px;font-weight:700;color:#e11d48;transition:color .3s;">
+                {{ app.risk_score|floatformat:0 }}
+              </span>
+            </div>
+          </div>
+          <div style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;">Risk Score / 100</div>
+
+          <div id="decisionBadge" style="margin-top:12px;padding:10px 24px;border-radius:9999px;font-size:15px;font-weight:700;display:inline-block;
+            background:#fff1f2;color:#9f1239;border:2px solid #fecdd3;">
+            {{ app.ai_decision|upper }}
+          </div>
+
+          <div id="scoreDelta" style="margin-top:10px;font-size:13px;color:#94a3b8;min-height:20px;">
+            Move sliders to simulate
+          </div>
+
+          <div style="margin-top:10px;padding:8px 12px;background:#f8fafc;border-radius:8px;font-size:12px;color:#64748b;">
+            Approval threshold: <strong style="color:#059669;">below 50</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- What changed -->
+      <div class="card" id="changesCard" style="display:none;">
+        <div class="card-header"><div class="card-title">What You Changed</div></div>
+        <div class="card-body" id="changesList" style="display:flex;flex-direction:column;gap:6px;"></div>
+      </div>
+
+      <!-- Grok AI -->
+      <div class="card" id="grokCard" style="display:none;">
+        <div class="card-header">
+          <div class="card-title" style="display:flex;align-items:center;gap:6px;">
+Guidance
+          </div>
+        </div>
+        <div class="card-body">
+          <div id="grokLoading" style="display:none;font-size:13px;color:#94a3b8;font-style:italic;">Analyzing your scenario...</div>
+          <div id="grokText" style="font-size:13px;color:#374151;line-height:1.7;"></div>
+        </div>
+      </div>
+
+      <!-- Recourse Analysis -->
+      <div class="card" id="recourseCard" style="display:none;">
+        <div class="card-header">
+          <div class="card-title" style="display:flex;align-items:center;gap:6px;">
+            <span>✅</span> Path to Approval
+          </div>
+        </div>
+        <div class="card-body" id="recourseBody" style="font-size:13px;"></div>
+      </div>
+
+</div>
+
+<style>
+.feat-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px 20px;
+  transition: border-color .2s;
+}
+.feat-card:hover { border-color: hsl(226,58%,39%); }
+input[type=range] { height: 6px; }
+</style>
+
+<script>
+const ORIGINAL = {{ feature_json|safe }};
+const ORIG_SCORE    = {{ original_risk }};
+const ORIG_DECISION = '{{ original_decision }}';
+const APP_ID        = {{ app.id }};
+const CSRF_TOKEN    = '{{ csrf_token }}';
+
+// Internal state — always 0-1 scale for the model
+let current = {};
+
+// Conversion helpers
+function toModel(key, displayVal) {
+  // Convert slider display value → model value (0-1)
+  if (key === 'savings_rate') return parseFloat(displayVal) / 100;
+  if (key === 'emi_burden_ratio') return parseFloat(displayVal) / 100;
+  if (key === 'cash_withdrawal_ratio') return parseFloat(displayVal) / 100;
+  if (key === 'upi_activity_volume') return parseFloat(displayVal);
+  return parseFloat(displayVal) / 100;
+}
+
+function toDisplay(key, modelVal) {
+  // Convert model value (0-1) → slider display value
+  if (key === 'savings_rate') return Math.round(modelVal * 100);
+  if (key === 'emi_burden_ratio') return Math.round(modelVal * 100);
+  if (key === 'cash_withdrawal_ratio') return Math.round(modelVal * 100);
+  if (key === 'upi_activity_volume') return Math.round(modelVal);
+  return Math.round(modelVal * 100);
+}
+
+function humanLabel(key, displayVal) {
+  const v = parseFloat(displayVal);
+  switch(key) {
+    case 'income_regularity':       return v + '% consistent income';
+    case 'spending_consistency':    return v + '% stable spending';
+    case 'bill_payment_ratio':      return v + '% bills paid on time';
+    case 'savings_rate':            return (v >= 0 ? '+' : '') + v + '% savings rate';
+    case 'emi_burden_ratio':        return v + '% of income on EMIs';
+    case 'upi_activity_volume':     return v + ' UPI transactions/month';
+    case 'rent_payment_regularity': return v + '% rent regularity';
+    case 'cash_withdrawal_ratio':   return v + '% spending in cash';
+    default: return v;
+  }
+}
+
+function badgeText(key, displayVal, good, threshold) {
+  const v = parseFloat(displayVal);
+  const isGood = good === 'above' ? v >= threshold : v <= threshold;
+  if (isGood) {
+    const labels = {
+      income_regularity: '🟢 Regular income',
+      spending_consistency: '🟢 Stable spending',
+      bill_payment_ratio: '🟢 Paying on time',
+      savings_rate: '🟢 Saving money',
+      emi_burden_ratio: '🟢 Low EMI burden',
+      upi_activity_volume: '🟢 Digitally active',
+      rent_payment_regularity: '🟢 Regular rent',
+      cash_withdrawal_ratio: '🟢 Low cash usage',
+    };
+    return { text: labels[key] || '🟢 Good', bg: '#f0fdf4', color: '#166534' };
+  } else {
+    const labels = {
+      income_regularity: '🔴 Irregular income',
+      spending_consistency: '🔴 Erratic spending',
+      bill_payment_ratio: '🔴 Missing bills',
+      savings_rate: '🔴 Spending > earning',
+      emi_burden_ratio: '🔴 High EMI burden',
+      upi_activity_volume: '🔴 Low digital activity',
+      rent_payment_regularity: '🔴 Irregular rent',
+      cash_withdrawal_ratio: '🔴 High cash usage',
+    };
+    return { text: labels[key] || '🔴 Needs improvement', bg: '#fff1f2', color: '#9f1239' };
+  }
+}
+
+// Init sliders from original feature values
+function initSliders() {
+  const keys = ['income_regularity','spending_consistency','bill_payment_ratio',
+                'savings_rate','emi_burden_ratio','upi_activity_volume',
+                'rent_payment_regularity','cash_withdrawal_ratio'];
+  keys.forEach(key => {
+    const modelVal = ORIGINAL[key] || 0;
+    current[key] = modelVal;
+    const displayVal = toDisplay(key, modelVal);
+    const slider = document.getElementById('slider-' + key);
+    if (slider) slider.value = displayVal;
+    updateSliderUI(key, displayVal);
+  });
+}
+
+function updateSliderUI(key, displayVal) {
+  // Label
+  const label = document.getElementById('label-' + key);
+  if (label) label.textContent = humanLabel(key, displayVal);
+
+  // Badge
+  const badge = document.getElementById('badge-' + key);
+  const card  = document.getElementById('feature-' + key);
+  if (badge && card) {
+    const slider = document.getElementById('slider-' + key);
+    const good      = card.dataset.good;
+    const threshold = parseFloat(card.dataset.threshold);
+    const b = badgeText(key, displayVal, good, threshold);
+    badge.textContent = b.text;
+    badge.style.background = b.bg;
+    badge.style.color = b.color;
+  }
+}
+
+let debounceTimer = null;
+
+function onSlide(key, displayVal) {
+  const modelVal = toModel(key, displayVal);
+  current[key] = modelVal;
+  updateSliderUI(key, displayVal);
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(runWhatIf, 500);
+}
+
+async function runWhatIf() {
+  document.getElementById('grokCard').style.display = 'block';
+  document.getElementById('grokLoading').style.display = 'block';
+  document.getElementById('grokText').textContent = '';
+
+  const payload = {
+    features: current,
+    original: {...ORIGINAL, risk_score: ORIG_SCORE, decision: ORIG_DECISION},
+    app_id: APP_ID,
+  };
+
+  try {
+    const resp = await fetch('/api/whatif/', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'X-CSRFToken': CSRF_TOKEN},
+      body: JSON.stringify(payload),
+    });
+    if (!resp.ok) {
+      const errText = await resp.text();
+      throw new Error(`Server error ${resp.status}: ${errText.slice(0,200)}`);
+    }
+    const data = await resp.json();
+    updateResult(data);
+  } catch(e) {
+    console.error('whatif error:', e);
+    const grokCard = document.getElementById('grokCard');
+    const grokLoading = document.getElementById('grokLoading');
+    const grokText = document.getElementById('grokText');
+    if (grokCard) grokCard.style.display = 'block';
+    if (grokLoading) grokLoading.style.display = 'none';
+    if (grokText) grokText.textContent = 'AI analysis unavailable — model result shown above. (' + e.message + ')';
+  }
+}
+
+function updateResult(data) {
+  const score    = data.new_score;
+  const decision = data.new_decision;
+  const delta    = data.score_delta;
+
+  // Gauge
+  const color = score < 30 ? '#059669' : score < 60 ? '#f59e0b' : '#e11d48';
+  document.getElementById('gaugeFill').style.strokeDasharray = `${(score/100)*125.6} 125.6`;
+  document.getElementById('gaugeFill').style.stroke = color;
+  const scoreEl = document.getElementById('scoreDisplay');
+  scoreEl.textContent = score.toFixed(0);
+  scoreEl.style.color = color;
+
+  // Decision
+  const badge = document.getElementById('decisionBadge');
+  if (decision === 'approved') {
+    badge.textContent = '✓ APPROVED';
+    badge.style.background = '#f0fdf4'; badge.style.color = '#166534'; badge.style.borderColor = '#bbf7d0';
+  } else {
+    badge.textContent = '✕ REJECTED';
+    badge.style.background = '#fff1f2'; badge.style.color = '#9f1239'; badge.style.borderColor = '#fecdd3';
+  }
+
+  // Delta
+  const deltaEl = document.getElementById('scoreDelta');
+  if (Math.abs(delta) < 0.5) {
+    deltaEl.textContent = 'No significant change yet';
+    deltaEl.style.color = '#94a3b8';
+  } else if (delta > 0) {
+    deltaEl.innerHTML = `<span style="color:#059669;font-weight:600;">▼ Score improved by ${delta.toFixed(0)} points!</span>`;
+    if (ORIG_DECISION === 'rejected' && decision === 'approved') {
+      deltaEl.innerHTML += `<br/><span style="color:#059669;font-weight:700;font-size:14px;">🎉 Decision flipped to APPROVED!</span>`;
+    }
+  } else {
+    deltaEl.innerHTML = `<span style="color:#e11d48;font-weight:600;">▲ Score worsened by ${Math.abs(delta).toFixed(0)} points</span>`;
+  }
+
+  // Changes
+  const changesCard = document.getElementById('changesCard');
+  const changesList = document.getElementById('changesList');
+  if (data.changes && data.changes.length > 0) {
+    changesCard.style.display = 'block';
+    changesList.innerHTML = data.changes.map(c => {
+      const fromDisp = c.key === 'upi_activity_volume' ? c.from.toFixed(1) + ' txns' : Math.round(c.from * 100) + '%';
+      const toDisp   = c.key === 'upi_activity_volume' ? c.to.toFixed(1) + ' txns'   : Math.round(c.to * 100) + '%';
+      return `
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;
+        background:${c.direction === 'improved' ? '#f0fdf4' : '#fff1f2'};
+        border:1px solid ${c.direction === 'improved' ? '#bbf7d0' : '#fecdd3'};">
+        <span style="font-size:16px;">${c.direction === 'improved' ? '✅' : '❌'}</span>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;color:#374151;">${c.feature}</div>
+          <div style="font-size:12px;color:#64748b;">${fromDisp} → ${toDisp}</div>
+        </div>
+        <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:9999px;
+          background:${c.direction === 'improved' ? '#dcfce7' : '#fee2e2'};
+          color:${c.direction === 'improved' ? '#166534' : '#9f1239'};">
+          ${c.direction}
+        </span>
+      </div>`;
+    }).join('');
+  } else {
+    changesCard.style.display = 'none';
+  }
+
+  // Grok
+  document.getElementById('grokLoading').style.display = 'none';
+  document.getElementById('grokText').textContent = data.grok_explanation || '';
+
+  // Recourse — update with current slider state
+  if (data.recourse) {
+    renderRecourse(data.recourse);
+  }
+}
+
+function resetAll() {
+  initSliders();
+  document.getElementById('changesCard').style.display = 'none';
+  document.getElementById('grokCard').style.display = 'none';
+  const color = ORIG_SCORE < 30 ? '#059669' : ORIG_SCORE < 60 ? '#f59e0b' : '#e11d48';
+  document.getElementById('gaugeFill').style.strokeDasharray = `${(ORIG_SCORE/100)*125.6} 125.6`;
+  document.getElementById('gaugeFill').style.stroke = color;
+  document.getElementById('scoreDisplay').textContent = ORIG_SCORE.toFixed(0);
+  document.getElementById('scoreDisplay').style.color = color;
+  document.getElementById('scoreDelta').textContent = 'Move sliders to simulate';
+  document.getElementById('scoreDelta').style.color = '#94a3b8';
+  const badge = document.getElementById('decisionBadge');
+  badge.textContent = ORIG_DECISION.toUpperCase();
+  badge.style.background = ORIG_DECISION === 'approved' ? '#f0fdf4' : '#fff1f2';
+  badge.style.color = ORIG_DECISION === 'approved' ? '#166534' : '#9f1239';
+  badge.style.borderColor = ORIG_DECISION === 'approved' ? '#bbf7d0' : '#fecdd3';
+}
+
+function setOptimal() {
+  const optimal = {
+    income_regularity: 0.75, spending_consistency: 0.70,
+    bill_payment_ratio: 0.90, savings_rate: 0.15,
+    emi_burden_ratio: 0.30, upi_activity_volume: 10,
+    rent_payment_regularity: 0.80, cash_withdrawal_ratio: 0.10,
+  };
+  Object.entries(optimal).forEach(([key, modelVal]) => {
+    current[key] = modelVal;
+    const displayVal = toDisplay(key, modelVal);
+    const slider = document.getElementById('slider-' + key);
+    if (slider) slider.value = displayVal;
+    updateSliderUI(key, displayVal);
+  });
+  runWhatIf();
+}
+
+function getCsrf() {
+  return document.cookie.split(';').find(c => c.trim().startsWith('csrftoken='))?.split('=')[1] || '';
+}
+
+// ── Recourse Validity ─────────────────────────────────────────────────────────
+async function loadRecourse(featuresOverride) {
+  const body = document.getElementById('recourseBody');
+  if (!body) {
+    console.error('recourseBody element not found in DOM');
+    return;
+  }
+  body.innerHTML = `<div style="text-align:center;padding:12px;color:#94a3b8;font-size:13px;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite;display:inline-block;margin-right:6px;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+    Validating recourse...</div>`;
+
+  try {
+    let data;
+    if (featuresOverride) {
+      // Use current slider state
+      const payload = {
+        features: featuresOverride,
+        original: {...ORIGINAL, risk_score: ORIG_SCORE, decision: ORIG_DECISION},
+        app_id: APP_ID,
+      };
+      const resp = await fetch('/api/whatif/', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'X-CSRFToken': CSRF_TOKEN},
+        body: JSON.stringify(payload),
+      });
+      const full = await resp.json();
+      data = full.recourse;
+    } else {
+      // Use original values from DB
+      const resp = await fetch(`/api/recourse/${APP_ID}/`, {
+        headers: {'X-CSRFToken': CSRF_TOKEN},
+      });
+      data = await resp.json();
+    }
+    renderRecourse(data);
+  } catch(e) {
+    body.innerHTML = `<div style="font-size:12px;color:#94a3b8;">Could not compute recourse.</div>`;
+  }
+}
+
+function renderRecourse(data) {
+  const body = document.getElementById('recourseBody');
+  if (!body) {
+    console.error('recourseBody element not found in DOM');
+    return;
+  }
+  if (!data || !data.needed) {
+    body.innerHTML = `
+      <div style="display:flex;align-items:center;gap:10px;padding:12px;background:#f0fdf4;border-radius:8px;">
+        <span style="font-size:20px;">✅</span>
+        <div style="font-size:13px;color:#166534;font-weight:500;">${data?.message || 'No recourse needed.'}</div>
+      </div>`;
+    return;
+  }
+
+  const validColor  = data.valid ? '#059669' : '#d97706';
+  const validBg     = data.valid ? '#f0fdf4' : '#fffbeb';
+  const validBorder = data.valid ? '#bbf7d0' : '#fde68a';
+  const validIcon   = data.valid ? '✅' : '⚠️';
+
+  const stepsHtml = data.steps.map((s, i) => `
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;margin-bottom:6px;">
+      <span style="width:22px;height:22px;border-radius:50%;background:hsl(226,58%,39%);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">${i+1}</span>
+      <div style="flex:1;">
+        <div style="font-size:13px;font-weight:600;color:#374151;">${s.feature}</div>
+        <div style="font-size:12px;color:#64748b;margin-top:2px;">${s.action}</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:2px;">
+          Current: ${Math.round(s.current * 100)}% → Target: ${Math.round(s.target * 100)}%
+          <span style="margin-left:6px;color:#e11d48;font-weight:600;">SHAP impact: ${s.shap_impact}</span>
+        </div>
+      </div>
+      <button onclick="applyStep('${s.feature_key}', ${s.target})"
+        style="padding:4px 10px;background:hsl(226,58%,39%);color:white;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;">
+        Apply →
+      </button>
+    </div>`).join('');
+
+  body.innerHTML = `
+    <!-- Validity badge -->
+    <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:${validBg};border:2px solid ${validBorder};border-radius:10px;margin-bottom:14px;">
+      <span style="font-size:22px;">${validIcon}</span>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:${validColor};">
+          ${data.valid ? 'Recourse VALIDATED ✓' : 'Partial Recourse'}
+        </div>
+        <div style="font-size:12px;color:${validColor};opacity:.8;margin-top:2px;">
+          After ${data.steps.length} improvements → Approval probability: <strong>${data.approval_prob_after}%</strong>
+          · Risk score: <strong>${data.score_after}/100</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Steps -->
+    <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">
+      Required Improvements (${data.steps.length} steps)
+    </div>
+    ${stepsHtml}
+
+    <!-- Apply all button -->
+    <button onclick="applyAllRecourse()" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px;padding:10px;">
+      ⚡ Apply All Improvements & See Result
+    </button>`;
+}
+
+function applyStep(key, targetModelVal) {
+  current[key] = targetModelVal;
+  const displayVal = toDisplay(key, targetModelVal);
+  const slider = document.getElementById('slider-' + key);
+  if (slider) slider.value = displayVal;
+  updateSliderUI(key, displayVal);
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(runWhatIf, 300);
+}
+
+function applyAllRecourse() {
+  // Get the steps from the rendered recourse and apply them all
+  const buttons = document.querySelectorAll('#recourseBody button[onclick^="applyStep"]');
+  buttons.forEach(btn => btn.click());
+}
+
+window.addEventListener('load', () => {
+  initSliders();
+  const color = ORIG_SCORE < 30 ? '#059669' : ORIG_SCORE < 60 ? '#f59e0b' : '#e11d48';
+  document.getElementById('gaugeFill').style.strokeDasharray = `${(ORIG_SCORE/100)*125.6} 125.6`;
+  document.getElementById('gaugeFill').style.stroke = color;
+  document.getElementById('scoreDisplay').style.color = color;
+
+  // Load recourse on page open
+  loadRecourse();
+});
+</script>
+{% endblock %}
