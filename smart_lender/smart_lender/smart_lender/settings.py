@@ -3,6 +3,77 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# ─── Jazzmin Admin UI ─────────────────────────────────────────────────────────
+JAZZMIN_SETTINGS = {
+    "site_title":        "Smart Money Lender",
+    "site_header":       "SML Admin",
+    "site_brand":        "Smart Money Lender",
+    "site_logo":         None,
+    "welcome_sign":      "Welcome to Smart Money Lender Admin",
+    "copyright":         "Smart Money Lender",
+    "search_model":      ["auth.User", "loans.LoanApplication"],
+    "topmenu_links": [
+        {"name": "Home",        "url": "admin:index"},
+        {"name": "View Site",   "url": "/",          "new_window": True},
+        {"name": "Regulator",   "url": "/regulator/","new_window": True},
+    ],
+    "usermenu_links": [
+        {"name": "View Site", "url": "/", "new_window": True},
+    ],
+    "show_sidebar":      True,
+    "navigation_expanded": True,
+    "icons": {
+        "auth":                     "fas fa-users-cog",
+        "auth.user":                "fas fa-user",
+        "auth.Group":               "fas fa-users",
+        "loans.LoanApplication":    "fas fa-file-invoice-dollar",
+        "loans.UserProfile":        "fas fa-id-card",
+        "loans.CsvUserFeature":     "fas fa-chart-bar",
+        "loans.CsvTransaction":     "fas fa-exchange-alt",
+    },
+    "default_icon_parents": "fas fa-chevron-circle-right",
+    "default_icon_children": "fas fa-circle",
+    "related_modal_active": True,
+    "custom_css": None,
+    "custom_js":  None,
+    "use_google_fonts_cdn": True,
+    "show_ui_builder": False,
+    "changeform_format": "horizontal_tabs",
+    "language_chooser": False,
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text":    False,
+    "footer_small_text":    False,
+    "body_small_text":      False,
+    "brand_small_text":     False,
+    "brand_colour":         "navbar-primary",
+    "accent":               "accent-primary",
+    "navbar":               "navbar-dark",
+    "no_navbar_border":     False,
+    "navbar_fixed":         True,
+    "layout_boxed":         False,
+    "footer_fixed":         False,
+    "sidebar_fixed":        True,
+    "sidebar":              "sidebar-dark-primary",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": True,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False,
+    "theme":                "default",
+    "dark_mode_theme":      None,
+    "button_classes": {
+        "primary":   "btn-primary",
+        "secondary": "btn-secondary",
+        "info":      "btn-info",
+        "warning":   "btn-warning",
+        "danger":    "btn-danger",
+        "success":   "btn-success",
+    },
+}
+
 SECRET_KEY = 'django-insecure-@r)!bdtls!@koo7hd+n19yaq8(mn&f=2t2=wkrez#q$+@sx4%'
 
 DEBUG = True
@@ -10,6 +81,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

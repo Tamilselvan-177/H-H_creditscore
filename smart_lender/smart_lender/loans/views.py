@@ -644,50 +644,154 @@ def regulator_dashboard(request):
     if get_role(request.user) != 'regulator':
         return redirect('home')
 
-    all_apps = LoanApplication.objects.all()
-    total    = all_apps.count()
-    approved = all_apps.filter(final_status='approved').count()
-    overall_approval_rate = round((approved / total) * 100, 1) if total > 0 else 58.0
+    # ── Real application data ─────────────────────────────────────────────────
+    all_apps  = LoanApplication.objects.all()
+    total     = all_apps.count()
+    approved  = all_apps.filter(final_status='approved').count()
+    rejected  = all_apps.filter(final_status='rejected').count()
+    pending   = all_apps.filter(final_status='pending').count()
+    ai_approved = all_apps.filter(ai_decision='approved').count()
+    ai_rejected = all_apps.filter(ai_decision='rejected').count()
+    avg_risk  = round(all_apps.aggregate(avg=Avg('risk_score'))['avg'] or 0, 1)
+    approval_rate = round((approved / total * 100), 1) if total > 0 else 0
+    ai_approval_rate = round((ai_approved / total * 100), 1) if total > 0 else 0
 
-    def make_breakdown(groups, seed):
-        result = []
-        for i, group in enumerate(groups):
-            base  = 0.4 + (i * 0.07) + (seed * 0.01)
-            rate  = min(0.82, max(0.28, base + (math.sin(i + seed) * 0.1)))
-            gtotal = max(5, int(total * (0.15 + i * 0.05))) if total > 0 else 20
-            appr   = round(gtotal * rate)
-            result.append({
-                'group':         group,
-                'approval_rate': round(rate, 2),
-                'total':         gtotal,
-                'approved':      appr,
-                'rejected':      gtotal - appr,
+    # Banker override stats
+    banker_overrode_ai = 0
+    for app in all_apps:
+        if app.banker_decision and app.banker_decision != 'pending':
+            if app.banker_decision != app.ai_decision:
+                banker_overrode_ai += 1
+
+    # ── Feature health from all 2000 dataset users ────────────────────────────
+    from loans.models import CsvUserFeature
+    features = CsvUserFeature.objects.all()
+    feat_count = features.count()
+
+    def feat_stats(field):
+        vals = list(features.values_list(field, flat=True))
+        if not vals:
+            return {'avg': 0, 'good': 0, 'bad': 0}
+        avg = sum(vals) / len(vals)
+        return {'avg': round(avg, 3), 'vals': vals}
+
+    # Feature averages for radar/bar chart
+    feature_avgs = {
+        'Income Regularity':       round(sum(features.values_list('income_regularity', flat=True)) / feat_count, 3),
+        'Spending Consistency':    round(sum(features.values_list('spending_consistency', flat=True)) / feat_count, 3),
+        'Bill Payment Ratio':      round(sum(features.values_list('bill_payment_ratio', flat=True)) / feat_count, 3),
+        'Savings Rate':            round(sum(features.values_list('savings_rate', flat=True)) / feat_count, 3),
+        'EMI Burden Ratio':        round(sum(features.values_list('emi_burden_ratio', flat=True)) / feat_count, 3),
+        'UPI Activity':            round(sum(features.values_list('upi_activity_volume', flat=True)) / feat_count, 3),
+        'Rent Regularity':         round(sum(features.values_list('rent_payment_regularity', flat=True)) / feat_count, 3),
+        'Cash Withdrawal':         round(sum(features.values_list('cash_withdrawal_ratio', flat=True)) / feat_count, 3),
+    }
+
+    # Benchmark thresholds (good = green, bad = red)
+    feature_benchmarks = {
+        'Income Regularity':    {'threshold': 0.5,  'direction': 'above'},
+        'Spending Consistency': {'threshold': 0.5,  'direction': 'above'},
+        'Bill Payment Ratio':   {'threshold': 0.8,  'direction': 'above'},
+        'Savings Rate':         {'threshold': 0.1,  'direction': 'above'},
+        'EMI Burden Ratio':     {'threshold': 0.5,  'direction': 'below'},
+        'UPI Activity':         {'threshold': 5.0,  'direction': 'above'},
+        'Rent Regularity':      {'threshold': 0.6,  'direction': 'above'},
+        'Cash Withdrawal':      {'threshold': 0.2,  'direction': 'below'},
+    }
+
+    feature_health = []
+    for name, avg in feature_avgs.items():
+        bench = feature_benchmarks[name]
+        if bench['direction'] == 'above':
+            status = 'good' if avg >= bench['threshold'] else 'bad'
+            pct = round(avg * 100, 1) if name not in ('UPI Activity',) else round(avg, 1)
+        else:
+            status = 'good' if avg <= bench['threshold'] else 'bad'
+            pct = round(avg * 100, 1)
+        feature_health.append({
+            'name':      name,
+            'avg':       avg,
+            'threshold': bench['threshold'],
+            'direction': bench['direction'],
+            'status':    status,
+            'display':   f"{avg:.1f}" if name == 'UPI Activity' else f"{avg*100:.0f}%",
+        })
+
+    # ── Risk distribution ─────────────────────────────────────────────────────
+    # Use all 2000 feature records for population-level view
+    low_risk = medium_risk = high_risk = 0
+    default_count = features.filter(target=1).count()
+    no_default_count = features.filter(target=0).count()
+
+    # Approximate from feature data (savings_rate is strongest predictor)
+    for f in features:
+        sr = f.savings_rate
+        emi = f.emi_burden_ratio
+        # Simple heuristic matching model behavior
+        if sr >= 0.1 and emi <= 0.4:
+            low_risk += 1
+        elif sr >= -0.3 and emi <= 0.6:
+            medium_risk += 1
+        else:
+            high_risk += 1
+
+    risk_dist = [
+        {'label': 'Low Risk',    'count': low_risk,    'color': '#059669', 'pct': round(low_risk/feat_count*100, 1)},
+        {'label': 'Medium Risk', 'count': medium_risk, 'color': '#f59e0b', 'pct': round(medium_risk/feat_count*100, 1)},
+        {'label': 'High Risk',   'count': high_risk,   'color': '#e11d48', 'pct': round(high_risk/feat_count*100, 1)},
+    ]
+
+    # ── Employment breakdown ──────────────────────────────────────────────────
+    from loans.models import UserProfile
+    profiles = UserProfile.objects.filter(csv_user_id__isnull=False)
+    emp_raw = {}
+    for p in profiles:
+        emp_raw[p.employment_type] = emp_raw.get(p.employment_type, 0) + 1
+    emp_total = sum(emp_raw.values()) or 1
+    employment_data = [
+        {'label': k.replace('_', ' ').title(), 'count': v, 'pct': round(v/emp_total*100, 1)}
+        for k, v in sorted(emp_raw.items(), key=lambda x: -x[1])
+    ]
+
+    # ── CIBIL availability ────────────────────────────────────────────────────
+    has_cibil = profiles.filter(cibil_score__isnull=False).count()
+    no_cibil  = profiles.filter(cibil_score__isnull=True).count()
+    cibil_total = has_cibil + no_cibil or 1
+
+    # ── Fairness / bias metrics ───────────────────────────────────────────────
+    # Approval rates by employment type (from actual applications)
+    emp_approval = []
+    for emp_type in ['salaried', 'self_employed', 'gig_worker', 'student', 'retired', 'farmer']:
+        emp_apps = all_apps.filter(employment_type=emp_type)
+        emp_total_apps = emp_apps.count()
+        emp_approved = emp_apps.filter(final_status='approved').count()
+        if emp_total_apps > 0:
+            emp_approval.append({
+                'group': emp_type.replace('_', ' ').title(),
+                'total': emp_total_apps,
+                'approved': emp_approved,
+                'rate': round(emp_approved / emp_total_apps * 100, 1),
             })
-        return result
 
-    by_gender    = make_breakdown(['Male', 'Female', 'Non-binary'], 1)
-    by_age       = make_breakdown(['18-25', '26-35', '36-45', '46-55', '56+'], 2)
-    by_geography = make_breakdown(['Metro', 'Tier 1', 'Tier 2', 'Tier 3', 'Rural'], 3)
-    by_income    = make_breakdown(['< ₹3L', '₹3L-₹6L', '₹6L-₹12L', '₹12L-₹24L', '> ₹24L'], 4)
-
-    all_rates = [g['approval_rate'] for g in by_gender + by_age + by_geography + by_income]
-    disparity  = max(all_rates) - min(all_rates) if all_rates else 0
-    bias_score = round(min(1.0, disparity * 2), 3)
+    # Bias score — max disparity in approval rates
+    if len(emp_approval) >= 2:
+        rates = [e['rate'] for e in emp_approval]
+        disparity = max(rates) - min(rates)
+        bias_score = round(min(1.0, disparity / 100 * 2), 3)
+    else:
+        bias_score = 0.0
 
     bias_flags = []
-    if disparity > 0.15:
-        bias_flags.append('Significant approval rate disparity detected across geographic groups')
-    if disparity > 0.20:
-        bias_flags.append('Income group disparity exceeds RBI fairness threshold of 20%')
+    if bias_score > 0.15:
+        bias_flags.append('Approval rate disparity detected across employment groups')
+    if no_cibil / cibil_total > 0.4:
+        bias_flags.append(f'{round(no_cibil/cibil_total*100)}% of applicants have no CIBIL — behavior-based scoring active')
 
+    # ── Model drift (simulated monthly trend) ────────────────────────────────
     drift_months = ['Nov 2024', 'Dec 2024', 'Jan 2025', 'Feb 2025', 'Mar 2025', 'Apr 2025']
     drift_points = [
-        {
-            'month':         m,
-            'approval_rate': round(0.55 + math.sin(i * 0.8) * 0.12, 2),
-            'avg_risk':      round(48 + math.cos(i * 0.5) * 8, 1),
-            'shift':         round(0.02 + i * 0.005, 3),
-        }
+        {'month': m, 'approval_rate': round(0.55 + math.sin(i * 0.8) * 0.12, 2),
+         'avg_risk': round(48 + math.cos(i * 0.5) * 8, 1), 'shift': round(0.02 + i * 0.005, 3)}
         for i, m in enumerate(drift_months)
     ]
     latest_shift   = drift_points[-1]['shift']
@@ -695,22 +799,48 @@ def regulator_dashboard(request):
     drift_severity = 'high' if latest_shift > 0.05 else ('medium' if latest_shift > 0.03 else 'low')
 
     return render(request, 'loans/regulator_dashboard.html', {
-        'total':                total,
-        'overall_approval_rate': overall_approval_rate,
-        'bias_score':           bias_score,
-        'bias_flags':           bias_flags,
-        'by_gender':            json.dumps(by_gender),
-        'by_age':               json.dumps(by_age),
-        'by_geography':         json.dumps(by_geography),
-        'by_income':            json.dumps(by_income),
-        'drift_points':         json.dumps(drift_points),
-        'drift_detected':       drift_detected,
-        'drift_severity':       drift_severity,
-        'last_retrained':       '15 Oct 2024',
-        'report_id':            f'SML-RPT-{total}',
+        # Application stats
+        'total':            total,
+        'approved':         approved,
+        'rejected':         rejected,
+        'pending':          pending,
+        'ai_approved':      ai_approved,
+        'ai_rejected':      ai_rejected,
+        'avg_risk':         avg_risk,
+        'approval_rate':    approval_rate,
+        'ai_approval_rate': ai_approval_rate,
+        'banker_overrode':  banker_overrode_ai,
+        # Feature health
+        'feature_health':   feature_health,
+        'feature_avgs_json': json.dumps({f['name']: f['avg'] for f in feature_health}),
+        'feat_count':       feat_count,
+        # Risk distribution
+        'risk_dist':        risk_dist,
+        'risk_dist_json':   json.dumps(risk_dist),
+        'default_count':    default_count,
+        'no_default_count': no_default_count,
+        # Employment
+        'employment_data':  employment_data,
+        'employment_json':  json.dumps(employment_data),
+        # CIBIL
+        'has_cibil':        has_cibil,
+        'no_cibil':         no_cibil,
+        'cibil_pct':        round(no_cibil / cibil_total * 100, 1),
+        # Fairness
+        'bias_score':       bias_score,
+        'bias_flags':       bias_flags,
+        'emp_approval':     emp_approval,
+        'emp_approval_json': json.dumps(emp_approval),
+        # Drift
+        'drift_points':     json.dumps(drift_points),
+        'drift_detected':   drift_detected,
+        'drift_severity':   drift_severity,
+        'last_retrained':   '15 Oct 2024',
+        # Report
+        'report_id':        f'SML-RPT-2026-{total:04d}',
         'standards': [
             'RBI Master Circular on Fair Practices Code',
-            'GDPR Article 22 (Automated Decision-Making)',
+            'GDPR Article 22 — Automated Decision-Making',
             'CFPB Equal Credit Opportunity Act',
         ],
     })

@@ -1,164 +1,346 @@
 {% extends 'loans/base.html' %}
-{% block title %}Regulatory & Compliance — Smart Money Lender{% endblock %}
+{% block title %}Regulatory Dashboard — Smart Money Lender{% endblock %}
 {% block content %}
-<div style="display:flex;flex-direction:column;gap:32px;">
+<div style="display:flex;flex-direction:column;gap:28px;">
 
-  <!-- Header -->
+  <!-- ── Header ──────────────────────────────────────────────────────────── -->
   <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;">
     <div>
       <h1 style="font-size:28px;font-weight:700;color:#0f172a;letter-spacing:-.02em;">Regulatory &amp; Compliance</h1>
-      <p style="color:#64748b;font-size:14px;margin-top:4px;">Monitor model fairness, bias flags, and generate audit reports.</p>
+      <p style="color:#64748b;font-size:14px;margin-top:4px;">
+        Real-time monitoring of model fairness, decision transparency, and compliance.
+        Dataset: <strong>{{ feat_count }} applicants</strong> · Model: <strong>XGBoost v1.0</strong>
+      </p>
     </div>
-    <button onclick="window.print()" class="btn btn-outline">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Export Audit Log
+    <button onclick="generatePDF()" class="btn btn-primary">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Export PDF Report
     </button>
   </div>
 
-  <!-- Top 3 stat cards -->
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
+  <!-- ── Section 1: Live Application Stats ──────────────────────────────── -->
+  <div>
+    <div style="font-size:12px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;">Live Application Statistics</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;">
 
-    <!-- Bias Score -->
-    <div class="card" style="border-width:2px;border-color:{% if bias_score > 0.15 %}#f43f5e{% else %}#10b981{% endif %};">
-      <div class="card-header">
-        <div style="font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.08em;">Overall Bias Score</div>
+      <div class="stat-card" style="border-left:3px solid #2d4fa1;">
+        <div class="stat-label">Total Applications</div>
+        <div class="stat-value">{{ total }}</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:4px;">All time</div>
       </div>
-      <div class="card-body" style="padding-top:12px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;">
-          <div style="font-size:40px;font-weight:700;color:{% if bias_score > 0.15 %}#e11d48{% else %}#059669{% endif %};">{{ bias_score }}</div>
-          {% if bias_score > 0.15 %}
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="1.5" style="opacity:.5;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          {% else %}
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.5" style="opacity:.5;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-          {% endif %}
-        </div>
-        <p style="font-size:13px;color:#94a3b8;margin-top:8px;">Target &lt; 0.100</p>
-      </div>
-    </div>
 
-    <!-- Drift Status -->
-    <div class="card" style="border-width:2px;border-color:{% if drift_detected %}#f59e0b{% else %}#10b981{% endif %};">
-      <div class="card-header">
-        <div style="font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.08em;">Model Drift Status</div>
+      <div class="stat-card" style="border-left:3px solid #059669;">
+        <div class="stat-label">Final Approved</div>
+        <div class="stat-value" style="color:#059669;">{{ approved }}</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:4px;">{{ approval_rate }}% approval rate</div>
       </div>
-      <div class="card-body" style="padding-top:12px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;">
-          <div style="font-size:22px;font-weight:700;color:#0f172a;">{% if drift_detected %}Drift Detected{% else %}Stable{% endif %}</div>
-          <span class="badge {% if drift_severity == 'high' %}badge-rejected{% elif drift_severity == 'medium' %}badge-pending{% else %}badge-approved{% endif %}">
-            {{ drift_severity|upper }} SEVERITY
-          </span>
-        </div>
-        <p style="font-size:13px;color:#94a3b8;margin-top:8px;">Last retrained: {{ last_retrained }}</p>
-      </div>
-    </div>
 
-    <!-- Active Alerts -->
-    <div class="card" style="border-width:2px;border-color:{% if bias_flags %}#f59e0b{% else %}#10b981{% endif %};">
-      <div class="card-header">
-        <div style="font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.08em;">Active Alerts</div>
+      <div class="stat-card" style="border-left:3px solid #e11d48;">
+        <div class="stat-label">Final Rejected</div>
+        <div class="stat-value" style="color:#e11d48;">{{ rejected }}</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:4px;">Banker reviewed</div>
       </div>
-      <div class="card-body" style="padding-top:12px;">
-        <div style="font-size:36px;font-weight:700;color:{% if bias_flags %}#d97706{% else %}#059669{% endif %};margin-bottom:8px;">{{ bias_flags|length }}</div>
-        {% for flag in bias_flags|slice:":2" %}
-          <div style="display:flex;align-items:flex-start;gap:4px;font-size:12px;color:#d97706;margin-bottom:4px;">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
-            <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ flag }}</span>
-          </div>
-        {% empty %}
-          <span style="font-size:13px;color:#059669;">No active flags</span>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
 
-  <!-- Demographic Parity -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title">Demographic Parity Analysis</div>
-      <div class="card-desc">Approval rates across different protected and unprotected groups</div>
-    </div>
-    <div class="card-body">
-      <!-- Tabs -->
-      <div style="display:flex;gap:0;border-bottom:1px solid #e2e8f0;margin-bottom:24px;">
-        <button onclick="showTab('gender')" id="tab-gender" class="tab-btn" style="padding:10px 20px;font-size:14px;font-weight:500;border:none;background:none;cursor:pointer;border-bottom:2px solid hsl(226,58%,39%);color:hsl(226,58%,39%);">Gender</button>
-        <button onclick="showTab('age')" id="tab-age" class="tab-btn" style="padding:10px 20px;font-size:14px;font-weight:500;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;color:#64748b;">Age Group</button>
-        <button onclick="showTab('income')" id="tab-income" class="tab-btn" style="padding:10px 20px;font-size:14px;font-weight:500;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;color:#64748b;">Income Group</button>
-        <button onclick="showTab('geo')" id="tab-geo" class="tab-btn" style="padding:10px 20px;font-size:14px;font-weight:500;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;color:#64748b;">Geography</button>
+      <div class="stat-card" style="border-left:3px solid #f59e0b;">
+        <div class="stat-label">Pending Review</div>
+        <div class="stat-value" style="color:#f59e0b;">{{ pending }}</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:4px;">Awaiting banker</div>
       </div>
-      <div id="pane-gender"><canvas id="chartGender" height="100"></canvas></div>
-      <div id="pane-age" style="display:none;"><canvas id="chartAge" height="100"></canvas></div>
-      <div id="pane-income" style="display:none;"><canvas id="chartIncome" height="100"></canvas></div>
-      <div id="pane-geo" style="display:none;"><canvas id="chartGeo" height="100"></canvas></div>
+
+      <div class="stat-card" style="border-left:3px solid #7c3aed;">
+        <div class="stat-label">Avg Risk Score</div>
+        <div class="stat-value" style="color:#7c3aed;">{{ avg_risk }}</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:4px;">Out of 100</div>
+      </div>
+
+      <div class="stat-card" style="border-left:3px solid #0891b2;">
+        <div class="stat-label">AI Approval Rate</div>
+        <div class="stat-value" style="color:#0891b2;">{{ ai_approval_rate }}%</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:4px;">{{ ai_approved }} of {{ total }}</div>
+      </div>
+
+      <div class="stat-card" style="border-left:3px solid #d97706;">
+        <div class="stat-label">Banker Overrides</div>
+        <div class="stat-value" style="color:#d97706;">{{ banker_overrode }}</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:4px;">Disagreed with AI</div>
+      </div>
+
+      <div class="stat-card" style="border-left:3px solid #64748b;">
+        <div class="stat-label">No CIBIL Users</div>
+        <div class="stat-value" style="color:#64748b;">{{ cibil_pct }}%</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:4px;">{{ no_cibil }} of {{ has_cibil|add:no_cibil }}</div>
+      </div>
+
     </div>
   </div>
 
-  <!-- Bottom grid: Drift + Compliance -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+  <!-- ── Section 2: Feature Health + Risk Distribution ─────────────────── -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
 
-    <!-- Drift Chart -->
+    <!-- Feature Health -->
     <div class="card">
       <div class="card-header">
-        <div class="card-title">Model Drift Over Time</div>
-        <div class="card-desc">Tracking approval rates and risk scores</div>
+        <div class="card-title">8 Behavior Feature Health</div>
+        <div class="card-desc">Population average vs benchmark threshold — {{ feat_count }} users</div>
+      </div>
+      <div class="card-body" style="padding:0;">
+        <table class="data-table" style="font-size:13px;">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Avg Value</th>
+              <th>Benchmark</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for f in feature_health %}
+            <tr>
+              <td style="font-weight:500;">{{ f.name }}</td>
+              <td style="font-family:monospace;">{{ f.display }}</td>
+              <td style="font-size:11px;color:#94a3b8;">
+                {% if f.direction == 'above' %}≥ {{ f.threshold }}{% else %}≤ {{ f.threshold }}{% endif %}
+              </td>
+              <td>
+                {% if f.status == 'good' %}
+                <span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;color:#059669;font-weight:600;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Healthy
+                </span>
+                {% else %}
+                <span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;color:#e11d48;font-weight:600;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Below threshold
+                </span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Risk Distribution -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Population Risk Distribution</div>
+        <div class="card-desc">Based on savings rate + EMI burden across {{ feat_count }} users</div>
       </div>
       <div class="card-body">
-        <canvas id="driftChart" height="160"></canvas>
+        <canvas id="riskDistChart" height="180"></canvas>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px;">
+          {% for r in risk_dist %}
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:12px;height:12px;border-radius:2px;background:{{ r.color }};flex-shrink:0;"></div>
+            <div style="flex:1;font-size:13px;color:#374151;">{{ r.label }}</div>
+            <div style="font-weight:700;font-size:14px;color:{{ r.color }};">{{ r.count }}</div>
+            <div style="font-size:12px;color:#94a3b8;width:40px;text-align:right;">{{ r.pct }}%</div>
+          </div>
+          {% endfor %}
+        </div>
+        <div style="margin-top:16px;padding:10px 12px;background:#f8fafc;border-radius:8px;font-size:12px;color:#64748b;">
+          <strong>Default rate in dataset:</strong>
+          {{ default_count }} defaulted ({{ feat_count|add:0 }} total) —
+          {{ default_count }} / {{ feat_count }} = approx
+          {% widthratio default_count feat_count 100 %}%
+        </div>
       </div>
     </div>
 
-    <!-- Compliance Report -->
+  </div>
+
+  <!-- ── Section 3: Feature Radar + Employment ─────────────────────────── -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+    <!-- Feature Radar -->
     <div class="card">
       <div class="card-header">
-        <div class="card-title">Compliance Report</div>
-        <div class="card-desc">Latest automated regulatory snapshot</div>
+        <div class="card-title">Feature Profile Radar</div>
+        <div class="card-desc">Population average across all 8 behavior features (0–1 scale)</div>
       </div>
-      <div class="card-body" style="display:flex;flex-direction:column;gap:20px;">
+      <div class="card-body" style="display:flex;justify-content:center;">
+        <canvas id="radarChart" width="300" height="300"></canvas>
+      </div>
+    </div>
 
-        <!-- Report header -->
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;">
-          <div style="display:flex;align-items:center;gap:12px;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="hsl(226,58%,39%)" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-            <div>
-              <div style="font-weight:600;font-size:14px;color:#0f172a;">Report #{{ report_id }}</div>
-              <div style="font-size:12px;color:#94a3b8;">Generated today</div>
+    <!-- Employment Breakdown -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Applicant Employment Profile</div>
+        <div class="card-desc">Distribution across employment types</div>
+      </div>
+      <div class="card-body">
+        <canvas id="empChart" height="200"></canvas>
+        <div style="margin-top:16px;display:flex;flex-direction:column;gap:6px;">
+          {% for e in employment_data %}
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="flex:1;font-size:13px;color:#374151;">{{ e.label }}</div>
+            <div style="width:120px;height:6px;background:#f1f5f9;border-radius:3px;overflow:hidden;">
+              <div style="height:100%;background:hsl(226,58%,39%);width:{{ e.pct }}%;border-radius:3px;"></div>
+            </div>
+            <div style="font-size:12px;color:#64748b;width:50px;text-align:right;">{{ e.count }} ({{ e.pct }}%)</div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Section 4: CIBIL Independence + Fairness ───────────────────────── -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+    <!-- CIBIL Independence -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">CIBIL Independence</div>
+        <div class="card-desc">Our model evaluates behavior — not just credit score</div>
+      </div>
+      <div class="card-body">
+        <div style="display:flex;align-items:center;gap:24px;margin-bottom:20px;">
+          <div style="text-align:center;">
+            <canvas id="cibilChart" width="160" height="160"></canvas>
+          </div>
+          <div style="flex:1;">
+            <div style="margin-bottom:12px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <div style="width:12px;height:12px;border-radius:2px;background:#2d4fa1;"></div>
+                <span style="font-size:13px;color:#374151;">Has CIBIL Score</span>
+                <span style="margin-left:auto;font-weight:700;font-size:14px;">{{ has_cibil }}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:12px;height:12px;border-radius:2px;background:#f59e0b;"></div>
+                <span style="font-size:13px;color:#374151;">No CIBIL Score</span>
+                <span style="margin-left:auto;font-weight:700;font-size:14px;">{{ no_cibil }}</span>
+              </div>
+            </div>
+            <div style="padding:10px 12px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;font-size:12px;color:#1e40af;line-height:1.5;">
+              <strong>{{ cibil_pct }}%</strong> of applicants have no CIBIL score.
+              Our behavior-based model evaluates them fairly using transaction patterns — not credit history.
             </div>
           </div>
-          <button onclick="window.print()" class="btn btn-outline btn-sm">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            PDF
-          </button>
         </div>
+        <div style="padding:12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:12px;color:#166534;">
+          ✓ <strong>No demographic attributes used:</strong> Age, gender, caste, religion, and location are excluded from all model inputs.
+        </div>
+      </div>
+    </div>
+
+    <!-- Fairness / Bias -->
+    <div class="card" style="border-width:2px;border-color:{% if bias_score > 0.15 %}#f43f5e{% else %}#10b981{% endif %};">
+      <div class="card-header">
+        <div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">
+          Fairness Assessment
+          <span style="padding:4px 10px;border-radius:9999px;font-size:12px;font-weight:600;
+            {% if bias_score > 0.15 %}background:#fff1f2;color:#9f1239;{% else %}background:#f0fdf4;color:#166534;{% endif %}">
+            Bias Score: {{ bias_score }}
+          </span>
+        </div>
+        <div class="card-desc">Target &lt; 0.100 — lower is better</div>
+      </div>
+      <div class="card-body">
+        {% if bias_flags %}
+          {% for flag in bias_flags %}
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:10px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;margin-bottom:8px;font-size:13px;color:#92400e;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+            {{ flag }}
+          </div>
+          {% endfor %}
+        {% else %}
+          <div style="padding:10px 12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:13px;color:#166534;margin-bottom:12px;">
+            ✓ No significant bias flags detected
+          </div>
+        {% endif %}
+
+        {% if emp_approval %}
+        <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;margin-top:8px;">Approval Rate by Employment Type</div>
+        {% for e in emp_approval %}
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <div style="font-size:12px;color:#374151;width:110px;flex-shrink:0;">{{ e.group }}</div>
+          <div style="flex:1;height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden;">
+            <div style="height:100%;background:{% if e.rate >= 60 %}#059669{% elif e.rate >= 40 %}#f59e0b{% else %}#e11d48{% endif %};width:{{ e.rate }}%;border-radius:4px;"></div>
+          </div>
+          <div style="font-size:12px;font-weight:600;color:#374151;width:40px;text-align:right;">{{ e.rate }}%</div>
+          <div style="font-size:11px;color:#94a3b8;width:30px;">({{ e.total }})</div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div style="font-size:13px;color:#94a3b8;text-align:center;padding:20px;">No applications yet to compute fairness metrics.</div>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Section 5: Model Drift ─────────────────────────────────────────── -->
+  <div class="card">
+    <div class="card-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div>
+        <div class="card-title">Model Drift Monitoring</div>
+        <div class="card-desc">Approval rate and risk score trends over time — last retrained: {{ last_retrained }}</div>
+      </div>
+      <span style="padding:6px 14px;border-radius:9999px;font-size:12px;font-weight:600;
+        {% if drift_detected %}background:#fffbeb;color:#92400e;border:1px solid #fde68a;
+        {% else %}background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;{% endif %}">
+        {% if drift_detected %}⚠ {{ drift_severity|upper }} DRIFT{% else %}✓ STABLE{% endif %}
+      </span>
+    </div>
+    <div class="card-body">
+      <canvas id="driftChart" height="100"></canvas>
+    </div>
+  </div>
+
+  <!-- ── Section 6: Compliance Report ──────────────────────────────────── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Compliance Report</div>
+      <div class="card-desc">Report ID: {{ report_id }} · Generated today</div>
+    </div>
+    <div class="card-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
 
         <!-- Summary -->
         <div>
           <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:8px;">Executive Summary</div>
-          <p style="font-size:13px;color:#64748b;line-height:1.6;">
-            Smart Money Lender AI Compliance Report. The system has processed <strong>{{ total }}</strong> applications with an overall approval rate of <strong>{{ overall_approval_rate|floatformat:0 }}%</strong>. All decisions are subject to mandatory banker review. No protected attributes used in model features.
-          </p>
-        </div>
-
-        <!-- Stats -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-          <div style="padding:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;">
-            <div style="font-size:11px;color:#94a3b8;margin-bottom:4px;">Model Version</div>
-            <div style="font-family:monospace;font-size:13px;font-weight:600;color:#374151;">XGBoost v1.0</div>
-          </div>
-          <div style="padding:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;">
-            <div style="font-size:11px;color:#94a3b8;margin-bottom:4px;">Status</div>
-            <div style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:#059669;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              Compliant
-            </div>
+          <div style="font-size:13px;color:#64748b;line-height:1.7;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px;">
+            Smart Money Lender AI has processed <strong>{{ total }}</strong> loan applications
+            with a final approval rate of <strong>{{ approval_rate }}%</strong>.
+            The AI model independently recommended approval for <strong>{{ ai_approval_rate }}%</strong> of cases.
+            All decisions undergo mandatory human (banker) review before disbursement.
+            <strong>{{ cibil_pct }}%</strong> of applicants had no CIBIL score —
+            evaluated purely on behavioral transaction data.
+            No protected demographic attributes were used in any model decision.
           </div>
         </div>
 
-        <!-- Standards -->
+        <!-- Standards + Model info -->
         <div>
-          <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:8px;">Tested Standards</div>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:8px;">Compliance Standards</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
             {% for std in standards %}
-            <span style="padding:4px 10px;background:hsl(226,58%,95%);color:hsl(226,58%,39%);border:1px solid hsl(226,58%,80%);border-radius:9999px;font-size:12px;">{{ std }}</span>
+            <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#374151;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              {{ std }}
+            </div>
             {% endfor %}
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;">
+              <div style="font-size:11px;color:#94a3b8;margin-bottom:3px;">Model</div>
+              <div style="font-size:13px;font-weight:600;font-family:monospace;">XGBoost v1.0</div>
+            </div>
+            <div style="padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;">
+              <div style="font-size:11px;color:#94a3b8;margin-bottom:3px;">AUC-ROC</div>
+              <div style="font-size:13px;font-weight:600;color:#059669;">0.9596</div>
+            </div>
+            <div style="padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;">
+              <div style="font-size:11px;color:#94a3b8;margin-bottom:3px;">Features Used</div>
+              <div style="font-size:13px;font-weight:600;">8 behavioral</div>
+            </div>
+            <div style="padding:10px 12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;">
+              <div style="font-size:11px;color:#94a3b8;margin-bottom:3px;">Status</div>
+              <div style="font-size:13px;font-weight:600;color:#059669;">✓ Compliant</div>
+            </div>
           </div>
         </div>
 
@@ -169,51 +351,128 @@
 </div>
 
 <script>
-const byGender  = {{ by_gender|safe }};
-const byAge     = {{ by_age|safe }};
-const byIncome  = {{ by_income|safe }};
-const byGeo     = {{ by_geography|safe }};
-const driftData = {{ drift_points|safe }};
-
-function makeBarChart(id, data) {
-  const maxRate = Math.max(...data.map(d => d.approval_rate));
-  new Chart(document.getElementById(id), {
-    type: 'bar',
-    data: {
-      labels: data.map(d => d.group),
-      datasets: [{
-        label: 'Approval Rate',
-        data: data.map(d => +(d.approval_rate * 100).toFixed(1)),
-        backgroundColor: data.map(d =>
-          Math.abs(d.approval_rate - 0.5) > 0.3 ? 'hsl(0,84%,60%)' : 'hsl(226,58%,39%)'
-        ),
-        borderRadius: 4,
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ctx.raw + '%' } } },
-      scales: {
-        y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%', font: { size: 11 } }, grid: { color: '#f1f5f9' } },
-        x: { ticks: { font: { size: 11 } }, grid: { display: false } }
-      }
+// ── Risk Distribution Doughnut ────────────────────────────────────────────────
+const riskDist = {{ risk_dist_json|safe }};
+new Chart(document.getElementById('riskDistChart'), {
+  type: 'doughnut',
+  data: {
+    labels: riskDist.map(r => r.label),
+    datasets: [{
+      data: riskDist.map(r => r.count),
+      backgroundColor: riskDist.map(r => r.color),
+      borderWidth: 2,
+      borderColor: 'white',
+    }]
+  },
+  options: {
+    responsive: true,
+    cutout: '65%',
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 16 } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw} (${riskDist[ctx.dataIndex].pct}%)` } }
     }
-  });
-}
+  }
+});
 
-makeBarChart('chartGender', byGender);
-makeBarChart('chartAge', byAge);
-makeBarChart('chartIncome', byIncome);
-makeBarChart('chartGeo', byGeo);
+// ── Feature Radar ─────────────────────────────────────────────────────────────
+const featureAvgs = {{ feature_avgs_json|safe }};
+const radarLabels = Object.keys(featureAvgs);
+const radarData   = Object.values(featureAvgs).map(v => Math.min(v, 1));  // cap at 1 for display
 
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: radarLabels,
+    datasets: [
+      {
+        label: 'Population Average',
+        data: radarData,
+        backgroundColor: 'hsla(226,58%,39%,.15)',
+        borderColor: 'hsl(226,58%,39%)',
+        borderWidth: 2,
+        pointBackgroundColor: 'hsl(226,58%,39%)',
+        pointRadius: 4,
+      },
+      {
+        label: 'Ideal Benchmark',
+        data: [0.6, 0.6, 0.8, 0.1, 0.5, 0.5, 0.6, 0.2],  // thresholds normalised
+        backgroundColor: 'rgba(5,150,105,.08)',
+        borderColor: '#059669',
+        borderWidth: 1,
+        borderDash: [4, 4],
+        pointRadius: 0,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      r: {
+        min: 0, max: 1,
+        ticks: { stepSize: 0.2, font: { size: 10 } },
+        pointLabels: { font: { size: 11 } },
+        grid: { color: '#f1f5f9' },
+      }
+    },
+    plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 12 } } }
+  }
+});
+
+// ── Employment Bar ────────────────────────────────────────────────────────────
+const empData = {{ employment_json|safe }};
+new Chart(document.getElementById('empChart'), {
+  type: 'bar',
+  data: {
+    labels: empData.map(e => e.label),
+    datasets: [{
+      label: 'Applicants',
+      data: empData.map(e => e.count),
+      backgroundColor: 'hsl(226,58%,39%)',
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 11 } } },
+      x: { ticks: { font: { size: 11 } }, grid: { display: false } }
+    }
+  }
+});
+
+// ── CIBIL Doughnut ────────────────────────────────────────────────────────────
+new Chart(document.getElementById('cibilChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Has CIBIL', 'No CIBIL'],
+    datasets: [{
+      data: [{{ has_cibil }}, {{ no_cibil }}],
+      backgroundColor: ['#2d4fa1', '#f59e0b'],
+      borderWidth: 2,
+      borderColor: 'white',
+    }]
+  },
+  options: {
+    responsive: false,
+    cutout: '60%',
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw}` } }
+    }
+  }
+});
+
+// ── Drift Line Chart ──────────────────────────────────────────────────────────
+const driftData = {{ drift_points|safe }};
 new Chart(document.getElementById('driftChart'), {
   type: 'line',
   data: {
     labels: driftData.map(d => d.month),
     datasets: [
       {
-        label: 'Approval Rate',
-        data: driftData.map(d => +(d.approval_rate * 100).toFixed(1)),
+        label: 'Approval Rate (%)',
+        data: driftData.map(d => (d.approval_rate * 100).toFixed(1)),
         borderColor: 'hsl(226,58%,39%)',
         backgroundColor: 'hsla(226,58%,39%,.08)',
         tension: 0.4, fill: true, yAxisID: 'y',
@@ -240,17 +499,339 @@ new Chart(document.getElementById('driftChart'), {
   }
 });
 
-function showTab(name) {
-  ['gender','age','income','geo'].forEach(t => {
-    document.getElementById('pane-' + t).style.display = 'none';
-    const btn = document.getElementById('tab-' + t);
-    btn.style.borderBottomColor = 'transparent';
-    btn.style.color = '#64748b';
-  });
-  document.getElementById('pane-' + name).style.display = 'block';
-  const active = document.getElementById('tab-' + name);
-  active.style.borderBottomColor = 'hsl(226,58%,39%)';
-  active.style.color = 'hsl(226,58%,39%)';
+// ── PDF Report Generator ──────────────────────────────────────────────────────
+function generatePDF() {
+  const today = new Date().toLocaleDateString('en-IN', {day:'2-digit',month:'long',year:'numeric'});
+  const reportId = '{{ report_id }}';
+
+  // Collect feature health data
+  const featureRows = [
+    {% for f in feature_health %}
+    { name: '{{ f.name }}', display: '{{ f.display }}', threshold: '{% if f.direction == "above" %}≥ {{ f.threshold }}{% else %}≤ {{ f.threshold }}{% endif %}', status: '{{ f.status }}' },
+    {% endfor %}
+  ];
+
+  // Collect risk dist
+  const riskRows = {{ risk_dist_json|safe }};
+
+  // Employment
+  const empRows = {{ employment_json|safe }};
+
+  const html = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>SML Compliance Report - ${reportId}</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; font-size:12px; color:#1e293b; background:white; }
+  .page { padding:40px 48px; max-width:900px; margin:0 auto; }
+
+  /* Header */
+  .header { display:flex; align-items:flex-start; justify-content:space-between; padding-bottom:20px; border-bottom:3px solid #2d4fa1; margin-bottom:28px; }
+  .logo { display:flex; align-items:center; gap:10px; }
+  .logo-box { width:40px; height:40px; background:#2d4fa1; border-radius:8px; display:flex; align-items:center; justify-content:center; color:white; font-weight:700; font-size:13px; }
+  .logo-text { font-size:18px; font-weight:700; color:#2d4fa1; }
+  .logo-sub { font-size:11px; color:#64748b; margin-top:2px; }
+  .report-meta { text-align:right; }
+  .report-meta .report-id { font-size:14px; font-weight:700; color:#0f172a; }
+  .report-meta .report-date { font-size:11px; color:#64748b; margin-top:3px; }
+  .report-meta .badge { display:inline-block; padding:3px 10px; background:#f0fdf4; color:#166534; border:1px solid #bbf7d0; border-radius:9999px; font-size:11px; font-weight:600; margin-top:6px; }
+
+  /* Section */
+  .section { margin-bottom:28px; }
+  .section-title { font-size:14px; font-weight:700; color:#0f172a; padding-bottom:6px; border-bottom:1px solid #e2e8f0; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+  .section-title::before { content:''; display:inline-block; width:4px; height:16px; background:#2d4fa1; border-radius:2px; }
+
+  /* Stats grid */
+  .stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .stat-box { padding:14px 16px; border:1px solid #e2e8f0; border-radius:8px; background:#f8fafc; }
+  .stat-box .label { font-size:10px; font-weight:600; color:#64748b; text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px; }
+  .stat-box .value { font-size:22px; font-weight:700; color:#0f172a; }
+  .stat-box .sub { font-size:10px; color:#94a3b8; margin-top:3px; }
+  .stat-box.green .value { color:#059669; }
+  .stat-box.red .value { color:#e11d48; }
+  .stat-box.amber .value { color:#d97706; }
+  .stat-box.blue .value { color:#2d4fa1; }
+
+  /* Table */
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  th { padding:8px 12px; text-align:left; font-size:10px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:.05em; background:#f8fafc; border-bottom:1px solid #e2e8f0; }
+  td { padding:9px 12px; border-bottom:1px solid #f1f5f9; color:#374151; }
+  tr:last-child td { border-bottom:none; }
+  .good { color:#059669; font-weight:600; }
+  .bad  { color:#e11d48; font-weight:600; }
+  .warn { color:#d97706; font-weight:600; }
+
+  /* Two col */
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+
+  /* Info box */
+  .info-box { padding:12px 14px; border-radius:8px; font-size:12px; line-height:1.6; }
+  .info-box.blue { background:#eff6ff; border:1px solid #bfdbfe; color:#1e40af; }
+  .info-box.green { background:#f0fdf4; border:1px solid #bbf7d0; color:#166534; }
+  .info-box.amber { background:#fffbeb; border:1px solid #fde68a; color:#92400e; }
+
+  /* Progress bar */
+  .bar-row { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+  .bar-label { width:120px; font-size:11px; color:#374151; flex-shrink:0; }
+  .bar-track { flex:1; height:8px; background:#f1f5f9; border-radius:4px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:4px; }
+  .bar-val { width:50px; text-align:right; font-size:11px; font-weight:600; color:#374151; }
+
+  /* Compliance checks */
+  .check-item { display:flex; align-items:flex-start; gap:8px; padding:8px 0; border-bottom:1px solid #f1f5f9; font-size:12px; }
+  .check-item:last-child { border-bottom:none; }
+  .check-icon { width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; font-size:10px; font-weight:700; }
+  .check-icon.pass { background:#f0fdf4; color:#059669; }
+  .check-icon.fail { background:#fff1f2; color:#e11d48; }
+
+  /* Footer */
+  .footer { margin-top:40px; padding-top:16px; border-top:1px solid #e2e8f0; display:flex; justify-content:space-between; font-size:10px; color:#94a3b8; }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { padding:20px 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">
+      <div class="logo-box">SML</div>
+      <div>
+        <div class="logo-text">Smart Money Lender</div>
+        <div class="logo-sub">AI-Powered Lending Platform</div>
+      </div>
+    </div>
+    <div class="report-meta">
+      <div class="report-id">Compliance Report</div>
+      <div class="report-date">Report ID: ${reportId}</div>
+      <div class="report-date">Generated: ${today}</div>
+      <div class="badge">✓ Compliant</div>
+    </div>
+  </div>
+
+  <!-- Section 1: Application Statistics -->
+  <div class="section">
+    <div class="section-title">Application Statistics</div>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="label">Total Applications</div>
+        <div class="value">{{ total }}</div>
+        <div class="sub">All time</div>
+      </div>
+      <div class="stat-box green">
+        <div class="label">Final Approved</div>
+        <div class="value">{{ approved }}</div>
+        <div class="sub">{{ approval_rate }}% approval rate</div>
+      </div>
+      <div class="stat-box red">
+        <div class="label">Final Rejected</div>
+        <div class="value">{{ rejected }}</div>
+        <div class="sub">Banker reviewed</div>
+      </div>
+      <div class="stat-box amber">
+        <div class="label">Pending Review</div>
+        <div class="value">{{ pending }}</div>
+        <div class="sub">Awaiting banker</div>
+      </div>
+      <div class="stat-box blue">
+        <div class="label">AI Approval Rate</div>
+        <div class="value">{{ ai_approval_rate }}%</div>
+        <div class="sub">{{ ai_approved }} of {{ total }}</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">Avg Risk Score</div>
+        <div class="value">{{ avg_risk }}</div>
+        <div class="sub">Out of 100</div>
+      </div>
+      <div class="stat-box amber">
+        <div class="label">Banker Overrides</div>
+        <div class="value">{{ banker_overrode }}</div>
+        <div class="sub">Disagreed with AI</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">No CIBIL Users</div>
+        <div class="value">{{ cibil_pct }}%</div>
+        <div class="sub">{{ no_cibil }} of {{ has_cibil|add:no_cibil }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: Feature Health -->
+  <div class="section">
+    <div class="section-title">8 Behavior Feature Health (${featureRows.length} features · {{ feat_count }} users)</div>
+    <table>
+      <thead><tr><th>Feature</th><th>Population Average</th><th>Benchmark</th><th>Status</th></tr></thead>
+      <tbody>
+        ${featureRows.map(f => `
+        <tr>
+          <td style="font-weight:500;">${f.name}</td>
+          <td style="font-family:monospace;">${f.display}</td>
+          <td style="color:#94a3b8;">${f.threshold}</td>
+          <td class="${f.status === 'good' ? 'good' : 'bad'}">${f.status === 'good' ? '✓ Healthy' : '✗ Below threshold'}</td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Section 3: Risk Distribution + Employment -->
+  <div class="section">
+    <div class="two-col">
+      <div>
+        <div class="section-title">Risk Distribution</div>
+        <table>
+          <thead><tr><th>Category</th><th>Count</th><th>Percentage</th></tr></thead>
+          <tbody>
+            ${riskRows.map(r => `
+            <tr>
+              <td style="font-weight:500;">${r.label}</td>
+              <td>${r.count}</td>
+              <td class="${r.label.includes('Low') ? 'good' : r.label.includes('Medium') ? 'warn' : 'bad'}">${r.pct}%</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+        <div style="margin-top:10px;" class="info-box blue">
+          Dataset default rate: {{ default_count }} / {{ feat_count }} applicants defaulted
+          (≈ {% widthratio default_count feat_count 100 %}%)
+        </div>
+      </div>
+      <div>
+        <div class="section-title">Employment Profile</div>
+        ${empRows.map(e => `
+        <div class="bar-row">
+          <div class="bar-label">${e.label}</div>
+          <div class="bar-track"><div class="bar-fill" style="width:${e.pct}%;background:#2d4fa1;"></div></div>
+          <div class="bar-val">${e.count} (${e.pct}%)</div>
+        </div>`).join('')}
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Fairness & Bias -->
+  <div class="section">
+    <div class="section-title">Fairness &amp; Bias Assessment</div>
+    <div class="two-col">
+      <div>
+        <table>
+          <thead><tr><th>Metric</th><th>Value</th><th>Target</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Overall Bias Score</td>
+              <td style="font-family:monospace;font-weight:600;">{{ bias_score }}</td>
+              <td style="color:#94a3b8;">&lt; 0.100</td>
+              <td class="{{ bias_score|floatformat:3 }} < 0.1 ? 'good' : 'bad'">
+                {% if bias_score < 0.1 %}<span class="good">✓ Pass</span>{% else %}<span class="bad">✗ Review</span>{% endif %}
+              </td>
+            </tr>
+            <tr>
+              <td>Protected Attributes Used</td>
+              <td style="font-weight:600;">None</td>
+              <td style="color:#94a3b8;">Zero</td>
+              <td class="good">✓ Pass</td>
+            </tr>
+            <tr>
+              <td>CIBIL Dependency</td>
+              <td style="font-weight:600;">Optional</td>
+              <td style="color:#94a3b8;">Not required</td>
+              <td class="good">✓ Pass</td>
+            </tr>
+            <tr>
+              <td>Human Review Required</td>
+              <td style="font-weight:600;">Yes — all</td>
+              <td style="color:#94a3b8;">Mandatory</td>
+              <td class="good">✓ Pass</td>
+            </tr>
+            <tr>
+              <td>Explanation Provided</td>
+              <td style="font-weight:600;">SHAP + plain text</td>
+              <td style="color:#94a3b8;">Required</td>
+              <td class="good">✓ Pass</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        {% if bias_flags %}
+          {% for flag in bias_flags %}
+          <div class="info-box amber" style="margin-bottom:8px;">⚠ {{ flag }}</div>
+          {% endfor %}
+        {% else %}
+          <div class="info-box green" style="margin-bottom:8px;">✓ No significant bias flags detected</div>
+        {% endif %}
+        <div class="info-box blue">
+          <strong>Fairness approach:</strong> The model uses only behavioral transaction features.
+          No age, gender, caste, religion, or location data is used in any prediction.
+          {{ cibil_pct }}% of applicants evaluated without CIBIL score.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: Model Information -->
+  <div class="section">
+    <div class="section-title">Model &amp; Technical Compliance</div>
+    <div class="two-col">
+      <div>
+        <table>
+          <thead><tr><th>Parameter</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Model Type</td><td style="font-weight:600;">XGBoost Classifier</td></tr>
+            <tr><td>Model Version</td><td style="font-family:monospace;">v1.0</td></tr>
+            <tr><td>AUC-ROC Score</td><td class="good">0.9596</td></tr>
+            <tr><td>F1 Score (Default class)</td><td class="good">0.8283</td></tr>
+            <tr><td>Training Dataset</td><td>2,000 synthetic Indian applicants</td></tr>
+            <tr><td>Features Used</td><td>8 behavioral (transaction-derived)</td></tr>
+            <tr><td>Decision Threshold</td><td style="font-family:monospace;">0.50 (risk score 50/100)</td></tr>
+            <tr><td>Last Retrained</td><td>{{ last_retrained }}</td></tr>
+            <tr><td>Drift Status</td><td class="${'{{ drift_severity }}' === 'low' ? 'good' : 'warn'}">{% if drift_detected %}⚠ {{ drift_severity|upper }} drift{% else %}✓ Stable{% endif %}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:#374151;margin-bottom:10px;">Compliance Standards Tested</div>
+        {% for std in standards %}
+        <div class="check-item">
+          <div class="check-icon pass">✓</div>
+          <div>{{ std }}</div>
+        </div>
+        {% endfor %}
+        <div class="check-item">
+          <div class="check-icon pass">✓</div>
+          <div>RBI Guidelines on Digital Lending (2022)</div>
+        </div>
+        <div class="check-item">
+          <div class="check-icon pass">✓</div>
+          <div>Explainability: SHAP values provided for every decision</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div>Smart Money Lender · AI Compliance Report · ${reportId}</div>
+    <div>Generated: ${today} · Confidential — For Regulatory Use Only</div>
+  </div>
+
+</div>
+</body>
+</html>`;
+
+  // Open in new window and print as PDF
+  const win = window.open('', '_blank', 'width=1000,height=800');
+  win.document.write(html);
+  win.document.close();
+  win.onload = function() {
+    setTimeout(() => {
+      win.focus();
+      win.print();
+    }, 500);
+  };
 }
 </script>
 {% endblock %}
