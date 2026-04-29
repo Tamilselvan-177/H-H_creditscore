@@ -1,0 +1,372 @@
+{% extends 'loans/base.html' %}
+{% block title %}Application #{{ app.id }} — Banker Review{% endblock %}
+{% block content %}
+<div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:24px;">
+
+  <!-- Back -->
+  <a href="{% url 'banker_dashboard' %}" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;color:#64748b;text-decoration:none;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Back to Queue
+  </a>
+
+  <!-- Header -->
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+    <div>
+      <h1 style="font-size:28px;font-weight:700;color:#0f172a;letter-spacing:-.02em;">Application #{{ app.id }}</h1>
+      <p style="color:#64748b;font-size:14px;margin-top:4px;">
+        Applicant: <strong>{{ app.user.get_full_name|default:app.user.username }}</strong> · {{ app.user.email }}
+      </p>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span class="badge badge-outline">AI: {{ app.ai_decision|upper }}</span>
+      <span class="badge {% if app.final_status == 'approved' %}badge-approved{% elif app.final_status == 'rejected' %}badge-rejected{% else %}badge-pending{% endif %}">
+        Status: {{ app.final_status|upper }}
+      </span>
+    </div>
+  </div>
+
+  {% if messages %}
+    {% for msg in messages %}
+      <div class="alert-success">{{ msg }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- LAYER 1: POLICY ELIGIBILITY                                            -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <div class="card">
+    <div style="padding:20px 24px 0;display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div class="card-title" style="display:flex;align-items:center;gap:8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(226,58%,39%)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Layer 1 — Policy Eligibility Check
+        </div>
+        <div class="card-desc">SBI loan policy rules — hard gates before ML evaluation</div>
+      </div>
+      {% if policy_passed %}
+      <span style="padding:6px 14px;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;border-radius:9999px;font-size:13px;font-weight:600;">
+        ✓ All Rules Passed
+      </span>
+      {% else %}
+      <span style="padding:6px 14px;background:#fff1f2;color:#9f1239;border:1px solid #fecdd3;border-radius:9999px;font-size:13px;font-weight:600;">
+        ✕ Policy Failed
+      </span>
+      {% endif %}
+    </div>
+    <div style="padding:20px 24px 24px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
+        {% for check in policy_checks %}
+        <div style="padding:14px 16px;border-radius:10px;border:1px solid {% if check.passed %}#bbf7d0{% else %}#fecdd3{% endif %};background:{% if check.passed %}#f0fdf4{% else %}#fff1f2{% endif %};">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <span style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.04em;">{{ check.label }}</span>
+            {% if check.passed %}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            {% else %}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            {% endif %}
+          </div>
+          <div style="font-size:16px;font-weight:700;color:{% if check.passed %}#166534{% else %}#9f1239{% endif %};">{{ check.value }}</div>
+          <div style="font-size:11px;color:#64748b;margin-top:3px;">Required: {{ check.required }}</div>
+          <div style="font-size:11px;color:#94a3b8;margin-top:2px;">{{ check.note }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- LAYER 2: ML DECISION SUMMARY — 4 KEY POINTS                           -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <div class="card">
+    <div style="padding:20px 24px 0;">
+      <div class="card-title" style="display:flex;align-items:center;gap:8px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(226,58%,39%)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Layer 2 — AI Model Decision Summary
+      </div>
+      <div class="card-desc">4 key points to help you make a quick, informed decision</div>
+    </div>
+    <div style="padding:20px 24px 24px;">
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;">
+        {% for point in ml_summary %}
+        <div style="padding:18px 20px;border-radius:12px;border:1px solid
+          {% if point.status == 'good' %}#bbf7d0{% elif point.status == 'warn' %}#fde68a{% else %}#fecdd3{% endif %};
+          background:{% if point.status == 'good' %}#f0fdf4{% elif point.status == 'warn' %}#fffbeb{% else %}#fff1f2{% endif %};">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <span style="font-size:20px;">{{ point.icon }}</span>
+            <span style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.04em;">{{ point.title }}</span>
+          </div>
+          <div style="font-size:20px;font-weight:700;color:
+            {% if point.status == 'good' %}#166534{% elif point.status == 'warn' %}#92400e{% else %}#9f1239{% endif %};
+            margin-bottom:6px;">
+            {{ point.value }}
+          </div>
+          <div style="font-size:12px;color:#64748b;line-height:1.5;">{{ point.detail }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Main body grid -->
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start;">
+
+    <!-- Left: Applicant details + SHAP -->
+    <div style="display:flex;flex-direction:column;gap:20px;">
+
+      <!-- Applicant Details -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">Applicant Details</div></div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+            <div><div style="font-size:11px;color:#64748b;margin-bottom:3px;">Loan Type</div><div style="font-weight:600;text-transform:capitalize;">{{ app.loan_type }}</div></div>
+            <div><div style="font-size:11px;color:#64748b;margin-bottom:3px;">Amount</div><div style="font-weight:700;font-size:16px;">₹{{ app.loan_amount_rupees|floatformat:0 }}</div></div>
+            <div><div style="font-size:11px;color:#64748b;margin-bottom:3px;">Tenure</div><div style="font-weight:600;">{{ app.tenure_months }} months</div></div>
+            <div><div style="font-size:11px;color:#64748b;margin-bottom:3px;">Annual Income</div><div style="font-weight:600;">₹{{ app.annual_income_rupees|floatformat:0 }}</div></div>
+            <div><div style="font-size:11px;color:#64748b;margin-bottom:3px;">Monthly Expenses</div><div style="font-weight:600;">₹{{ app.monthly_expenses_rupees|floatformat:0 }}</div></div>
+            <div><div style="font-size:11px;color:#64748b;margin-bottom:3px;">Employment</div><div style="font-weight:600;text-transform:capitalize;">{{ app.employment_type }}</div></div>
+            <div><div style="font-size:11px;color:#64748b;margin-bottom:3px;">Credit Score</div><div style="font-weight:600;">{% if app.credit_score %}{{ app.credit_score }}{% else %}Not available{% endif %}</div></div>
+            <div><div style="font-size:11px;color:#64748b;margin-bottom:3px;">Existing EMI</div><div style="font-weight:600;">₹{{ app.existing_emi_rupees|floatformat:0 }}/mo</div></div>
+            <div><div style="font-size:11px;color:#64748b;margin-bottom:3px;">Existing Loans</div><div style="font-weight:600;">{{ app.existing_loans_count }}</div></div>
+            {% if app.vehicle_purpose %}
+            <div style="grid-column:1/-1;"><div style="font-size:11px;color:#64748b;margin-bottom:3px;">Vehicle Purpose</div><div style="font-weight:600;">{{ app.vehicle_purpose }}</div></div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- SHAP Chart -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">AI Risk Analysis (Auditor View)</div>
+          <div class="card-desc">SHAP values — positive = increases default risk, negative = reduces risk</div>
+        </div>
+        <div class="card-body">
+          <canvas id="shapChart" height="220"></canvas>
+          <div style="display:flex;justify-content:center;gap:24px;margin-top:12px;">
+            <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#64748b;">
+              <div style="width:10px;height:10px;border-radius:2px;background:#059669;"></div> Helps (reduces risk)
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#64748b;">
+              <div style="width:10px;height:10px;border-radius:2px;background:#e11d48;"></div> Hurts (increases risk)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Factor Details -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">Factor Details</div></div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:8px;">
+          {% for factor in app.shap_factors %}
+          <div style="display:flex;align-items:flex-start;gap:10px;padding:12px;border-radius:8px;
+            {% if factor.impact_direction == 'helps' %}background:#f0fdf4;border:1px solid #bbf7d0;
+            {% else %}background:#fff1f2;border:1px solid #fecdd3;{% endif %}">
+            <span style="font-size:15px;margin-top:1px;">{% if factor.impact_direction == 'helps' %}✅{% else %}❌{% endif %}</span>
+            <div style="flex:1;">
+              <div style="font-weight:600;font-size:13px;color:#0f172a;display:flex;align-items:center;justify-content:space-between;">
+                <span>{{ factor.feature }}</span>
+                <span style="font-family:monospace;font-size:12px;font-weight:400;
+                  {% if factor.impact_direction == 'helps' %}color:#059669;{% else %}color:#e11d48;{% endif %}">
+                  SHAP {{ factor.impact|floatformat:4 }}
+                </span>
+              </div>
+              <p style="font-size:12px;color:#64748b;margin-top:3px;line-height:1.5;">{{ factor.description }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Transaction Evidence -->
+      {% if traced %}
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Transaction Evidence</div>
+          <div class="card-desc">Top transactions behind the 3 most influential SHAP features</div>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:16px;">
+          {% for item in traced %}
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+              <span style="font-size:12px;font-weight:600;color:#374151;">{{ item.feature }}</span>
+              <span style="font-size:11px;padding:2px 8px;border-radius:9999px;
+                {% if item.impact == 'hurts' %}background:#fff1f2;color:#9f1239;{% else %}background:#f0fdf4;color:#166534;{% endif %}">
+                {{ item.impact|upper }}
+              </span>
+            </div>
+            {% if item.transactions %}
+            <div style="overflow-x:auto;">
+              <table class="data-table" style="font-size:12px;">
+                <thead><tr><th>Transaction ID</th><th>Amount</th><th>Category</th><th>Type</th><th>Date</th><th>Mode</th></tr></thead>
+                <tbody>
+                  {% for t in item.transactions %}
+                  <tr>
+                    <td style="font-family:monospace;font-size:11px;">{{ t.id }}</td>
+                    <td style="font-weight:600;">₹{{ t.amount|floatformat:0 }}</td>
+                    <td style="text-transform:capitalize;">{{ t.category }}</td>
+                    <td><span class="badge {% if t.type == 'credit' %}badge-approved{% else %}badge-rejected{% endif %}" style="font-size:10px;">{{ t.type }}</span></td>
+                    <td>{{ t.date }}</td>
+                    <td>{{ t.mode }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% else %}
+            <div style="font-size:12px;color:#94a3b8;padding:8px;">No transactions found for this feature.</div>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+
+    <!-- Right: Risk gauge + Fairness + Decision -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+
+      <!-- Risk Gauge -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">Risk Score</div></div>
+        <div class="card-body" style="display:flex;flex-direction:column;align-items:center;">
+          {% with risk=app.risk_score_display|default:50 %}
+          <div style="position:relative;width:160px;height:80px;">
+            <svg viewBox="0 0 100 50" style="width:100%;height:100%;overflow:visible;">
+              <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e2e8f0" stroke-width="12" stroke-linecap="round"/>
+              <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none"
+                stroke="{% if risk < 30 %}#059669{% elif risk < 60 %}#f59e0b{% else %}#e11d48{% endif %}"
+                stroke-width="12" stroke-linecap="round"
+                style="stroke-dasharray:calc({{ risk }} / 100 * 125.6px) 125.6px;"/>
+            </svg>
+            <div style="position:absolute;bottom:0;left:0;right:0;text-align:center;">
+              <span style="font-size:30px;font-weight:700;color:{% if risk < 30 %}#059669{% elif risk < 60 %}#f59e0b{% else %}#e11d48{% endif %};">
+                {{ risk|floatformat:0 }}
+              </span>
+            </div>
+          </div>
+          <div style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-top:4px;">/ 100</div>
+          <div style="margin-top:6px;font-size:13px;font-weight:600;
+            {% if risk < 30 %}color:#059669;{% elif risk < 60 %}color:#f59e0b;{% else %}color:#e11d48;{% endif %}">
+            {% if risk < 30 %}Low Risk{% elif risk < 60 %}Medium Risk{% else %}High Risk{% endif %}
+          </div>
+          <div style="font-size:12px;color:#64748b;margin-top:6px;font-weight:600;">Risk Score: {{ risk|floatformat:2 }} / 100</div>
+          <div style="font-size:11px;color:#94a3b8;margin-top:2px;">Threshold: 50 → above = reject</div>
+          {% endwith %}
+        </div>
+      </div>
+
+      <!-- Fairness -->
+      <div class="card" style="{% if app.fairness_check_passed %}background:#f0fdf4;border-color:#bbf7d0;{% else %}background:#fffbeb;border-color:#fde68a;{% endif %}">
+        <div class="card-body" style="padding:16px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            {% if app.fairness_check_passed %}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" style="flex-shrink:0;margin-top:1px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            <div>
+              <div style="font-weight:600;color:#166534;font-size:13px;">Fairness Check Passed</div>
+              <p style="font-size:11px;color:#166534;opacity:.8;margin-top:3px;line-height:1.4;">{{ app.fairness_note }}</p>
+            </div>
+            {% else %}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" style="flex-shrink:0;margin-top:1px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+            <div>
+              <div style="font-weight:600;color:#92400e;font-size:13px;">Fairness Flag Raised</div>
+              <p style="font-size:11px;color:#92400e;opacity:.8;margin-top:3px;line-height:1.4;">Requires manual review.</p>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Banker Decision -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Your Decision</div>
+          <div class="card-desc">Finalise the application outcome</div>
+        </div>
+        <div class="card-body">
+          {% if app.final_status == 'pending' %}
+            <form method="post">
+              {% csrf_token %}
+              {% if app.banker_note %}
+              <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;font-size:12px;margin-bottom:12px;">
+                <span style="font-weight:600;display:block;margin-bottom:3px;">Previous Note:</span>{{ app.banker_note }}
+              </div>
+              {% endif %}
+              <div style="margin-bottom:14px;">
+                <label style="display:block;font-size:12px;font-weight:500;color:#374151;margin-bottom:6px;">Note (optional)</label>
+                <textarea name="note" rows="3" placeholder="Reason for your decision..."
+                  style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:8px;font-size:12px;outline:none;resize:none;font-family:inherit;box-sizing:border-box;"
+                  onfocus="this.style.borderColor='hsl(226,58%,39%)'"
+                  onblur="this.style.borderColor='#d1d5db'"></textarea>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <button type="submit" name="decision" value="approved" class="btn btn-approve" style="flex:1;justify-content:center;padding:10px;font-size:13px;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  Approve
+                </button>
+                <button type="submit" name="decision" value="rejected" class="btn btn-reject" style="flex:1;justify-content:center;padding:10px;font-size:13px;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  Reject
+                </button>
+              </div>
+            </form>
+          {% else %}
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:12px;color:#64748b;">Decision:</span>
+                <span class="badge {% if app.banker_decision == 'approved' %}badge-approved{% else %}badge-rejected{% endif %}">{{ app.banker_decision|upper }}</span>
+              </div>
+              {% if app.banker_note %}
+              <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;font-size:12px;color:#374151;">{{ app.banker_note }}</div>
+              {% endif %}
+              {% if app.banker_reviewed_at %}
+              <div style="font-size:11px;color:#94a3b8;">Reviewed: {{ app.banker_reviewed_at|date:"d M Y, H:i" }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const shapData = {{ shap_data|safe }};
+new Chart(document.getElementById('shapChart'), {
+  type: 'bar',
+  data: {
+    labels: shapData.map(f => f.feature),
+    datasets: [{
+      label: 'SHAP Impact',
+      data: shapData.map(f => f.impact),
+      backgroundColor: shapData.map(f => f.impact > 0 ? 'rgba(225,29,72,0.8)' : 'rgba(5,150,105,0.8)'),
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => {
+            const dir = ctx.raw > 0 ? '▲ increases risk' : '▼ reduces risk';
+            return ` SHAP: ${ctx.raw.toFixed(4)} (${dir})`;
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: '#f1f5f9' },
+        ticks: { font: { size: 11 } },
+        title: { display: true, text: '← reduces risk  |  increases risk →', font: { size: 10 }, color: '#94a3b8' }
+      },
+      y: { ticks: { font: { size: 11 } } }
+    }
+  }
+});
+</script>
+{% endblock %}

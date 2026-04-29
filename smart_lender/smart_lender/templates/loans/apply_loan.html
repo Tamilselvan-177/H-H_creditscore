@@ -1,0 +1,154 @@
+{% extends 'loans/base.html' %}
+{% block title %}Apply for a Loan — Smart Money Lender{% endblock %}
+{% block content %}
+<div style="max-width:600px;margin:0 auto;display:flex;flex-direction:column;gap:24px;">
+
+  <div>
+    <h1 style="font-size:28px;font-weight:700;color:#0f172a;letter-spacing:-.02em;">Apply for a Loan</h1>
+    <p style="color:#64748b;font-size:14px;margin-top:4px;">
+      Our AI evaluates your financial behavior from your transaction history — not just your credit score.
+    </p>
+  </div>
+
+  <!-- Profile info card -->
+  {% if profile and profile.csv_user_id %}
+  <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:12px;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <div>
+      <div style="font-size:13px;font-weight:600;color:#1e40af;">Linked to dataset user: {{ profile.csv_user_id }}</div>
+      <div style="font-size:12px;color:#3b82f6;">
+        Income: ₹{{ profile.monthly_income|floatformat:0 }}/mo ·
+        {{ profile.employment_type|capfirst }} ·
+        {% if profile.cibil_score %}CIBIL: {{ profile.cibil_score|floatformat:0 }}{% else %}No CIBIL{% endif %}
+      </div>
+    </div>
+    <div style="margin-left:auto;">
+      <span style="background:#dbeafe;color:#1e40af;padding:3px 10px;border-radius:9999px;font-size:11px;font-weight:600;">
+        ✓ Features Ready
+      </span>
+    </div>
+  </div>
+  {% elif profile %}
+  <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:12px;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <div style="font-size:13px;color:#92400e;">
+      No dataset user linked. Default behavior profile will be used for demo.
+      <a href="{% url 'register' %}" style="color:#d97706;font-weight:600;">Re-register with a USR_XXXX ID</a> to use real data.
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Application form -->
+  <div class="card">
+    <div style="padding:20px 24px 0;">
+      <div class="card-title">Loan Application</div>
+      <div class="card-desc">Fill in the loan details. Your financial profile is loaded automatically.</div>
+    </div>
+    <div style="padding:20px 24px 24px;">
+      <form method="post" id="loanForm">
+        {% csrf_token %}
+        <div style="display:flex;flex-direction:column;gap:18px;">
+
+          <!-- Loan Type -->
+          <div>
+            <label class="form-label">Loan Type</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;">
+              <label id="lbl-personal" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border:2px solid hsl(226,58%,39%);border-radius:10px;cursor:pointer;background:hsl(226,58%,95%);">
+                <input type="radio" name="loan_type" value="personal" checked onchange="toggleLoanType()" style="accent-color:hsl(226,58%,39%);">
+                <div>
+                  <div style="font-weight:600;font-size:14px;color:#0f172a;">Personal Loan</div>
+                  <div style="font-size:12px;color:#64748b;">For any personal need</div>
+                </div>
+              </label>
+              <label id="lbl-vehicle" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border:2px solid #e2e8f0;border-radius:10px;cursor:pointer;background:white;">
+                <input type="radio" name="loan_type" value="vehicle" onchange="toggleLoanType()" style="accent-color:hsl(226,58%,39%);">
+                <div>
+                  <div style="font-weight:600;font-size:14px;color:#0f172a;">Vehicle Loan</div>
+                  <div style="font-size:12px;color:#64748b;">Two-wheeler or car</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Amount + Tenure -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div>
+              <label class="form-label">Loan Amount (₹)</label>
+              <input type="number" name="loan_amount_rupees" value="100000" min="10000" max="10000000"
+                class="form-input" style="margin-top:6px;"/>
+              {% if form.loan_amount_rupees.errors %}
+                <p style="color:#e11d48;font-size:12px;margin-top:4px;">{{ form.loan_amount_rupees.errors.0 }}</p>
+              {% endif %}
+            </div>
+            <div>
+              <label class="form-label">Tenure (Months)</label>
+              <input type="number" name="tenure_months" value="12" min="3" max="360"
+                class="form-input" style="margin-top:6px;"/>
+            </div>
+          </div>
+
+          <!-- Vehicle purpose (conditional) -->
+          <div id="vehiclePurposeDiv" style="display:none;">
+            <label class="form-label">Vehicle Purpose</label>
+            <input type="text" name="vehicle_purpose" placeholder="e.g. Daily commute, Business use"
+              class="form-input" style="margin-top:6px;"/>
+            {% if form.vehicle_purpose.errors %}
+              <p style="color:#e11d48;font-size:12px;margin-top:4px;">{{ form.vehicle_purpose.errors.0 }}</p>
+            {% endif %}
+          </div>
+
+          {% if form.non_field_errors %}
+          <div style="background:#fff1f2;border:1px solid #fecdd3;color:#9f1239;padding:12px;border-radius:8px;font-size:13px;">
+            {{ form.non_field_errors.0 }}
+          </div>
+          {% endif %}
+
+          <!-- What happens next -->
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;">
+            <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:8px;">What happens after you submit:</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#64748b;">
+                <span style="width:20px;height:20px;border-radius:50%;background:hsl(226,58%,39%);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">1</span>
+                AI model analyzes your financial behavior instantly
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#64748b;">
+                <span style="width:20px;height:20px;border-radius:50%;background:hsl(226,58%,39%);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">2</span>
+                Application goes to a banker for review
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#64748b;">
+                <span style="width:20px;height:20px;border-radius:50%;background:hsl(226,58%,39%);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">3</span>
+                Once approved or rejected — you see the full explanation
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn btn-primary"
+          style="width:100%;margin-top:20px;padding:13px;font-size:15px;justify-content:center;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Submit Application
+        </button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleLoanType() {
+  const isVehicle = document.querySelector('input[name="loan_type"]:checked').value === 'vehicle';
+  document.getElementById('vehiclePurposeDiv').style.display = isVehicle ? 'block' : 'none';
+  document.getElementById('lbl-personal').style.borderColor = isVehicle ? '#e2e8f0' : 'hsl(226,58%,39%)';
+  document.getElementById('lbl-personal').style.background  = isVehicle ? 'white' : 'hsl(226,58%,95%)';
+  document.getElementById('lbl-vehicle').style.borderColor  = isVehicle ? 'hsl(226,58%,39%)' : '#e2e8f0';
+  document.getElementById('lbl-vehicle').style.background   = isVehicle ? 'hsl(226,58%,95%)' : 'white';
+}
+document.getElementById('loanForm').addEventListener('submit', function() {
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Analyzing...';
+});
+</script>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+{% endblock %}

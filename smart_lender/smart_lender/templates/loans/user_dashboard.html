@@ -1,0 +1,93 @@
+{% extends 'loans/base.html' %}
+{% block title %}Dashboard — Smart Money Lender{% endblock %}
+{% block content %}
+<div style="display:flex;flex-direction:column;gap:32px;">
+
+  <!-- Header -->
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+    <div>
+      <h1 style="font-size:28px;font-weight:700;color:#0f172a;letter-spacing:-.02em;">Your Dashboard</h1>
+      <p style="color:#64748b;font-size:14px;margin-top:4px;">Manage your loan applications and track their status.</p>
+    </div>
+    <a href="{% url 'apply_loan' %}" class="btn btn-primary">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+      New Application
+    </a>
+  </div>
+
+  <!-- Stats -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;">
+    <div class="stat-card">
+      <div class="stat-label">Total Applied</div>
+      <div class="stat-value">{{ stats.total }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Approved</div>
+      <div class="stat-value" style="color:#059669;">{{ stats.approved }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pending Review</div>
+      <div class="stat-value" style="color:#d97706;">{{ stats.pending }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Rejected</div>
+      <div class="stat-value" style="color:#e11d48;">{{ stats.rejected }}</div>
+    </div>
+  </div>
+
+  <!-- Applications -->
+  <div>
+    <h2 style="font-size:18px;font-weight:600;color:#0f172a;margin-bottom:16px;">Recent Applications</h2>
+
+    {% if loans %}
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        {% for loan in loans %}
+        <div class="card" style="padding:0;overflow:hidden;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;gap:24px;flex-wrap:wrap;">
+            <!-- Left: amount + type -->
+            <div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+                <span style="font-size:18px;font-weight:700;color:#0f172a;">₹{{ loan.loan_amount_rupees|floatformat:0 }}</span>
+                <span style="color:#64748b;font-size:14px;text-transform:capitalize;">{{ loan.loan_type }} Loan</span>
+              </div>
+              <div style="font-size:13px;color:#94a3b8;">Applied on {{ loan.created_at|date:"d M Y" }}</div>
+            </div>
+
+            <!-- Right: status + action -->
+            <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+              <div>
+                <div style="font-size:11px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Status</div>
+                <span class="badge {% if loan.final_status == 'approved' %}badge-approved{% elif loan.final_status == 'rejected' %}badge-rejected{% else %}badge-pending{% endif %}">
+                  {% if loan.final_status == 'approved' %}✓{% elif loan.final_status == 'rejected' %}✕{% else %}⏳{% endif %}
+                  {{ loan.final_status|upper }}
+                </span>
+              </div>
+              <a href="{% url 'loan_result' loan.pk %}" class="btn btn-outline btn-sm">
+                View Details
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+    {% else %}
+      <!-- Empty state -->
+      <div class="card" style="border-style:dashed;background:#fafafa;">
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:64px 24px;text-align:center;gap:16px;">
+          <div style="width:48px;height:48px;border-radius:50%;background:hsl(226,58%,95%);display:flex;align-items:center;justify-content:center;color:hsl(226,58%,39%);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div>
+            <h3 style="font-size:16px;font-weight:600;color:#0f172a;margin-bottom:6px;">No applications yet</h3>
+            <p style="font-size:14px;color:#64748b;max-width:360px;">You haven't applied for any loans yet. Start your first application to get AI-powered insights.</p>
+          </div>
+          <a href="{% url 'apply_loan' %}" class="btn btn-primary">Apply for a Loan</a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

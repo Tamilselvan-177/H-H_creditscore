@@ -1,0 +1,59 @@
+{% extends 'loans/base.html' %}
+{% block title %}Sign In — Smart Money Lender{% endblock %}
+{% block content_public %}
+<div style="min-height:100vh;background:hsl(210,20%,98%);display:flex;align-items:center;justify-content:center;padding:24px;font-family:'Inter',system-ui,sans-serif;">
+  <div style="width:100%;max-width:440px;">
+
+    <!-- Logo -->
+    <div style="text-align:center;margin-bottom:32px;">
+      <div style="display:inline-flex;align-items:center;gap:8px;color:hsl(226,58%,39%);font-weight:700;font-size:20px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Smart Money Lender
+      </div>
+      <p style="color:#64748b;font-size:14px;margin-top:8px;">Sign in to your account</p>
+    </div>
+
+    <!-- Card -->
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:16px;padding:32px;box-shadow:0 4px 24px rgba(0,0,0,.06);">
+      {% if form.errors %}
+        <div style="background:#fff1f2;border:1px solid #fecdd3;color:#9f1239;padding:12px 16px;border-radius:8px;font-size:14px;margin-bottom:20px;">
+          Invalid username or password. Please try again.
+        </div>
+      {% endif %}
+
+      <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom:16px;">
+          <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">Username</label>
+          <input name="username" type="text" required placeholder="Enter your username"
+            style="width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;font-family:inherit;"
+            onfocus="this.style.borderColor='hsl(226,58%,39%)';this.style.boxShadow='0 0 0 3px hsla(226,58%,39%,.1)'"
+            onblur="this.style.borderColor='#d1d5db';this.style.boxShadow='none'"/>
+        </div>
+        <div style="margin-bottom:24px;">
+          <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">Password</label>
+          <input name="password" type="password" required placeholder="Enter your password"
+            style="width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;font-family:inherit;"
+            onfocus="this.style.borderColor='hsl(226,58%,39%)';this.style.boxShadow='0 0 0 3px hsla(226,58%,39%,.1)'"
+            onblur="this.style.borderColor='#d1d5db';this.style.boxShadow='none'"/>
+        </div>
+        <button type="submit"
+          style="width:100%;padding:11px;background:hsl(226,58%,39%);color:white;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;"
+          onmouseover="this.style.background='hsl(226,58%,32%)'"
+          onmouseout="this.style.background='hsl(226,58%,39%)'">
+          Sign In
+        </button>
+      </form>
+
+      <p style="text-align:center;font-size:14px;color:#64748b;margin-top:20px;">
+        Don't have an account?
+        <a href="{% url 'register' %}" style="color:hsl(226,58%,39%);font-weight:500;text-decoration:none;">Register</a>
+      </p>
+    </div>
+
+    <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:16px;">
+      Use <strong>banker</strong> or <strong>regulator</strong> as username prefix to get those roles.
+    </p>
+  </div>
+</div>
+{% endblock %}

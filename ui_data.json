@@ -1,0 +1,1120 @@
+{
+  "approved": {
+    "audit_id": "95f1ba26-604a-44b4-9358-d7afdc3c3f7e",
+    "user_id": "USR_0001",
+    "loan_type": "xpress_credit",
+    "decision": "approved",
+    "rejection_stage": null,
+    "risk_score": 0.002888,
+    "policy_result": {
+      "passed": true,
+      "failed_rule": null,
+      "reason": null,
+      "rules_checked": [
+        {
+          "rule": "min_age",
+          "value": 56,
+          "required": 18,
+          "passed": true
+        },
+        {
+          "rule": "max_age",
+          "value": 56,
+          "required": 76,
+          "passed": true
+        },
+        {
+          "rule": "min_monthly_income",
+          "value": 37802.0,
+          "required": 5000,
+          "passed": true
+        },
+        {
+          "rule": "max_emi_nmi_ratio",
+          "value": 0.1514,
+          "required": 0.5,
+          "passed": true
+        },
+        {
+          "rule": "cibil_check",
+          "value": null,
+          "required": "not_required",
+          "passed": true
+        }
+      ]
+    },
+    "feature_values": {
+      "income_regularity": 0.0,
+      "spending_consistency": 0.2155,
+      "bill_payment_ratio": 1.0,
+      "savings_rate": 0.1105,
+      "emi_burden_ratio": 0.1034,
+      "upi_activity_volume": 6.1429,
+      "rent_payment_regularity": 0.6611,
+      "cash_withdrawal_ratio": 0.2695
+    },
+    "shap_values": {
+      "income_regularity": 0.270385,
+      "spending_consistency": -0.226775,
+      "bill_payment_ratio": -0.74718,
+      "savings_rate": -4.141909,
+      "emi_burden_ratio": -1.637795,
+      "upi_activity_volume": 0.028795,
+      "rent_payment_regularity": -0.020676,
+      "cash_withdrawal_ratio": 0.385654
+    },
+    "top_5_features": [
+      {
+        "feature": "savings_rate",
+        "shap_value": -4.141909,
+        "impact": "helps"
+      },
+      {
+        "feature": "emi_burden_ratio",
+        "shap_value": -1.637795,
+        "impact": "helps"
+      },
+      {
+        "feature": "bill_payment_ratio",
+        "shap_value": -0.74718,
+        "impact": "helps"
+      },
+      {
+        "feature": "cash_withdrawal_ratio",
+        "shap_value": 0.385654,
+        "impact": "hurts"
+      },
+      {
+        "feature": "income_regularity",
+        "shap_value": 0.270385,
+        "impact": "hurts"
+      }
+    ],
+    "traced_transactions": [
+      {
+        "feature": "savings_rate",
+        "shap_value": -4.141909,
+        "impact": "helps",
+        "top_transactions": [
+          {
+            "transaction_id": "TXN_fef9a768-0f9",
+            "amount": 13137.92,
+            "category": "cash",
+            "type": "debit",
+            "timestamp": "2025-12-20 23:45:01",
+            "payment_mode": "cash"
+          },
+          {
+            "transaction_id": "TXN_773924ff-e61",
+            "amount": 8311.1,
+            "category": "rent",
+            "type": "debit",
+            "timestamp": "2026-04-07 04:36:16",
+            "payment_mode": "UPI"
+          },
+          {
+            "transaction_id": "TXN_86964398-767",
+            "amount": 5000.32,
+            "category": "upi",
+            "type": "credit",
+            "timestamp": "2026-02-09 14:45:43",
+            "payment_mode": "UPI"
+          }
+        ]
+      },
+      {
+        "feature": "emi_burden_ratio",
+        "shap_value": -1.637795,
+        "impact": "helps",
+        "top_transactions": [
+          {
+            "transaction_id": "TXN_65d87f4a-b31",
+            "amount": 5723.68,
+            "category": "emi",
+            "type": "debit",
+            "timestamp": "2026-04-04 20:35:23",
+            "payment_mode": "cash"
+          },
+          {
+            "transaction_id": "TXN_4d11d5bb-632",
+            "amount": 5723.68,
+            "category": "emi",
+            "type": "debit",
+            "timestamp": "2025-11-23 21:45:27",
+            "payment_mode": "NEFT"
+          },
+          {
+            "transaction_id": "TXN_18194d8b-9c4",
+            "amount": 2861.84,
+            "category": "emi",
+            "type": "debit",
+            "timestamp": "2025-11-08 08:55:33",
+            "payment_mode": "NEFT"
+          }
+        ]
+      },
+      {
+        "feature": "bill_payment_ratio",
+        "shap_value": -0.74718,
+        "impact": "helps",
+        "top_transactions": [
+          {
+            "transaction_id": "TXN_7f6d8f7a-622",
+            "amount": 4923.87,
+            "category": "utility",
+            "type": "debit",
+            "timestamp": "2026-02-15 22:55:42",
+            "payment_mode": "UPI"
+          },
+          {
+            "transaction_id": "TXN_9004726c-76c",
+            "amount": 4838.02,
+            "category": "utility",
+            "type": "debit",
+            "timestamp": "2026-03-10 17:41:32",
+            "payment_mode": "UPI"
+          },
+          {
+            "transaction_id": "TXN_0f07d52f-294",
+            "amount": 4733.89,
+            "category": "utility",
+            "type": "debit",
+            "timestamp": "2026-02-15 16:42:21",
+            "payment_mode": "UPI"
+          }
+        ]
+      },
+      {
+        "feature": "cash_withdrawal_ratio",
+        "shap_value": 0.385654,
+        "impact": "hurts",
+        "top_transactions": [
+          {
+            "transaction_id": "TXN_a298717f-ec0",
+            "amount": 14620.13,
+            "category": "cash",
+            "type": "debit",
+            "timestamp": "2026-04-17 16:50:01",
+            "payment_mode": "cash"
+          },
+          {
+            "transaction_id": "TXN_981d7129-806",
+            "amount": 14219.86,
+            "category": "cash",
+            "type": "debit",
+            "timestamp": "2025-11-24 14:03:41",
+            "payment_mode": "cash"
+          },
+          {
+            "transaction_id": "TXN_fef9a768-0f9",
+            "amount": 13137.92,
+            "category": "cash",
+            "type": "debit",
+            "timestamp": "2025-12-20 23:45:01",
+            "payment_mode": "cash"
+          }
+        ]
+      },
+      {
+        "feature": "income_regularity",
+        "shap_value": 0.270385,
+        "impact": "hurts",
+        "top_transactions": [
+          {
+            "transaction_id": "TXN_e1a4de27-ddd",
+            "amount": 37844.84,
+            "category": "salary",
+            "type": "credit",
+            "timestamp": "2026-02-01 00:41:51",
+            "payment_mode": "card"
+          },
+          {
+            "transaction_id": "TXN_a3b742b7-5e4",
+            "amount": 36444.53,
+            "category": "salary",
+            "type": "credit",
+            "timestamp": "2026-02-17 02:27:02",
+            "payment_mode": "UPI"
+          },
+          {
+            "transaction_id": "TXN_abf21382-fb3",
+            "amount": 8553.63,
+            "category": "upi",
+            "type": "credit",
+            "timestamp": "2026-04-01 17:56:07",
+            "payment_mode": "UPI"
+          }
+        ]
+      }
+    ],
+    "explanations": {
+      "user": "Your loan application is approved! \ud83c\udf89\n\nYour financial strengths:\n  \u2705 Savings Rate: Your savings rate is 11%. Try to save at least 10\u201315% of income monthly.\n  \u2705 EMI Burden: Your EMI payments take up 10% of your income. Keep it below 50%.\n  \u2705 Bill Payment Ratio: Only 100% of your utility bills were paid on time. Pay bills consistently.\n\nRisk score: 0.00 (below threshold of 0.50)",
+      "auditor": {
+        "loan_type": "xpress_credit",
+        "user_id": "USR_0001",
+        "timestamp": "2026-04-29T14:00:10.127187Z",
+        "policy_check": {
+          "passed": true,
+          "failed_rule": null,
+          "reason": null,
+          "rules_checked": [
+            {
+              "rule": "min_age",
+              "value": 56,
+              "required": 18,
+              "passed": true
+            },
+            {
+              "rule": "max_age",
+              "value": 56,
+              "required": 76,
+              "passed": true
+            },
+            {
+              "rule": "min_monthly_income",
+              "value": 37802.0,
+              "required": 5000,
+              "passed": true
+            },
+            {
+              "rule": "max_emi_nmi_ratio",
+              "value": 0.1514,
+              "required": 0.5,
+              "passed": true
+            },
+            {
+              "rule": "cibil_check",
+              "value": null,
+              "required": "not_required",
+              "passed": true
+            }
+          ]
+        },
+        "model_risk_score": 0.002888,
+        "decision_threshold": 0.5,
+        "final_decision": "approved",
+        "shap_base_value": 0.245248,
+        "shap_values": {
+          "income_regularity": 0.270385,
+          "spending_consistency": -0.226775,
+          "bill_payment_ratio": -0.74718,
+          "savings_rate": -4.141909,
+          "emi_burden_ratio": -1.637795,
+          "upi_activity_volume": 0.028795,
+          "rent_payment_regularity": -0.020676,
+          "cash_withdrawal_ratio": 0.385654
+        },
+        "top_5_shap_features": [
+          {
+            "feature": "savings_rate",
+            "shap_value": -4.141909,
+            "impact": "helps"
+          },
+          {
+            "feature": "emi_burden_ratio",
+            "shap_value": -1.637795,
+            "impact": "helps"
+          },
+          {
+            "feature": "bill_payment_ratio",
+            "shap_value": -0.74718,
+            "impact": "helps"
+          },
+          {
+            "feature": "cash_withdrawal_ratio",
+            "shap_value": 0.385654,
+            "impact": "hurts"
+          },
+          {
+            "feature": "income_regularity",
+            "shap_value": 0.270385,
+            "impact": "hurts"
+          }
+        ],
+        "traced_transactions": [
+          {
+            "feature": "savings_rate",
+            "shap_value": -4.141909,
+            "impact": "helps",
+            "top_transactions": [
+              {
+                "transaction_id": "TXN_fef9a768-0f9",
+                "amount": 13137.92,
+                "category": "cash",
+                "type": "debit",
+                "timestamp": "2025-12-20 23:45:01",
+                "payment_mode": "cash"
+              },
+              {
+                "transaction_id": "TXN_773924ff-e61",
+                "amount": 8311.1,
+                "category": "rent",
+                "type": "debit",
+                "timestamp": "2026-04-07 04:36:16",
+                "payment_mode": "UPI"
+              },
+              {
+                "transaction_id": "TXN_86964398-767",
+                "amount": 5000.32,
+                "category": "upi",
+                "type": "credit",
+                "timestamp": "2026-02-09 14:45:43",
+                "payment_mode": "UPI"
+              }
+            ]
+          },
+          {
+            "feature": "emi_burden_ratio",
+            "shap_value": -1.637795,
+            "impact": "helps",
+            "top_transactions": [
+              {
+                "transaction_id": "TXN_65d87f4a-b31",
+                "amount": 5723.68,
+                "category": "emi",
+                "type": "debit",
+                "timestamp": "2026-04-04 20:35:23",
+                "payment_mode": "cash"
+              },
+              {
+                "transaction_id": "TXN_4d11d5bb-632",
+                "amount": 5723.68,
+                "category": "emi",
+                "type": "debit",
+                "timestamp": "2025-11-23 21:45:27",
+                "payment_mode": "NEFT"
+              },
+              {
+                "transaction_id": "TXN_18194d8b-9c4",
+                "amount": 2861.84,
+                "category": "emi",
+                "type": "debit",
+                "timestamp": "2025-11-08 08:55:33",
+                "payment_mode": "NEFT"
+              }
+            ]
+          },
+          {
+            "feature": "bill_payment_ratio",
+            "shap_value": -0.74718,
+            "impact": "helps",
+            "top_transactions": [
+              {
+                "transaction_id": "TXN_7f6d8f7a-622",
+                "amount": 4923.87,
+                "category": "utility",
+                "type": "debit",
+                "timestamp": "2026-02-15 22:55:42",
+                "payment_mode": "UPI"
+              },
+              {
+                "transaction_id": "TXN_9004726c-76c",
+                "amount": 4838.02,
+                "category": "utility",
+                "type": "debit",
+                "timestamp": "2026-03-10 17:41:32",
+                "payment_mode": "UPI"
+              },
+              {
+                "transaction_id": "TXN_0f07d52f-294",
+                "amount": 4733.89,
+                "category": "utility",
+                "type": "debit",
+                "timestamp": "2026-02-15 16:42:21",
+                "payment_mode": "UPI"
+              }
+            ]
+          },
+          {
+            "feature": "cash_withdrawal_ratio",
+            "shap_value": 0.385654,
+            "impact": "hurts",
+            "top_transactions": [
+              {
+                "transaction_id": "TXN_a298717f-ec0",
+                "amount": 14620.13,
+                "category": "cash",
+                "type": "debit",
+                "timestamp": "2026-04-17 16:50:01",
+                "payment_mode": "cash"
+              },
+              {
+                "transaction_id": "TXN_981d7129-806",
+                "amount": 14219.86,
+                "category": "cash",
+                "type": "debit",
+                "timestamp": "2025-11-24 14:03:41",
+                "payment_mode": "cash"
+              },
+              {
+                "transaction_id": "TXN_fef9a768-0f9",
+                "amount": 13137.92,
+                "category": "cash",
+                "type": "debit",
+                "timestamp": "2025-12-20 23:45:01",
+                "payment_mode": "cash"
+              }
+            ]
+          },
+          {
+            "feature": "income_regularity",
+            "shap_value": 0.270385,
+            "impact": "hurts",
+            "top_transactions": [
+              {
+                "transaction_id": "TXN_e1a4de27-ddd",
+                "amount": 37844.84,
+                "category": "salary",
+                "type": "credit",
+                "timestamp": "2026-02-01 00:41:51",
+                "payment_mode": "card"
+              },
+              {
+                "transaction_id": "TXN_a3b742b7-5e4",
+                "amount": 36444.53,
+                "category": "salary",
+                "type": "credit",
+                "timestamp": "2026-02-17 02:27:02",
+                "payment_mode": "UPI"
+              },
+              {
+                "transaction_id": "TXN_abf21382-fb3",
+                "amount": 8553.63,
+                "category": "upi",
+                "type": "credit",
+                "timestamp": "2026-04-01 17:56:07",
+                "payment_mode": "UPI"
+              }
+            ]
+          }
+        ]
+      },
+      "regulator": {
+        "note": "Demographic data is not used as model input. Bias metrics require population-level analysis across all decisions.",
+        "model_used": "XGBoost (behavior-based)",
+        "features_used": [
+          "income_regularity",
+          "spending_consistency",
+          "bill_payment_ratio",
+          "savings_rate",
+          "emi_burden_ratio",
+          "upi_activity_volume",
+          "rent_payment_regularity",
+          "cash_withdrawal_ratio"
+        ],
+        "cibil_dependency": "CIBIL score is used only when the specific loan policy requires it. Behavior features are the primary signal. Users without CIBIL are not automatically rejected.",
+        "fairness_approach": "Behavior-based scoring reduces demographic proxy bias. Features measure financial discipline, not identity. No age, gender, state, or employment type is used in the ML model.",
+        "explanation_drift_note": "Monitor SHAP top features monthly for drift detection. If feature importance ranking changes significantly, trigger model re-audit.",
+        "decision_threshold": 0.5,
+        "risk_score": 0.002888
+      }
+    },
+    "audit_hash": null
+  },
+  "ml_rejected": {
+    "audit_id": "6b4a478b-73d0-4c36-9a90-71b417e55e6a",
+    "user_id": "USR_0005",
+    "loan_type": "xpress_credit",
+    "decision": "rejected",
+    "rejection_stage": "ml",
+    "risk_score": 0.993737,
+    "policy_result": {
+      "passed": true,
+      "failed_rule": null,
+      "reason": null,
+      "rules_checked": [
+        {
+          "rule": "min_age",
+          "value": 69,
+          "required": 18,
+          "passed": true
+        },
+        {
+          "rule": "max_age",
+          "value": 69,
+          "required": 76,
+          "passed": true
+        },
+        {
+          "rule": "min_monthly_income",
+          "value": 46551.0,
+          "required": 5000,
+          "passed": true
+        },
+        {
+          "rule": "max_emi_nmi_ratio",
+          "value": 0.1608,
+          "required": 0.5,
+          "passed": true
+        },
+        {
+          "rule": "cibil_check",
+          "value": null,
+          "required": "not_required",
+          "passed": true
+        }
+      ]
+    },
+    "feature_values": {
+      "income_regularity": 0.0,
+      "spending_consistency": 0.8331,
+      "bill_payment_ratio": 0.625,
+      "savings_rate": -1.0,
+      "emi_burden_ratio": 0.4361,
+      "upi_activity_volume": 7.3333,
+      "rent_payment_regularity": 0.806,
+      "cash_withdrawal_ratio": 0.113
+    },
+    "shap_values": {
+      "income_regularity": 0.287315,
+      "spending_consistency": 0.595054,
+      "bill_payment_ratio": 0.62023,
+      "savings_rate": 3.658269,
+      "emi_burden_ratio": 0.044889,
+      "upi_activity_volume": -0.05339,
+      "rent_payment_regularity": -0.404292,
+      "cash_withdrawal_ratio": 0.073521
+    },
+    "top_5_features": [
+      {
+        "feature": "savings_rate",
+        "shap_value": 3.658269,
+        "impact": "hurts"
+      },
+      {
+        "feature": "bill_payment_ratio",
+        "shap_value": 0.62023,
+        "impact": "hurts"
+      },
+      {
+        "feature": "spending_consistency",
+        "shap_value": 0.595054,
+        "impact": "hurts"
+      },
+      {
+        "feature": "rent_payment_regularity",
+        "shap_value": -0.404292,
+        "impact": "helps"
+      },
+      {
+        "feature": "income_regularity",
+        "shap_value": 0.287315,
+        "impact": "hurts"
+      }
+    ],
+    "traced_transactions": [
+      {
+        "feature": "savings_rate",
+        "shap_value": 3.658269,
+        "impact": "hurts",
+        "top_transactions": [
+          {
+            "transaction_id": "TXN_2207c8de-00b",
+            "amount": 17267.97,
+            "category": "shopping",
+            "type": "debit",
+            "timestamp": "2026-01-12 00:10:43",
+            "payment_mode": "cheque"
+          },
+          {
+            "transaction_id": "TXN_837e7354-3c3",
+            "amount": 8995.29,
+            "category": "upi",
+            "type": "debit",
+            "timestamp": "2025-12-08 13:17:56",
+            "payment_mode": "UPI"
+          },
+          {
+            "transaction_id": "TXN_6eb47f1f-e64",
+            "amount": 4548.17,
+            "category": "utility",
+            "type": "debit",
+            "timestamp": "2026-02-17 16:58:10",
+            "payment_mode": "UPI"
+          }
+        ]
+      },
+      {
+        "feature": "bill_payment_ratio",
+        "shap_value": 0.62023,
+        "impact": "hurts",
+        "top_transactions": [
+          {
+            "transaction_id": "TXN_a990be83-24f",
+            "amount": 4700.96,
+            "category": "utility",
+            "type": "debit",
+            "timestamp": "2025-11-28 08:22:41",
+            "payment_mode": "UPI"
+          },
+          {
+            "transaction_id": "TXN_91dca4b5-44c",
+            "amount": 4661.55,
+            "category": "utility",
+            "type": "debit",
+            "timestamp": "2026-01-07 04:25:35",
+            "payment_mode": "cash"
+          },
+          {
+            "transaction_id": "TXN_6eb47f1f-e64",
+            "amount": 4548.17,
+            "category": "utility",
+            "type": "debit",
+            "timestamp": "2026-02-17 16:58:10",
+            "payment_mode": "UPI"
+          }
+        ]
+      },
+      {
+        "feature": "spending_consistency",
+        "shap_value": 0.595054,
+        "impact": "hurts",
+        "top_transactions": [
+          {
+            "transaction_id": "TXN_2207c8de-00b",
+            "amount": 17267.97,
+            "category": "shopping",
+            "type": "debit",
+            "timestamp": "2026-01-12 00:10:43",
+            "payment_mode": "cheque"
+          },
+          {
+            "transaction_id": "TXN_837e7354-3c3",
+            "amount": 8995.29,
+            "category": "upi",
+            "type": "debit",
+            "timestamp": "2025-12-08 13:17:56",
+            "payment_mode": "UPI"
+          },
+          {
+            "transaction_id": "TXN_6eb47f1f-e64",
+            "amount": 4548.17,
+            "category": "utility",
+            "type": "debit",
+            "timestamp": "2026-02-17 16:58:10",
+            "payment_mode": "UPI"
+          }
+        ]
+      },
+      {
+        "feature": "rent_payment_regularity",
+        "shap_value": -0.404292,
+        "impact": "helps",
+        "top_transactions": [
+          {
+            "transaction_id": "TXN_50b09e11-7be",
+            "amount": 17903.27,
+            "category": "rent",
+            "type": "debit",
+            "timestamp": "2026-01-05 23:44:27",
+            "payment_mode": "UPI"
+          },
+          {
+            "transaction_id": "TXN_ecdcf80e-e6e",
+            "amount": 16517.12,
+            "category": "rent",
+            "type": "debit",
+            "timestamp": "2026-02-01 00:05:11",
+            "payment_mode": "card"
+          },
+          {
+            "transaction_id": "TXN_f485b5bc-e1d",
+            "amount": 15787.82,
+            "category": "rent",
+            "type": "debit",
+            "timestamp": "2026-03-21 16:07:09",
+            "payment_mode": "UPI"
+          }
+        ]
+      },
+      {
+        "feature": "income_regularity",
+        "shap_value": 0.287315,
+        "impact": "hurts",
+        "top_transactions": [
+          {
+            "transaction_id": "TXN_efa18f64-7b7",
+            "amount": 49907.56,
+            "category": "salary",
+            "type": "credit",
+            "timestamp": "2026-03-28 09:24:38",
+            "payment_mode": "IMPS"
+          },
+          {
+            "transaction_id": "TXN_32406a45-4b3",
+            "amount": 45767.23,
+            "category": "salary",
+            "type": "credit",
+            "timestamp": "2026-03-15 18:16:06",
+            "payment_mode": "UPI"
+          },
+          {
+            "transaction_id": "TXN_41f736e9-33e",
+            "amount": 6401.8,
+            "category": "upi",
+            "type": "credit",
+            "timestamp": "2025-11-02 09:30:04",
+            "payment_mode": "UPI"
+          }
+        ]
+      }
+    ],
+    "explanations": {
+      "user": "Your loan application was declined.\n\nMain reasons:\n  \u274c Your savings rate is -100%. Try to save at least 10\u201315% of income monthly.\n  \u274c Only 62% of your utility bills were paid on time. Pay bills consistently.\n  \u274c Your spending pattern is erratic. Stable spending is a positive signal.\n\nTransactions involved:\n  Savings Rate:\n  \u2022 Shopping on 2026-01-12 \u2014 \u20b917,268 (cheque)\n  \u2022 Upi on 2025-12-08 \u2014 \u20b98,995 (UPI)\n\n  Bill Payment Ratio:\n  \u2022 Utility on 2025-11-28 \u2014 \u20b94,701 (UPI)\n  \u2022 Utility on 2026-01-07 \u2014 \u20b94,662 (cash)\n\n  Spending Consistency:\n  \u2022 Shopping on 2026-01-12 \u2014 \u20b917,268 (cheque)\n  \u2022 Upi on 2025-12-08 \u2014 \u20b98,995 (UPI)\n\n  Income Regularity:\n  \u2022 Salary on 2026-03-28 \u2014 \u20b949,908 (IMPS)\n  \u2022 Salary on 2026-03-15 \u2014 \u20b945,767 (UPI)\n\nHow to improve:\n  \u2022 Try to save at least 10\u201315% of your monthly income. Avoid spending more than you earn.\n  \u2022 Pay all utility bills on time every month. Set up auto-pay to avoid missing payments.\n  \u2022 Avoid large erratic spending spikes. Stable monthly spending patterns signal financial discipline.\n\nRisk score: 0.99 (threshold: 0.50)",
+      "auditor": {
+        "loan_type": "xpress_credit",
+        "user_id": "USR_0005",
+        "timestamp": "2026-04-29T14:00:10.175549Z",
+        "policy_check": {
+          "passed": true,
+          "failed_rule": null,
+          "reason": null,
+          "rules_checked": [
+            {
+              "rule": "min_age",
+              "value": 69,
+              "required": 18,
+              "passed": true
+            },
+            {
+              "rule": "max_age",
+              "value": 69,
+              "required": 76,
+              "passed": true
+            },
+            {
+              "rule": "min_monthly_income",
+              "value": 46551.0,
+              "required": 5000,
+              "passed": true
+            },
+            {
+              "rule": "max_emi_nmi_ratio",
+              "value": 0.1608,
+              "required": 0.5,
+              "passed": true
+            },
+            {
+              "rule": "cibil_check",
+              "value": null,
+              "required": "not_required",
+              "passed": true
+            }
+          ]
+        },
+        "model_risk_score": 0.993737,
+        "decision_threshold": 0.5,
+        "final_decision": "rejected",
+        "shap_base_value": 0.245248,
+        "shap_values": {
+          "income_regularity": 0.287315,
+          "spending_consistency": 0.595054,
+          "bill_payment_ratio": 0.62023,
+          "savings_rate": 3.658269,
+          "emi_burden_ratio": 0.044889,
+          "upi_activity_volume": -0.05339,
+          "rent_payment_regularity": -0.404292,
+          "cash_withdrawal_ratio": 0.073521
+        },
+        "top_5_shap_features": [
+          {
+            "feature": "savings_rate",
+            "shap_value": 3.658269,
+            "impact": "hurts"
+          },
+          {
+            "feature": "bill_payment_ratio",
+            "shap_value": 0.62023,
+            "impact": "hurts"
+          },
+          {
+            "feature": "spending_consistency",
+            "shap_value": 0.595054,
+            "impact": "hurts"
+          },
+          {
+            "feature": "rent_payment_regularity",
+            "shap_value": -0.404292,
+            "impact": "helps"
+          },
+          {
+            "feature": "income_regularity",
+            "shap_value": 0.287315,
+            "impact": "hurts"
+          }
+        ],
+        "traced_transactions": [
+          {
+            "feature": "savings_rate",
+            "shap_value": 3.658269,
+            "impact": "hurts",
+            "top_transactions": [
+              {
+                "transaction_id": "TXN_2207c8de-00b",
+                "amount": 17267.97,
+                "category": "shopping",
+                "type": "debit",
+                "timestamp": "2026-01-12 00:10:43",
+                "payment_mode": "cheque"
+              },
+              {
+                "transaction_id": "TXN_837e7354-3c3",
+                "amount": 8995.29,
+                "category": "upi",
+                "type": "debit",
+                "timestamp": "2025-12-08 13:17:56",
+                "payment_mode": "UPI"
+              },
+              {
+                "transaction_id": "TXN_6eb47f1f-e64",
+                "amount": 4548.17,
+                "category": "utility",
+                "type": "debit",
+                "timestamp": "2026-02-17 16:58:10",
+                "payment_mode": "UPI"
+              }
+            ]
+          },
+          {
+            "feature": "bill_payment_ratio",
+            "shap_value": 0.62023,
+            "impact": "hurts",
+            "top_transactions": [
+              {
+                "transaction_id": "TXN_a990be83-24f",
+                "amount": 4700.96,
+                "category": "utility",
+                "type": "debit",
+                "timestamp": "2025-11-28 08:22:41",
+                "payment_mode": "UPI"
+              },
+              {
+                "transaction_id": "TXN_91dca4b5-44c",
+                "amount": 4661.55,
+                "category": "utility",
+                "type": "debit",
+                "timestamp": "2026-01-07 04:25:35",
+                "payment_mode": "cash"
+              },
+              {
+                "transaction_id": "TXN_6eb47f1f-e64",
+                "amount": 4548.17,
+                "category": "utility",
+                "type": "debit",
+                "timestamp": "2026-02-17 16:58:10",
+                "payment_mode": "UPI"
+              }
+            ]
+          },
+          {
+            "feature": "spending_consistency",
+            "shap_value": 0.595054,
+            "impact": "hurts",
+            "top_transactions": [
+              {
+                "transaction_id": "TXN_2207c8de-00b",
+                "amount": 17267.97,
+                "category": "shopping",
+                "type": "debit",
+                "timestamp": "2026-01-12 00:10:43",
+                "payment_mode": "cheque"
+              },
+              {
+                "transaction_id": "TXN_837e7354-3c3",
+                "amount": 8995.29,
+                "category": "upi",
+                "type": "debit",
+                "timestamp": "2025-12-08 13:17:56",
+                "payment_mode": "UPI"
+              },
+              {
+                "transaction_id": "TXN_6eb47f1f-e64",
+                "amount": 4548.17,
+                "category": "utility",
+                "type": "debit",
+                "timestamp": "2026-02-17 16:58:10",
+                "payment_mode": "UPI"
+              }
+            ]
+          },
+          {
+            "feature": "rent_payment_regularity",
+            "shap_value": -0.404292,
+            "impact": "helps",
+            "top_transactions": [
+              {
+                "transaction_id": "TXN_50b09e11-7be",
+                "amount": 17903.27,
+                "category": "rent",
+                "type": "debit",
+                "timestamp": "2026-01-05 23:44:27",
+                "payment_mode": "UPI"
+              },
+              {
+                "transaction_id": "TXN_ecdcf80e-e6e",
+                "amount": 16517.12,
+                "category": "rent",
+                "type": "debit",
+                "timestamp": "2026-02-01 00:05:11",
+                "payment_mode": "card"
+              },
+              {
+                "transaction_id": "TXN_f485b5bc-e1d",
+                "amount": 15787.82,
+                "category": "rent",
+                "type": "debit",
+                "timestamp": "2026-03-21 16:07:09",
+                "payment_mode": "UPI"
+              }
+            ]
+          },
+          {
+            "feature": "income_regularity",
+            "shap_value": 0.287315,
+            "impact": "hurts",
+            "top_transactions": [
+              {
+                "transaction_id": "TXN_efa18f64-7b7",
+                "amount": 49907.56,
+                "category": "salary",
+                "type": "credit",
+                "timestamp": "2026-03-28 09:24:38",
+                "payment_mode": "IMPS"
+              },
+              {
+                "transaction_id": "TXN_32406a45-4b3",
+                "amount": 45767.23,
+                "category": "salary",
+                "type": "credit",
+                "timestamp": "2026-03-15 18:16:06",
+                "payment_mode": "UPI"
+              },
+              {
+                "transaction_id": "TXN_41f736e9-33e",
+                "amount": 6401.8,
+                "category": "upi",
+                "type": "credit",
+                "timestamp": "2025-11-02 09:30:04",
+                "payment_mode": "UPI"
+              }
+            ]
+          }
+        ]
+      },
+      "regulator": {
+        "note": "Demographic data is not used as model input. Bias metrics require population-level analysis across all decisions.",
+        "model_used": "XGBoost (behavior-based)",
+        "features_used": [
+          "income_regularity",
+          "spending_consistency",
+          "bill_payment_ratio",
+          "savings_rate",
+          "emi_burden_ratio",
+          "upi_activity_volume",
+          "rent_payment_regularity",
+          "cash_withdrawal_ratio"
+        ],
+        "cibil_dependency": "CIBIL score is used only when the specific loan policy requires it. Behavior features are the primary signal. Users without CIBIL are not automatically rejected.",
+        "fairness_approach": "Behavior-based scoring reduces demographic proxy bias. Features measure financial discipline, not identity. No age, gender, state, or employment type is used in the ML model.",
+        "explanation_drift_note": "Monitor SHAP top features monthly for drift detection. If feature importance ranking changes significantly, trigger model re-audit.",
+        "decision_threshold": 0.5,
+        "risk_score": 0.993737
+      }
+    },
+    "audit_hash": null
+  },
+  "policy_rejected": {
+    "audit_id": "5cb8ff6c-fa57-4df9-b654-33ce09a8ef21",
+    "user_id": "USR_0001",
+    "loan_type": "xpress_power",
+    "decision": "rejected",
+    "rejection_stage": "policy",
+    "risk_score": null,
+    "policy_result": {
+      "passed": false,
+      "failed_rule": "min_monthly_income",
+      "reason": "Your monthly income of \u20b937,802 is below the minimum required \u20b950,000 for this loan.",
+      "rules_checked": [
+        {
+          "rule": "min_age",
+          "value": 56,
+          "required": 18,
+          "passed": true
+        },
+        {
+          "rule": "max_age",
+          "value": 56,
+          "required": 76,
+          "passed": true
+        },
+        {
+          "rule": "min_monthly_income",
+          "value": 37802.0,
+          "required": 50000,
+          "passed": false
+        }
+      ]
+    },
+    "feature_values": {},
+    "shap_values": {},
+    "top_5_features": [],
+    "traced_transactions": [],
+    "explanations": {
+      "user": "Your loan application was not processed.\n\nReason: Your monthly income of \u20b937,802 is below the minimum required \u20b950,000 for this loan.\n\nWhat you can do:\nIncrease your monthly income or apply for a loan type with lower income requirements.",
+      "auditor": {
+        "loan_type": "xpress_power",
+        "user_id": "USR_0001",
+        "timestamp": "2026-04-29T14:00:10.196058Z",
+        "policy_check": {
+          "passed": false,
+          "failed_rule": "min_monthly_income",
+          "reason": "Your monthly income of \u20b937,802 is below the minimum required \u20b950,000 for this loan.",
+          "rules_checked": [
+            {
+              "rule": "min_age",
+              "value": 56,
+              "required": 18,
+              "passed": true
+            },
+            {
+              "rule": "max_age",
+              "value": 56,
+              "required": 76,
+              "passed": true
+            },
+            {
+              "rule": "min_monthly_income",
+              "value": 37802.0,
+              "required": 50000,
+              "passed": false
+            }
+          ]
+        },
+        "model_risk_score": null,
+        "final_decision": "rejected",
+        "rejection_stage": "policy",
+        "traced_transactions": []
+      },
+      "regulator": {
+        "note": "Demographic data is not used as model input. Bias metrics require population-level analysis across all decisions.",
+        "model_used": "XGBoost (behavior-based)",
+        "features_used": [
+          "income_regularity",
+          "spending_consistency",
+          "bill_payment_ratio",
+          "savings_rate",
+          "emi_burden_ratio",
+          "upi_activity_volume",
+          "rent_payment_regularity",
+          "cash_withdrawal_ratio"
+        ],
+        "cibil_dependency": "CIBIL score is used only when the specific loan policy requires it. Behavior features are the primary signal. Users without CIBIL are not automatically rejected.",
+        "fairness_approach": "Behavior-based scoring reduces demographic proxy bias. Features measure financial discipline, not identity. No age, gender, state, or employment type is used in the ML model.",
+        "explanation_drift_note": "Monitor SHAP top features monthly for drift detection. If feature importance ranking changes significantly, trigger model re-audit.",
+        "decision_threshold": null,
+        "risk_score": null
+      }
+    },
+    "audit_hash": null
+  }
+}

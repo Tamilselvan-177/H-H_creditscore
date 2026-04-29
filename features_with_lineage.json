@@ -1,0 +1,4705 @@
+[
+  {
+    "user_id": "USR_0001",
+    "lineage": {
+      "income_regularity": [
+        "TXN_86964398-767",
+        "TXN_d06b72fe-3c6",
+        "TXN_5339d848-161",
+        "TXN_293901ca-a15",
+        "TXN_d40e0299-3f0",
+        "TXN_e1a4de27-ddd",
+        "TXN_d1e983da-684",
+        "TXN_a3b742b7-5e4",
+        "TXN_abf21382-fb3",
+        "TXN_f6f7a8b9-ec0"
+      ],
+      "spending_consistency": [
+        "TXN_2265c6fd-4d6",
+        "TXN_773924ff-e61",
+        "TXN_9758437d-43d",
+        "TXN_0f07d52f-294",
+        "TXN_fea45ca2-1e3",
+        "TXN_ae9ca39a-911",
+        "TXN_fef9a768-0f9",
+        "TXN_05623a0d-c1c",
+        "TXN_dace1135-833",
+        "TXN_fd237f1a-43e"
+      ],
+      "bill_payment_ratio": [
+        "TXN_0f07d52f-294",
+        "TXN_fd237f1a-43e",
+        "TXN_9004726c-76c",
+        "TXN_c8f76e6f-59b",
+        "TXN_3342e170-8ad",
+        "TXN_7f6d8f7a-622",
+        "TXN_45524cc2-fa8"
+      ],
+      "savings_rate": [
+        "TXN_2265c6fd-4d6",
+        "TXN_773924ff-e61",
+        "TXN_9758437d-43d",
+        "TXN_86964398-767",
+        "TXN_0f07d52f-294",
+        "TXN_d06b72fe-3c6",
+        "TXN_fea45ca2-1e3",
+        "TXN_ae9ca39a-911",
+        "TXN_fef9a768-0f9",
+        "TXN_5339d848-161"
+      ],
+      "emi_burden_ratio": [
+        "TXN_8d6741f4-8fa",
+        "TXN_18194d8b-9c4",
+        "TXN_4b08a7cf-38c",
+        "TXN_09929ab0-276",
+        "TXN_65d87f4a-b31",
+        "TXN_4d11d5bb-632",
+        "TXN_43507797-9cd",
+        "TXN_0232b10b-d37",
+        "TXN_b1d28000-c05",
+        "TXN_46d9e44f-f24"
+      ],
+      "upi_activity_volume": [
+        "TXN_773924ff-e61",
+        "TXN_9758437d-43d",
+        "TXN_86964398-767",
+        "TXN_0f07d52f-294",
+        "TXN_d06b72fe-3c6",
+        "TXN_ae9ca39a-911",
+        "TXN_5339d848-161",
+        "TXN_05623a0d-c1c",
+        "TXN_293901ca-a15",
+        "TXN_d40e0299-3f0"
+      ],
+      "rent_payment_regularity": [
+        "TXN_773924ff-e61",
+        "TXN_b40c6256-e83",
+        "TXN_d945da50-11c",
+        "TXN_5395bcdf-5c6",
+        "TXN_52b34b94-16e"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_fef9a768-0f9",
+        "TXN_dace1135-833",
+        "TXN_144df411-c8b",
+        "TXN_a298717f-ec0",
+        "TXN_731d7cdd-682",
+        "TXN_981d7129-806",
+        "TXN_524fe7c3-272"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0002",
+    "lineage": {
+      "income_regularity": [
+        "TXN_b87ad51a-f88",
+        "TXN_b3210473-655",
+        "TXN_f5984827-78c",
+        "TXN_8adac350-e67",
+        "TXN_17a19ab5-101",
+        "TXN_b4513dcc-065",
+        "TXN_d94b4dcc-7a0",
+        "TXN_fc4b8aaa-b1e",
+        "TXN_1e86a03d-5d0",
+        "TXN_94e1c014-2b6"
+      ],
+      "spending_consistency": [
+        "TXN_c6704afe-541",
+        "TXN_a37a8daf-5fb",
+        "TXN_82d84e45-5b0",
+        "TXN_79b1e5d1-8cd",
+        "TXN_b9d973b8-b4a",
+        "TXN_e64f475f-d5e",
+        "TXN_21b6a8d2-425",
+        "TXN_7b2efacc-e6b",
+        "TXN_8fe21513-950",
+        "TXN_65d9415a-c44"
+      ],
+      "bill_payment_ratio": [
+        "TXN_c6704afe-541",
+        "TXN_e64f475f-d5e",
+        "TXN_8fe21513-950",
+        "TXN_a79ebcc9-a28",
+        "TXN_a7e8399b-cc9",
+        "TXN_85496e96-152",
+        "TXN_afcc487f-f3b",
+        "TXN_a191d140-a69",
+        "TXN_cd5b57e7-875",
+        "TXN_8183d970-f3d",
+        "TXN_268fe2ba-052",
+        "TXN_e9dce19e-eca"
+      ],
+      "savings_rate": [
+        "TXN_b87ad51a-f88",
+        "TXN_c6704afe-541",
+        "TXN_a37a8daf-5fb",
+        "TXN_82d84e45-5b0",
+        "TXN_b3210473-655",
+        "TXN_79b1e5d1-8cd",
+        "TXN_b9d973b8-b4a",
+        "TXN_e64f475f-d5e",
+        "TXN_21b6a8d2-425",
+        "TXN_7b2efacc-e6b"
+      ],
+      "emi_burden_ratio": [
+        "TXN_b9d973b8-b4a",
+        "TXN_2fe4a682-0c0",
+        "TXN_9ec759ba-823",
+        "TXN_af55ff50-dd2",
+        "TXN_4bd927a6-7d5",
+        "TXN_2c1a1ff4-327",
+        "TXN_de625d75-35b",
+        "TXN_331b18f3-9b1",
+        "TXN_c5e0a789-87b",
+        "TXN_a3d8283d-019"
+      ],
+      "upi_activity_volume": [
+        "TXN_b87ad51a-f88",
+        "TXN_82d84e45-5b0",
+        "TXN_b3210473-655",
+        "TXN_e64f475f-d5e",
+        "TXN_21b6a8d2-425",
+        "TXN_7b2efacc-e6b",
+        "TXN_a371f03b-9c5",
+        "TXN_17a19ab5-101",
+        "TXN_532e9da9-c83",
+        "TXN_d94b4dcc-7a0"
+      ],
+      "rent_payment_regularity": [
+        "TXN_7b2efacc-e6b",
+        "TXN_91048e51-285",
+        "TXN_12dcf313-4fb"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_65d9415a-c44",
+        "TXN_62eb0dc6-792",
+        "TXN_42aa5e3f-5a2"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0003",
+    "lineage": {
+      "income_regularity": [
+        "TXN_e79c9955-a16",
+        "TXN_a7ccfa29-56c",
+        "TXN_7c84c371-c98",
+        "TXN_4063dd07-16b",
+        "TXN_ffbd057a-7bb",
+        "TXN_554da843-5a8"
+      ],
+      "spending_consistency": [
+        "TXN_4e538f3b-c62",
+        "TXN_a6254924-5ce",
+        "TXN_6d866f9b-aa2",
+        "TXN_4f65409b-959",
+        "TXN_8fbc4917-f96",
+        "TXN_7c6e6bcd-2bc",
+        "TXN_88b64d10-c27",
+        "TXN_c2ed22af-9b4",
+        "TXN_b7a325d4-059",
+        "TXN_f89a18ee-898"
+      ],
+      "bill_payment_ratio": [
+        "TXN_4e538f3b-c62",
+        "TXN_2dc424b4-603",
+        "TXN_a9f2e2c7-006",
+        "TXN_505d4db9-d4f",
+        "TXN_a8e64d12-cf4",
+        "TXN_164aca4e-d7b"
+      ],
+      "savings_rate": [
+        "TXN_4e538f3b-c62",
+        "TXN_a6254924-5ce",
+        "TXN_6d866f9b-aa2",
+        "TXN_4f65409b-959",
+        "TXN_8fbc4917-f96",
+        "TXN_7c6e6bcd-2bc",
+        "TXN_88b64d10-c27",
+        "TXN_c2ed22af-9b4",
+        "TXN_b7a325d4-059",
+        "TXN_f89a18ee-898"
+      ],
+      "emi_burden_ratio": [
+        "TXN_4f65409b-959",
+        "TXN_7c6e6bcd-2bc",
+        "TXN_b7a325d4-059",
+        "TXN_5578a8f1-b7b",
+        "TXN_a1ee9e8a-ac5",
+        "TXN_21d449f5-e9b",
+        "TXN_22b64c36-778",
+        "TXN_e658ba91-3c1"
+      ],
+      "upi_activity_volume": [
+        "TXN_6d866f9b-aa2",
+        "TXN_7c6e6bcd-2bc",
+        "TXN_88b64d10-c27",
+        "TXN_e79c9955-a16",
+        "TXN_2dc424b4-603",
+        "TXN_06ec676a-105",
+        "TXN_7c84c371-c98",
+        "TXN_21d449f5-e9b",
+        "TXN_3ced0745-e2b",
+        "TXN_c235612d-fd9"
+      ],
+      "rent_payment_regularity": [
+        "TXN_01499972-90e",
+        "TXN_80a2a33d-350"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_c2ed22af-9b4",
+        "TXN_f89a18ee-898",
+        "TXN_e9c57580-2ed",
+        "TXN_877dbcba-dac",
+        "TXN_db4a7628-ac0"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0004",
+    "lineage": {
+      "income_regularity": [
+        "TXN_4847241f-b51",
+        "TXN_78620010-19c",
+        "TXN_f6e45baf-3ee",
+        "TXN_49f8c43e-c6f",
+        "TXN_9f3f76c8-535",
+        "TXN_87db04a1-524",
+        "TXN_d7866ea5-203",
+        "TXN_48f4e128-331",
+        "TXN_c366dbca-681",
+        "TXN_c2155159-36a"
+      ],
+      "spending_consistency": [
+        "TXN_e954a667-d1a",
+        "TXN_cee1c1ca-35a",
+        "TXN_26616543-16a",
+        "TXN_4e2fa624-087",
+        "TXN_ef534401-fba",
+        "TXN_a801f226-8d2",
+        "TXN_2b94878f-516",
+        "TXN_69c9429c-3d2",
+        "TXN_3f215eae-d85",
+        "TXN_47361502-919"
+      ],
+      "bill_payment_ratio": [
+        "TXN_a801f226-8d2",
+        "TXN_60c41b51-034",
+        "TXN_0dc926fb-ed0",
+        "TXN_1ef8209a-fb2",
+        "TXN_1581df2c-bae",
+        "TXN_072e3f22-1db",
+        "TXN_47edc2fe-3fc"
+      ],
+      "savings_rate": [
+        "TXN_e954a667-d1a",
+        "TXN_cee1c1ca-35a",
+        "TXN_26616543-16a",
+        "TXN_4847241f-b51",
+        "TXN_78620010-19c",
+        "TXN_4e2fa624-087",
+        "TXN_ef534401-fba",
+        "TXN_a801f226-8d2",
+        "TXN_2b94878f-516",
+        "TXN_f6e45baf-3ee"
+      ],
+      "emi_burden_ratio": [
+        "TXN_4e2fa624-087",
+        "TXN_ef534401-fba",
+        "TXN_69c9429c-3d2",
+        "TXN_32df46df-c03",
+        "TXN_412aaab5-868",
+        "TXN_d785714a-608",
+        "TXN_d23cd131-b52",
+        "TXN_293cf1f7-9db",
+        "TXN_48ccd524-659",
+        "TXN_cd6c2ab7-db4",
+        "TXN_08668b15-19a",
+        "TXN_cb5a2207-85d",
+        "TXN_1e5c6522-813"
+      ],
+      "upi_activity_volume": [
+        "TXN_cee1c1ca-35a",
+        "TXN_26616543-16a",
+        "TXN_4847241f-b51",
+        "TXN_4e2fa624-087",
+        "TXN_a801f226-8d2",
+        "TXN_f6e45baf-3ee",
+        "TXN_49f8c43e-c6f",
+        "TXN_a8d2ff16-a21",
+        "TXN_596ba48b-4e9",
+        "TXN_0fef9b92-0a6"
+      ],
+      "rent_payment_regularity": [
+        "TXN_3acee45b-166",
+        "TXN_0fef9b92-0a6",
+        "TXN_cb095c39-43b",
+        "TXN_7f263e1b-383",
+        "TXN_aa43f4ab-412",
+        "TXN_9ab4f386-00e",
+        "TXN_fef1386e-57f",
+        "TXN_809e43a9-891",
+        "TXN_648edddc-179"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_3f215eae-d85",
+        "TXN_2cd7042e-9c5",
+        "TXN_edd52eec-782",
+        "TXN_9297d5f5-0cb",
+        "TXN_5f8efdde-006",
+        "TXN_98624f6f-ea1",
+        "TXN_83b61619-8b3"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0005",
+    "lineage": {
+      "income_regularity": [
+        "TXN_46f9358f-3b3",
+        "TXN_546b65ed-4d7",
+        "TXN_c7ce2ff5-d0f",
+        "TXN_32406a45-4b3",
+        "TXN_41f736e9-33e",
+        "TXN_e825a2ba-2fd",
+        "TXN_efa18f64-7b7",
+        "TXN_88fcd164-740",
+        "TXN_adfb60d1-2b4",
+        "TXN_263b6273-a03"
+      ],
+      "spending_consistency": [
+        "TXN_a4fc7047-dd2",
+        "TXN_be21b4b0-b9b",
+        "TXN_bdffc9a6-70e",
+        "TXN_6eb47f1f-e64",
+        "TXN_837e7354-3c3",
+        "TXN_960898b9-e5a",
+        "TXN_fce1a4e4-a2c",
+        "TXN_2207c8de-00b",
+        "TXN_c8ad5498-369",
+        "TXN_d7d00605-848"
+      ],
+      "bill_payment_ratio": [
+        "TXN_6eb47f1f-e64",
+        "TXN_5961982d-a71",
+        "TXN_919879ac-333",
+        "TXN_e1a2153d-366",
+        "TXN_a3cc8c9c-6b6",
+        "TXN_0da6a6bc-f54",
+        "TXN_e1eb4ea2-c8e",
+        "TXN_e689d420-c29",
+        "TXN_a990be83-24f",
+        "TXN_252295d1-050",
+        "TXN_0c36c1a0-a7a",
+        "TXN_dead3f18-7e9",
+        "TXN_e402f83b-ca9",
+        "TXN_208aa028-419",
+        "TXN_91dca4b5-44c",
+        "TXN_fd7413f6-a8a"
+      ],
+      "savings_rate": [
+        "TXN_46f9358f-3b3",
+        "TXN_a4fc7047-dd2",
+        "TXN_be21b4b0-b9b",
+        "TXN_bdffc9a6-70e",
+        "TXN_6eb47f1f-e64",
+        "TXN_837e7354-3c3",
+        "TXN_960898b9-e5a",
+        "TXN_fce1a4e4-a2c",
+        "TXN_2207c8de-00b",
+        "TXN_546b65ed-4d7"
+      ],
+      "emi_burden_ratio": [
+        "TXN_bdffc9a6-70e",
+        "TXN_d7d00605-848",
+        "TXN_11d86782-ae8",
+        "TXN_b8363450-6ad",
+        "TXN_346dff19-800",
+        "TXN_6b9bb5d9-9ef",
+        "TXN_34b152da-6cc",
+        "TXN_39105f53-c37",
+        "TXN_41190681-c9d",
+        "TXN_ff26d68e-016",
+        "TXN_032a0dc4-da7",
+        "TXN_58f13898-864",
+        "TXN_07b2f6bd-70c",
+        "TXN_a18ba90b-f56",
+        "TXN_27653597-7ff"
+      ],
+      "upi_activity_volume": [
+        "TXN_46f9358f-3b3",
+        "TXN_a4fc7047-dd2",
+        "TXN_6eb47f1f-e64",
+        "TXN_837e7354-3c3",
+        "TXN_960898b9-e5a",
+        "TXN_546b65ed-4d7",
+        "TXN_c8ad5498-369",
+        "TXN_e1f9e5f6-6dc",
+        "TXN_1489f8e6-ad2",
+        "TXN_11d86782-ae8"
+      ],
+      "rent_payment_regularity": [
+        "TXN_a31c3dea-16f",
+        "TXN_df70bd09-435",
+        "TXN_4fade941-2dd",
+        "TXN_50b09e11-7be",
+        "TXN_4eeb5fbe-fcd",
+        "TXN_f02fbe47-470",
+        "TXN_b4fec30e-062",
+        "TXN_ecdcf80e-e6e",
+        "TXN_02b0c81d-e5a",
+        "TXN_f485b5bc-e1d"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_be21b4b0-b9b",
+        "TXN_fce1a4e4-a2c",
+        "TXN_cee23eeb-912",
+        "TXN_c903116d-383",
+        "TXN_d44277c1-884",
+        "TXN_53ac6d52-9c0",
+        "TXN_319b2da4-bba",
+        "TXN_46bcd098-d13"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0006",
+    "lineage": {
+      "income_regularity": [
+        "TXN_8944ba78-2c5",
+        "TXN_039c7b21-0c1",
+        "TXN_f52daea2-29c",
+        "TXN_91331e01-862",
+        "TXN_df17e435-2a1",
+        "TXN_c1609245-f9a",
+        "TXN_19a8aca1-8df",
+        "TXN_079bcaa5-974",
+        "TXN_6573991e-19f",
+        "TXN_9c89d46b-640"
+      ],
+      "spending_consistency": [
+        "TXN_fb22c709-0f1",
+        "TXN_0d285644-8f8",
+        "TXN_dc1497d1-0a9",
+        "TXN_417aa03e-94a",
+        "TXN_59cf08ce-9ad",
+        "TXN_700c1ec0-662",
+        "TXN_5c00672f-00b",
+        "TXN_18659185-b38",
+        "TXN_a7fcfb44-8b5",
+        "TXN_ece4eac8-6ef"
+      ],
+      "bill_payment_ratio": [
+        "TXN_15d39bc0-feb"
+      ],
+      "savings_rate": [
+        "TXN_fb22c709-0f1",
+        "TXN_8944ba78-2c5",
+        "TXN_039c7b21-0c1",
+        "TXN_0d285644-8f8",
+        "TXN_dc1497d1-0a9",
+        "TXN_417aa03e-94a",
+        "TXN_f52daea2-29c",
+        "TXN_59cf08ce-9ad",
+        "TXN_700c1ec0-662",
+        "TXN_5c00672f-00b"
+      ],
+      "emi_burden_ratio": [
+        "TXN_fb22c709-0f1",
+        "TXN_18659185-b38",
+        "TXN_253ec709-072",
+        "TXN_04139f75-2bc",
+        "TXN_a1873bae-a89",
+        "TXN_75db9ca3-6d0",
+        "TXN_533f7507-86b",
+        "TXN_21b442f6-ff8",
+        "TXN_45773e47-99e"
+      ],
+      "upi_activity_volume": [
+        "TXN_8944ba78-2c5",
+        "TXN_039c7b21-0c1",
+        "TXN_0d285644-8f8",
+        "TXN_f52daea2-29c",
+        "TXN_59cf08ce-9ad",
+        "TXN_5c00672f-00b",
+        "TXN_91331e01-862",
+        "TXN_a7fcfb44-8b5",
+        "TXN_276268cf-150",
+        "TXN_253ec709-072"
+      ],
+      "rent_payment_regularity": [
+        "TXN_6513764f-5f8"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_ece4eac8-6ef"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0007",
+    "lineage": {
+      "income_regularity": [
+        "TXN_0a966800-29e",
+        "TXN_ab5a2176-74f",
+        "TXN_fc2120ce-fac",
+        "TXN_4a04e805-272",
+        "TXN_8634615d-92d",
+        "TXN_870351cc-f95",
+        "TXN_f5595478-d7c",
+        "TXN_d2847873-2c7",
+        "TXN_75aee672-4e2",
+        "TXN_9c0f4c84-f37"
+      ],
+      "spending_consistency": [
+        "TXN_03460751-ca2",
+        "TXN_10931ea3-b15",
+        "TXN_8dc41c5d-8ef",
+        "TXN_3cf9104c-85e",
+        "TXN_219594e0-159",
+        "TXN_db6f0732-003",
+        "TXN_a344732f-d7b",
+        "TXN_7ee53982-388",
+        "TXN_1e444c9d-7c8",
+        "TXN_cc405ea1-891"
+      ],
+      "bill_payment_ratio": [
+        "TXN_cc405ea1-891",
+        "TXN_0aa748b6-67f",
+        "TXN_2acb1c74-1f5",
+        "TXN_ac8c5981-26e"
+      ],
+      "savings_rate": [
+        "TXN_03460751-ca2",
+        "TXN_10931ea3-b15",
+        "TXN_8dc41c5d-8ef",
+        "TXN_3cf9104c-85e",
+        "TXN_219594e0-159",
+        "TXN_db6f0732-003",
+        "TXN_0a966800-29e",
+        "TXN_a344732f-d7b",
+        "TXN_7ee53982-388",
+        "TXN_1e444c9d-7c8"
+      ],
+      "emi_burden_ratio": [
+        "TXN_8dc41c5d-8ef",
+        "TXN_219594e0-159",
+        "TXN_03078c96-19f",
+        "TXN_35050ed4-58c",
+        "TXN_f1947954-3c1",
+        "TXN_410ecced-708",
+        "TXN_5f168840-a35",
+        "TXN_8cf139ba-209"
+      ],
+      "upi_activity_volume": [
+        "TXN_10931ea3-b15",
+        "TXN_3cf9104c-85e",
+        "TXN_219594e0-159",
+        "TXN_db6f0732-003",
+        "TXN_0a966800-29e",
+        "TXN_ab5a2176-74f",
+        "TXN_9417c4f6-d2c",
+        "TXN_9d5752d0-fe3",
+        "TXN_10b74cc0-a68",
+        "TXN_fc2120ce-fac"
+      ],
+      "rent_payment_regularity": [
+        "TXN_a344732f-d7b",
+        "TXN_43cc68af-b0c",
+        "TXN_fce939f5-3dc",
+        "TXN_31553228-297",
+        "TXN_17003152-62b",
+        "TXN_c63dfbaa-9d2"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_4b2271bb-a91",
+        "TXN_cbb3831b-58e",
+        "TXN_0f0b7819-6bd",
+        "TXN_17130de2-3c8",
+        "TXN_a2e25c59-bfb",
+        "TXN_7d527970-887",
+        "TXN_251124cc-98b"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0008",
+    "lineage": {
+      "income_regularity": [
+        "TXN_57044f1d-bf4",
+        "TXN_18f8f7f8-72b",
+        "TXN_fd57c40e-759",
+        "TXN_618f92e4-74b",
+        "TXN_b859b0a8-1d6",
+        "TXN_665d822e-b62",
+        "TXN_db084458-aae",
+        "TXN_ec05d7d3-a9f"
+      ],
+      "spending_consistency": [
+        "TXN_ebfe9d01-ff0",
+        "TXN_b24eef61-a54",
+        "TXN_1c7765d1-c4f",
+        "TXN_0d4b3fd2-1d4",
+        "TXN_a3266d77-a2b",
+        "TXN_2cdffde2-787",
+        "TXN_7cc9e194-43b",
+        "TXN_2ac57d56-32b",
+        "TXN_7ccba33c-fe9",
+        "TXN_d732ef1c-f29"
+      ],
+      "bill_payment_ratio": [
+        "TXN_1c7765d1-c4f",
+        "TXN_2cdffde2-787",
+        "TXN_944277d5-a88",
+        "TXN_e0ef0229-a04",
+        "TXN_41f6d201-3ee"
+      ],
+      "savings_rate": [
+        "TXN_ebfe9d01-ff0",
+        "TXN_b24eef61-a54",
+        "TXN_57044f1d-bf4",
+        "TXN_18f8f7f8-72b",
+        "TXN_1c7765d1-c4f",
+        "TXN_0d4b3fd2-1d4",
+        "TXN_a3266d77-a2b",
+        "TXN_2cdffde2-787",
+        "TXN_7cc9e194-43b",
+        "TXN_2ac57d56-32b"
+      ],
+      "emi_burden_ratio": [
+        "TXN_ebfe9d01-ff0",
+        "TXN_b24eef61-a54",
+        "TXN_0d4b3fd2-1d4",
+        "TXN_4dba46b8-6db",
+        "TXN_48d5ceaf-59d",
+        "TXN_04cfb63d-f3c",
+        "TXN_7c591cad-26a",
+        "TXN_ac5c2f5f-d4e"
+      ],
+      "upi_activity_volume": [
+        "TXN_18f8f7f8-72b",
+        "TXN_a3266d77-a2b",
+        "TXN_d732ef1c-f29",
+        "TXN_c624aa22-e25",
+        "TXN_9b4f442f-b7b",
+        "TXN_665d822e-b62",
+        "TXN_241805e3-c4e",
+        "TXN_4dba46b8-6db",
+        "TXN_3065f595-5f6",
+        "TXN_36dd9386-0db"
+      ],
+      "rent_payment_regularity": [
+        "TXN_7cc9e194-43b",
+        "TXN_2ac57d56-32b",
+        "TXN_8f58aba6-8d0",
+        "TXN_241805e3-c4e"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_7ccba33c-fe9",
+        "TXN_967d77c9-092",
+        "TXN_93c3d12d-817",
+        "TXN_317d4fcb-574",
+        "TXN_b8e3dccf-1be"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0009",
+    "lineage": {
+      "income_regularity": [
+        "TXN_b7f124cb-218",
+        "TXN_557b38f6-55e",
+        "TXN_1581e88c-66f",
+        "TXN_ee7c077f-b3a",
+        "TXN_71e8a6ba-aa1",
+        "TXN_cc7cec6f-ff9",
+        "TXN_86b1119b-fb8",
+        "TXN_e2725af5-a5c",
+        "TXN_bbfa0aa1-64c",
+        "TXN_58cb8a06-f13"
+      ],
+      "spending_consistency": [
+        "TXN_7033a5a5-090",
+        "TXN_644fbed8-ed6",
+        "TXN_0725cec5-29f",
+        "TXN_794462ae-663",
+        "TXN_01eccbba-3e0",
+        "TXN_12756e96-9a9",
+        "TXN_1c936337-955",
+        "TXN_9bb518c2-e7d",
+        "TXN_211d5a16-693",
+        "TXN_0c6e88ac-d92"
+      ],
+      "bill_payment_ratio": [
+        "TXN_8345679c-9c4",
+        "TXN_1b87cb16-959",
+        "TXN_51108d34-efd",
+        "TXN_6c9c6746-cb6",
+        "TXN_4ba64833-ac9",
+        "TXN_ce5c081b-ef2",
+        "TXN_a7eb46d5-bc5",
+        "TXN_3ae67fb7-a42"
+      ],
+      "savings_rate": [
+        "TXN_7033a5a5-090",
+        "TXN_644fbed8-ed6",
+        "TXN_0725cec5-29f",
+        "TXN_794462ae-663",
+        "TXN_01eccbba-3e0",
+        "TXN_b7f124cb-218",
+        "TXN_12756e96-9a9",
+        "TXN_1c936337-955",
+        "TXN_557b38f6-55e",
+        "TXN_1581e88c-66f"
+      ],
+      "emi_burden_ratio": [
+        "TXN_01eccbba-3e0",
+        "TXN_1c936337-955",
+        "TXN_bbd5d418-dd9",
+        "TXN_5f24f254-97d",
+        "TXN_52346814-213",
+        "TXN_0c366d89-08e",
+        "TXN_58d96b86-d95",
+        "TXN_fa608f9d-df1",
+        "TXN_35481e30-caa",
+        "TXN_79db5250-a4f",
+        "TXN_75abce94-6ab"
+      ],
+      "upi_activity_volume": [
+        "TXN_0725cec5-29f",
+        "TXN_794462ae-663",
+        "TXN_b7f124cb-218",
+        "TXN_12756e96-9a9",
+        "TXN_1c936337-955",
+        "TXN_1581e88c-66f",
+        "TXN_9bb518c2-e7d",
+        "TXN_0c6e88ac-d92",
+        "TXN_bbd5d418-dd9",
+        "TXN_71e8a6ba-aa1"
+      ],
+      "rent_payment_regularity": [
+        "TXN_0c6e88ac-d92",
+        "TXN_7c53473d-a0f"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_7033a5a5-090",
+        "TXN_211d5a16-693",
+        "TXN_dc23de5a-f93",
+        "TXN_356c1265-b2a",
+        "TXN_43b94ae4-141",
+        "TXN_dd10d25a-c29",
+        "TXN_3c234397-68c",
+        "TXN_edeae09f-85f",
+        "TXN_f62e2017-71c",
+        "TXN_241230ad-4f8"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0010",
+    "lineage": {
+      "income_regularity": [
+        "TXN_240f8af7-c51",
+        "TXN_343e2643-cb6",
+        "TXN_7160cc6c-994",
+        "TXN_f92fb908-d32",
+        "TXN_aaada1ea-1c2",
+        "TXN_a2e9bc73-46a",
+        "TXN_0d6285d4-f7d",
+        "TXN_f61d60f9-655",
+        "TXN_3747f9de-300",
+        "TXN_b9f3b60b-75f"
+      ],
+      "spending_consistency": [
+        "TXN_1acfc697-435",
+        "TXN_634f6743-3d3",
+        "TXN_611ecf05-929",
+        "TXN_4cb43d48-41a",
+        "TXN_63203507-0ea",
+        "TXN_d30289b0-b7e",
+        "TXN_601882e7-608",
+        "TXN_adb913ea-26a",
+        "TXN_c41fd44b-f92",
+        "TXN_dc1f6f64-85d"
+      ],
+      "bill_payment_ratio": [
+        "TXN_63203507-0ea",
+        "TXN_d30289b0-b7e",
+        "TXN_3b09d36e-ccc",
+        "TXN_37b101be-487",
+        "TXN_a1a3c983-470",
+        "TXN_4f3c5dc4-a88",
+        "TXN_8ee8804f-df8",
+        "TXN_4cf57ba2-030",
+        "TXN_9aa0ad8f-043",
+        "TXN_2308c15a-e15",
+        "TXN_fa27dc6e-ada",
+        "TXN_fe4fc995-bb3",
+        "TXN_dbbaab7d-a1a",
+        "TXN_0e93c3fd-d4f",
+        "TXN_4a6c6b64-3b2",
+        "TXN_d94aa06e-96a"
+      ],
+      "savings_rate": [
+        "TXN_1acfc697-435",
+        "TXN_634f6743-3d3",
+        "TXN_611ecf05-929",
+        "TXN_4cb43d48-41a",
+        "TXN_63203507-0ea",
+        "TXN_d30289b0-b7e",
+        "TXN_601882e7-608",
+        "TXN_adb913ea-26a",
+        "TXN_240f8af7-c51",
+        "TXN_c41fd44b-f92"
+      ],
+      "emi_burden_ratio": [
+        "TXN_1acfc697-435",
+        "TXN_634f6743-3d3",
+        "TXN_adb913ea-26a",
+        "TXN_950a15d5-c5c",
+        "TXN_94aa9361-74b",
+        "TXN_f0f755fe-7ba",
+        "TXN_7993afc5-e24",
+        "TXN_3ca2209f-687",
+        "TXN_cc86141e-063",
+        "TXN_31cc8cec-473",
+        "TXN_6881ccbb-37e",
+        "TXN_c430058a-548",
+        "TXN_37676f77-d71",
+        "TXN_0cecd98c-28e",
+        "TXN_d505bfd0-813",
+        "TXN_989863a9-b88",
+        "TXN_5fb47906-420",
+        "TXN_978e47c3-271",
+        "TXN_81b78b51-a4b",
+        "TXN_4f756969-453"
+      ],
+      "upi_activity_volume": [
+        "TXN_634f6743-3d3",
+        "TXN_240f8af7-c51",
+        "TXN_950a15d5-c5c",
+        "TXN_3b09d36e-ccc",
+        "TXN_37b101be-487",
+        "TXN_ea49c0a4-0c7",
+        "TXN_ceef4af0-fbb",
+        "TXN_c814e9fb-6a5",
+        "TXN_f0f755fe-7ba",
+        "TXN_7993afc5-e24"
+      ],
+      "rent_payment_regularity": [
+        "TXN_5f9078b4-d90",
+        "TXN_7a85aed9-76e",
+        "TXN_6440147a-e6f",
+        "TXN_27d5ee33-052",
+        "TXN_8883db34-a41",
+        "TXN_48fbda03-62b",
+        "TXN_5786ec30-038",
+        "TXN_77f06a88-96c",
+        "TXN_073de8a3-6f7"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_611ecf05-929",
+        "TXN_7590b4f1-2c3",
+        "TXN_a936d0e8-819",
+        "TXN_bfdd48ee-244",
+        "TXN_a135e433-dcf",
+        "TXN_58331774-d6e",
+        "TXN_4d115194-b91"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0011",
+    "lineage": {
+      "income_regularity": [
+        "TXN_96f7fc62-ba6",
+        "TXN_ab67929c-07a",
+        "TXN_0f418c7d-6b3",
+        "TXN_66aa76fe-258",
+        "TXN_a17616c1-d30",
+        "TXN_457114c3-5a6",
+        "TXN_cda2a71e-02a",
+        "TXN_4f352e82-aa9",
+        "TXN_b0e940c8-83d",
+        "TXN_608e9f11-082"
+      ],
+      "spending_consistency": [
+        "TXN_29347c6e-028",
+        "TXN_e68e037b-b68",
+        "TXN_4db1a1ce-b7e",
+        "TXN_603294f6-d44",
+        "TXN_a781d480-704",
+        "TXN_21fcc413-423",
+        "TXN_08e724f9-494",
+        "TXN_47dff971-c32",
+        "TXN_79fe00b0-660",
+        "TXN_9964e798-d76"
+      ],
+      "bill_payment_ratio": [
+        "TXN_29347c6e-028",
+        "TXN_21fcc413-423",
+        "TXN_2d568d6d-b44",
+        "TXN_59de3f13-2e0",
+        "TXN_61b26ad3-478",
+        "TXN_9806ff86-c53"
+      ],
+      "savings_rate": [
+        "TXN_29347c6e-028",
+        "TXN_96f7fc62-ba6",
+        "TXN_e68e037b-b68",
+        "TXN_4db1a1ce-b7e",
+        "TXN_603294f6-d44",
+        "TXN_a781d480-704",
+        "TXN_21fcc413-423",
+        "TXN_08e724f9-494",
+        "TXN_47dff971-c32",
+        "TXN_ab67929c-07a"
+      ],
+      "emi_burden_ratio": [
+        "TXN_4db1a1ce-b7e",
+        "TXN_06aaf62e-1c1",
+        "TXN_e1e1dc39-cbb",
+        "TXN_c9266df5-d6a",
+        "TXN_789c5cd9-761",
+        "TXN_67619366-a51"
+      ],
+      "upi_activity_volume": [
+        "TXN_29347c6e-028",
+        "TXN_96f7fc62-ba6",
+        "TXN_4db1a1ce-b7e",
+        "TXN_603294f6-d44",
+        "TXN_21fcc413-423",
+        "TXN_08e724f9-494",
+        "TXN_47dff971-c32",
+        "TXN_ab67929c-07a",
+        "TXN_79fe00b0-660",
+        "TXN_9964e798-d76"
+      ],
+      "rent_payment_regularity": [
+        "TXN_e68e037b-b68",
+        "TXN_a781d480-704",
+        "TXN_9964e798-d76",
+        "TXN_239f3801-c4d",
+        "TXN_981550d6-5e0",
+        "TXN_8d2fee0a-0d4"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_749ca58c-da5",
+        "TXN_462f33b7-290"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0012",
+    "lineage": {
+      "income_regularity": [
+        "TXN_63e6bfd4-728",
+        "TXN_07ec910d-7b6",
+        "TXN_24e35248-fb2",
+        "TXN_477c82ce-34b",
+        "TXN_b7ab96cc-71e",
+        "TXN_41f5340c-2c1",
+        "TXN_3a64a1f2-416",
+        "TXN_5ec0ec75-b8a",
+        "TXN_95e59719-c46",
+        "TXN_87b4cdf1-d5e"
+      ],
+      "spending_consistency": [
+        "TXN_a481f6eb-ecc",
+        "TXN_85abdc0b-ed4",
+        "TXN_0fb83c88-4a4",
+        "TXN_440641ad-9a3",
+        "TXN_0d52586d-acf",
+        "TXN_35d93e17-536",
+        "TXN_9f9a33d5-e87",
+        "TXN_d2fc75ab-faa",
+        "TXN_4f69011f-211",
+        "TXN_e200a330-1dc"
+      ],
+      "bill_payment_ratio": [
+        "TXN_0d52586d-acf",
+        "TXN_35d93e17-536",
+        "TXN_476a9648-195",
+        "TXN_c4a92055-dc4",
+        "TXN_7e899fdd-fb1",
+        "TXN_5997f604-ad8",
+        "TXN_2cf9816d-864"
+      ],
+      "savings_rate": [
+        "TXN_a481f6eb-ecc",
+        "TXN_63e6bfd4-728",
+        "TXN_85abdc0b-ed4",
+        "TXN_07ec910d-7b6",
+        "TXN_0fb83c88-4a4",
+        "TXN_440641ad-9a3",
+        "TXN_0d52586d-acf",
+        "TXN_35d93e17-536",
+        "TXN_9f9a33d5-e87",
+        "TXN_24e35248-fb2"
+      ],
+      "emi_burden_ratio": [
+        "TXN_a481f6eb-ecc",
+        "TXN_4f69011f-211",
+        "TXN_e200a330-1dc",
+        "TXN_378b7b1a-08e",
+        "TXN_f0dddb86-1ad",
+        "TXN_0a000dfb-434",
+        "TXN_2969a4b6-3ba",
+        "TXN_11e53943-45a",
+        "TXN_1f14be07-0f9",
+        "TXN_3ef8c2e5-d64",
+        "TXN_5f281c28-066",
+        "TXN_ca3c4f47-4df",
+        "TXN_c255ab48-1b9",
+        "TXN_5491f8d0-9b6",
+        "TXN_e7cca8ed-ec4",
+        "TXN_6d7d0ab1-e22"
+      ],
+      "upi_activity_volume": [
+        "TXN_a481f6eb-ecc",
+        "TXN_63e6bfd4-728",
+        "TXN_85abdc0b-ed4",
+        "TXN_07ec910d-7b6",
+        "TXN_440641ad-9a3",
+        "TXN_0d52586d-acf",
+        "TXN_35d93e17-536",
+        "TXN_24e35248-fb2",
+        "TXN_d2fc75ab-faa",
+        "TXN_4f69011f-211"
+      ],
+      "rent_payment_regularity": [
+        "TXN_440641ad-9a3",
+        "TXN_8def7be8-83e",
+        "TXN_b04ade20-e11",
+        "TXN_aa7f4481-ec3"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_9f9a33d5-e87",
+        "TXN_5ce49082-9bd"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0013",
+    "lineage": {
+      "income_regularity": [
+        "TXN_fb8d0584-73e",
+        "TXN_0a3d961b-16d",
+        "TXN_ac6579f0-49d",
+        "TXN_1269a101-155",
+        "TXN_6f240913-17e",
+        "TXN_31cba2ed-c48",
+        "TXN_43d35779-1e3",
+        "TXN_93419744-df5",
+        "TXN_ff116b76-1f0",
+        "TXN_0fcaca13-4da"
+      ],
+      "spending_consistency": [
+        "TXN_10c5f8c4-5d6",
+        "TXN_b4503894-f4b",
+        "TXN_29a40999-c6a",
+        "TXN_8d5a5a43-0e2",
+        "TXN_5d8f5089-ad3",
+        "TXN_a7bf344a-723",
+        "TXN_c43dfc4c-c67",
+        "TXN_e16f25cb-2ce",
+        "TXN_9c7f4f55-525",
+        "TXN_275930e2-d36"
+      ],
+      "bill_payment_ratio": [
+        "TXN_5d8f5089-ad3",
+        "TXN_e16f25cb-2ce",
+        "TXN_9c7f4f55-525",
+        "TXN_bd275954-f7d",
+        "TXN_43d46eaa-fd5",
+        "TXN_7ade1b9b-90d",
+        "TXN_de708b11-1db",
+        "TXN_753c02f2-862",
+        "TXN_789e6b00-015",
+        "TXN_c1fbd45b-754",
+        "TXN_f2ced3f4-1e7",
+        "TXN_6b4820a0-935",
+        "TXN_859d2d6c-964",
+        "TXN_7697c0ae-047",
+        "TXN_2b960b74-bdc",
+        "TXN_292f4e43-216"
+      ],
+      "savings_rate": [
+        "TXN_10c5f8c4-5d6",
+        "TXN_b4503894-f4b",
+        "TXN_fb8d0584-73e",
+        "TXN_0a3d961b-16d",
+        "TXN_29a40999-c6a",
+        "TXN_8d5a5a43-0e2",
+        "TXN_5d8f5089-ad3",
+        "TXN_ac6579f0-49d",
+        "TXN_1269a101-155",
+        "TXN_6f240913-17e"
+      ],
+      "emi_burden_ratio": [
+        "TXN_2d375ac7-40c",
+        "TXN_6f4f24cb-cfe",
+        "TXN_ad3493e8-729",
+        "TXN_eb6a0d86-362",
+        "TXN_b0a7f429-489",
+        "TXN_2be4ed8a-0fd",
+        "TXN_424840f7-0d2",
+        "TXN_71730303-d45"
+      ],
+      "upi_activity_volume": [
+        "TXN_b4503894-f4b",
+        "TXN_fb8d0584-73e",
+        "TXN_29a40999-c6a",
+        "TXN_8d5a5a43-0e2",
+        "TXN_ac6579f0-49d",
+        "TXN_1269a101-155",
+        "TXN_c43dfc4c-c67",
+        "TXN_f792d941-5ee",
+        "TXN_ff116b76-1f0",
+        "TXN_7ade1b9b-90d"
+      ],
+      "rent_payment_regularity": [
+        "TXN_a7bf344a-723",
+        "TXN_adb65b1d-873",
+        "TXN_75db8780-280",
+        "TXN_9a7495bc-799",
+        "TXN_0771eabc-77c",
+        "TXN_caab2431-296",
+        "TXN_210ab812-c2d",
+        "TXN_1b72fe53-17a",
+        "TXN_7814c75d-fb7"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_275930e2-d36",
+        "TXN_02613835-ac0",
+        "TXN_959422f9-df7",
+        "TXN_cf3c036c-09d",
+        "TXN_b04141e9-960",
+        "TXN_6a5ab922-987",
+        "TXN_5dddb343-4b8",
+        "TXN_a3c3b179-a4a",
+        "TXN_089a5aea-530",
+        "TXN_9900bc9d-c95"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0014",
+    "lineage": {
+      "income_regularity": [
+        "TXN_5345540e-b7c",
+        "TXN_fadcf754-dab",
+        "TXN_f1e0bb95-672",
+        "TXN_79a006f9-62a",
+        "TXN_44dd6054-83f",
+        "TXN_172f7990-4e2",
+        "TXN_9a365290-2bc",
+        "TXN_a6c0d076-82f",
+        "TXN_731d90e9-9aa",
+        "TXN_9bcd16d1-f23"
+      ],
+      "spending_consistency": [
+        "TXN_4ebf431d-7c4",
+        "TXN_de495165-6ac",
+        "TXN_fb555eb4-19d",
+        "TXN_b2c7217c-392",
+        "TXN_cb3d065c-e9f",
+        "TXN_e2dd2e32-ec1",
+        "TXN_b198b246-891",
+        "TXN_4a10da3d-416",
+        "TXN_2a140347-b1b",
+        "TXN_648e846e-39c"
+      ],
+      "bill_payment_ratio": [
+        "TXN_4a10da3d-416",
+        "TXN_6a774aac-b9f",
+        "TXN_457c24fc-a1a",
+        "TXN_f9ad6b93-8c4",
+        "TXN_924ee676-853",
+        "TXN_785a1915-029",
+        "TXN_2203c288-bc3",
+        "TXN_8c28670c-5b8",
+        "TXN_fcbfcf26-42a",
+        "TXN_a26c3c7d-907",
+        "TXN_956734f1-347",
+        "TXN_f9f166bc-304",
+        "TXN_a6ce0f96-e90"
+      ],
+      "savings_rate": [
+        "TXN_4ebf431d-7c4",
+        "TXN_5345540e-b7c",
+        "TXN_de495165-6ac",
+        "TXN_fb555eb4-19d",
+        "TXN_b2c7217c-392",
+        "TXN_cb3d065c-e9f",
+        "TXN_fadcf754-dab",
+        "TXN_f1e0bb95-672",
+        "TXN_e2dd2e32-ec1",
+        "TXN_b198b246-891"
+      ],
+      "emi_burden_ratio": [
+        "TXN_b2c7217c-392",
+        "TXN_648e846e-39c",
+        "TXN_e6c43fa2-101",
+        "TXN_80ecb589-fcd",
+        "TXN_7f61e943-a14",
+        "TXN_5184a87d-a9a",
+        "TXN_2066796f-5d2",
+        "TXN_53b4c250-a9b",
+        "TXN_329d21c3-546",
+        "TXN_c8bceecc-2cd",
+        "TXN_3d2e113d-622",
+        "TXN_e96c31d9-626",
+        "TXN_020d86af-81f",
+        "TXN_88fc8934-434",
+        "TXN_dd5acecb-e85",
+        "TXN_77e21c7d-306",
+        "TXN_7fa0df20-62b",
+        "TXN_fb19cb5e-c87"
+      ],
+      "upi_activity_volume": [
+        "TXN_5345540e-b7c",
+        "TXN_de495165-6ac",
+        "TXN_fb555eb4-19d",
+        "TXN_cb3d065c-e9f",
+        "TXN_fadcf754-dab",
+        "TXN_2a140347-b1b",
+        "TXN_80ecb589-fcd",
+        "TXN_79a006f9-62a",
+        "TXN_21960faf-9ee",
+        "TXN_2066796f-5d2"
+      ],
+      "rent_payment_regularity": [
+        "TXN_13552c81-d15",
+        "TXN_48d6fd2c-f2a",
+        "TXN_d2be0c7d-660",
+        "TXN_e0ef3007-160",
+        "TXN_9abc0fb6-420",
+        "TXN_1f1bec69-d11",
+        "TXN_8fd64705-bfd",
+        "TXN_c142ded3-2e6",
+        "TXN_86123006-c23",
+        "TXN_7f33c06d-cb5",
+        "TXN_79b98912-6fd"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_e2dd2e32-ec1",
+        "TXN_b198b246-891",
+        "TXN_71ea38ff-d49",
+        "TXN_f22af438-bd5",
+        "TXN_1e064ea1-1f7",
+        "TXN_d5871a65-e17",
+        "TXN_486d5494-75f",
+        "TXN_27c14d66-a70",
+        "TXN_52033715-67e",
+        "TXN_863edfac-4f5"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0015",
+    "lineage": {
+      "income_regularity": [
+        "TXN_2c71554d-fdb",
+        "TXN_46f25844-d3e",
+        "TXN_113b2574-ffc",
+        "TXN_e67eb1fa-34f",
+        "TXN_5ab9b144-53b",
+        "TXN_740347fb-b23",
+        "TXN_b59ddbee-f2b",
+        "TXN_767e090e-de3",
+        "TXN_88bbc0bd-dc3",
+        "TXN_350b0b87-b58"
+      ],
+      "spending_consistency": [
+        "TXN_0a3e8ac8-27a",
+        "TXN_8218eba1-7d2",
+        "TXN_5fea4596-ca9",
+        "TXN_d26e0186-e14",
+        "TXN_213d7ed1-669",
+        "TXN_34ebb47f-e94",
+        "TXN_7bf60b48-4bb",
+        "TXN_f074a693-da0",
+        "TXN_aa99627d-f08",
+        "TXN_3827a9a4-c3f"
+      ],
+      "bill_payment_ratio": [
+        "TXN_f074a693-da0",
+        "TXN_44dc6834-068",
+        "TXN_0294feb7-086",
+        "TXN_f8a925f5-0d1",
+        "TXN_bfffba79-68e",
+        "TXN_0d8e0393-899",
+        "TXN_af329fde-5e3",
+        "TXN_4f564077-a19",
+        "TXN_f4ddfee8-c03",
+        "TXN_be14a5ab-88a",
+        "TXN_8e7a1d8b-89c",
+        "TXN_9e5a03e2-f42",
+        "TXN_d6a79372-90c",
+        "TXN_9baf4af4-c6a"
+      ],
+      "savings_rate": [
+        "TXN_0a3e8ac8-27a",
+        "TXN_8218eba1-7d2",
+        "TXN_5fea4596-ca9",
+        "TXN_2c71554d-fdb",
+        "TXN_d26e0186-e14",
+        "TXN_213d7ed1-669",
+        "TXN_34ebb47f-e94",
+        "TXN_7bf60b48-4bb",
+        "TXN_f074a693-da0",
+        "TXN_aa99627d-f08"
+      ],
+      "emi_burden_ratio": [
+        "TXN_0a3e8ac8-27a",
+        "TXN_d26e0186-e14",
+        "TXN_7bf60b48-4bb",
+        "TXN_3827a9a4-c3f",
+        "TXN_4ab9b1ac-ff4",
+        "TXN_0c9fa8c0-924",
+        "TXN_42546c04-4da",
+        "TXN_a2f95856-860",
+        "TXN_6d8ecaa1-766",
+        "TXN_7229d73d-19a",
+        "TXN_56632eb3-b59",
+        "TXN_37799297-290",
+        "TXN_2702aafc-399"
+      ],
+      "upi_activity_volume": [
+        "TXN_5fea4596-ca9",
+        "TXN_213d7ed1-669",
+        "TXN_f074a693-da0",
+        "TXN_aa99627d-f08",
+        "TXN_46f25844-d3e",
+        "TXN_113b2574-ffc",
+        "TXN_44dc6834-068",
+        "TXN_f8a925f5-0d1",
+        "TXN_a2f95856-860",
+        "TXN_740347fb-b23"
+      ],
+      "rent_payment_regularity": [
+        "TXN_5fea4596-ca9",
+        "TXN_d7fa4110-135",
+        "TXN_68b4a79e-49b",
+        "TXN_ad3e91d9-b44"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_19bc9d5a-c44",
+        "TXN_e1cbaedb-654",
+        "TXN_acb1a2a7-518",
+        "TXN_16aba137-0c7",
+        "TXN_ff3cd529-48b",
+        "TXN_6b0b9c41-732",
+        "TXN_bc36cf8e-19e",
+        "TXN_1295a59e-b5b",
+        "TXN_9a9e81e0-a62",
+        "TXN_53872cb9-88c"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0016",
+    "lineage": {
+      "income_regularity": [
+        "TXN_fb7bf3f1-618",
+        "TXN_4d0ec2c6-792",
+        "TXN_d1e2160b-430",
+        "TXN_db5320a6-200",
+        "TXN_324019fd-25c",
+        "TXN_0a515c9e-4e0",
+        "TXN_fa8ec5f4-385",
+        "TXN_effc6e0a-0cb",
+        "TXN_654986a5-405",
+        "TXN_afe09c61-30b"
+      ],
+      "spending_consistency": [
+        "TXN_36a391b1-4ee",
+        "TXN_2d41c9d3-334",
+        "TXN_4133036d-7cf",
+        "TXN_b4b1671a-ead",
+        "TXN_1f782967-054",
+        "TXN_90b97f30-f65",
+        "TXN_cc2dccb0-5c8",
+        "TXN_853bbf68-ab1",
+        "TXN_f3a83e70-37b",
+        "TXN_f660f909-137"
+      ],
+      "bill_payment_ratio": [
+        "TXN_2d41c9d3-334",
+        "TXN_90b97f30-f65",
+        "TXN_853bbf68-ab1",
+        "TXN_f3a83e70-37b",
+        "TXN_bd27a602-a80",
+        "TXN_f30a3801-e59",
+        "TXN_34fdfe8b-b21",
+        "TXN_0d3e5125-587",
+        "TXN_ba0c5fff-eb6",
+        "TXN_f1e02376-9b8",
+        "TXN_040ad641-ae2",
+        "TXN_d10c3d5c-ff9",
+        "TXN_c4ec003a-3e9",
+        "TXN_befe8aaf-d71",
+        "TXN_4bd82ff2-f27"
+      ],
+      "savings_rate": [
+        "TXN_36a391b1-4ee",
+        "TXN_2d41c9d3-334",
+        "TXN_4133036d-7cf",
+        "TXN_b4b1671a-ead",
+        "TXN_1f782967-054",
+        "TXN_90b97f30-f65",
+        "TXN_cc2dccb0-5c8",
+        "TXN_853bbf68-ab1",
+        "TXN_f3a83e70-37b",
+        "TXN_fb7bf3f1-618"
+      ],
+      "emi_burden_ratio": [
+        "TXN_4133036d-7cf",
+        "TXN_a19ba730-dc2",
+        "TXN_7b2d602b-450",
+        "TXN_e7fd1d04-be7",
+        "TXN_a59a4407-616",
+        "TXN_618c7c5d-68d",
+        "TXN_eebeb470-9f8",
+        "TXN_c0fcac8c-a3f",
+        "TXN_b8ad74f5-9ea",
+        "TXN_050064ef-0dc",
+        "TXN_0fa980c3-5db",
+        "TXN_2872d05f-15c",
+        "TXN_87171f3a-4a4",
+        "TXN_4ada071d-bdb",
+        "TXN_8e8f676e-c87",
+        "TXN_0d4a59f1-df0",
+        "TXN_e28e303c-9ec",
+        "TXN_adabb4bf-9f0",
+        "TXN_6ba45cb2-552"
+      ],
+      "upi_activity_volume": [
+        "TXN_4133036d-7cf",
+        "TXN_b4b1671a-ead",
+        "TXN_90b97f30-f65",
+        "TXN_cc2dccb0-5c8",
+        "TXN_f660f909-137",
+        "TXN_4d0ec2c6-792",
+        "TXN_d1e2160b-430",
+        "TXN_db5320a6-200",
+        "TXN_9845f33f-467",
+        "TXN_e7fd1d04-be7"
+      ],
+      "rent_payment_regularity": [
+        "TXN_1f782967-054",
+        "TXN_6df0f9db-1bc",
+        "TXN_967979f5-9fa",
+        "TXN_f0cb35d0-265",
+        "TXN_5de2651a-47c",
+        "TXN_5d0757c8-728",
+        "TXN_fde92aad-19e",
+        "TXN_49689384-f35",
+        "TXN_11cba549-7f9",
+        "TXN_eb6387d6-a64",
+        "TXN_cce39491-8f3"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_0d974b3a-8f6",
+        "TXN_71eeadbd-16a",
+        "TXN_e435083e-2fd",
+        "TXN_2c3c1c09-75f",
+        "TXN_3201906c-802",
+        "TXN_6cd07da2-4cd"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0017",
+    "lineage": {
+      "income_regularity": [
+        "TXN_8362781d-5d2",
+        "TXN_2ba40b42-616",
+        "TXN_c8a70fc1-68c",
+        "TXN_b6da3db9-479",
+        "TXN_ccc25956-195",
+        "TXN_e102caf3-427",
+        "TXN_2c8f2adb-0cc",
+        "TXN_158b7a99-2ea",
+        "TXN_104c3551-a69",
+        "TXN_855c101c-1de"
+      ],
+      "spending_consistency": [
+        "TXN_ef4cc8ce-989",
+        "TXN_e95cff96-fa3",
+        "TXN_6042e40b-a73",
+        "TXN_18561024-ad7",
+        "TXN_7d0e0623-f29",
+        "TXN_06c2fa81-714",
+        "TXN_89137d8e-c6f",
+        "TXN_0d09d4d6-454",
+        "TXN_434b032d-a98",
+        "TXN_688015a9-85e"
+      ],
+      "bill_payment_ratio": [
+        "TXN_0d09d4d6-454",
+        "TXN_f7abb71c-cee",
+        "TXN_d376ff63-ade",
+        "TXN_0d4058d9-0b0",
+        "TXN_a2d3920b-cca",
+        "TXN_eb806ff9-3b7",
+        "TXN_7ab5cbc0-da9",
+        "TXN_52230fd6-eeb",
+        "TXN_d10f8731-e2e",
+        "TXN_66551e09-18d",
+        "TXN_b0194eaf-f14",
+        "TXN_eeffe99f-b68",
+        "TXN_9f70188b-d73",
+        "TXN_bfbae6c5-069",
+        "TXN_4e1aba61-c30",
+        "TXN_eb121c79-3d7",
+        "TXN_60ef8e9c-5c3"
+      ],
+      "savings_rate": [
+        "TXN_ef4cc8ce-989",
+        "TXN_e95cff96-fa3",
+        "TXN_6042e40b-a73",
+        "TXN_18561024-ad7",
+        "TXN_7d0e0623-f29",
+        "TXN_06c2fa81-714",
+        "TXN_8362781d-5d2",
+        "TXN_2ba40b42-616",
+        "TXN_89137d8e-c6f",
+        "TXN_0d09d4d6-454"
+      ],
+      "emi_burden_ratio": [
+        "TXN_6042e40b-a73",
+        "TXN_688015a9-85e",
+        "TXN_33355c39-bc3",
+        "TXN_f8cdcc62-095",
+        "TXN_3aed5ed8-05f",
+        "TXN_5334e15e-f82",
+        "TXN_76eaddd0-189",
+        "TXN_5e45e92a-868",
+        "TXN_5423310a-cf6",
+        "TXN_e89b2e39-938",
+        "TXN_5ba4cbf8-2af",
+        "TXN_785e7fc3-245",
+        "TXN_76eb15ba-194",
+        "TXN_530501eb-37b",
+        "TXN_41164203-ad7",
+        "TXN_ec384399-4a9"
+      ],
+      "upi_activity_volume": [
+        "TXN_6042e40b-a73",
+        "TXN_18561024-ad7",
+        "TXN_7d0e0623-f29",
+        "TXN_06c2fa81-714",
+        "TXN_8362781d-5d2",
+        "TXN_2ba40b42-616",
+        "TXN_434b032d-a98",
+        "TXN_c8a70fc1-68c",
+        "TXN_fb78fe02-7eb",
+        "TXN_ccc25956-195"
+      ],
+      "rent_payment_regularity": [
+        "TXN_e95cff96-fa3",
+        "TXN_111f8844-63b",
+        "TXN_8471504b-482",
+        "TXN_6ad64254-a57",
+        "TXN_904b581b-f33",
+        "TXN_57fb1a00-efe",
+        "TXN_63cbb0f3-8af",
+        "TXN_d3c93337-be6",
+        "TXN_38b59ec5-9f9",
+        "TXN_e2358b6e-688",
+        "TXN_9aae2a55-379"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_ef4cc8ce-989",
+        "TXN_55ec9cc6-9ee",
+        "TXN_e939e4b7-7a6",
+        "TXN_1cd4b1dd-f46",
+        "TXN_138ec365-8ec",
+        "TXN_089add3c-a48",
+        "TXN_8c3a08e6-974",
+        "TXN_92214c70-54f",
+        "TXN_9eec0822-68c",
+        "TXN_a229e41b-053"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0018",
+    "lineage": {
+      "income_regularity": [
+        "TXN_d3201d49-2c9",
+        "TXN_177c0a63-352",
+        "TXN_8ae59db0-121",
+        "TXN_adb223cf-310",
+        "TXN_e08bda44-3d7",
+        "TXN_e45c7eaa-481",
+        "TXN_341d9e25-a39",
+        "TXN_9ff90e60-2bd",
+        "TXN_8a43560f-7cd",
+        "TXN_9179d92b-af3"
+      ],
+      "spending_consistency": [
+        "TXN_d622d5f9-5ae",
+        "TXN_347f345d-98d",
+        "TXN_63c33ee6-32e",
+        "TXN_b693b540-12d",
+        "TXN_7fc77b93-fac",
+        "TXN_fe137b52-fff",
+        "TXN_5b4238f0-9fc",
+        "TXN_1c0638f4-bc7",
+        "TXN_2f12fc0a-0d8",
+        "TXN_c0a48678-106"
+      ],
+      "bill_payment_ratio": [
+        "TXN_d622d5f9-5ae",
+        "TXN_4db04a04-cff",
+        "TXN_7a7e26c8-795",
+        "TXN_cace9eee-ecf",
+        "TXN_c6667842-bf9",
+        "TXN_af3d289b-311",
+        "TXN_fe0435e4-344",
+        "TXN_261699a1-614",
+        "TXN_796d05cc-900",
+        "TXN_1407e15a-35a",
+        "TXN_07e33fcf-b7a",
+        "TXN_7f25bc01-431"
+      ],
+      "savings_rate": [
+        "TXN_d3201d49-2c9",
+        "TXN_d622d5f9-5ae",
+        "TXN_177c0a63-352",
+        "TXN_347f345d-98d",
+        "TXN_8ae59db0-121",
+        "TXN_adb223cf-310",
+        "TXN_63c33ee6-32e",
+        "TXN_e08bda44-3d7",
+        "TXN_b693b540-12d",
+        "TXN_e45c7eaa-481"
+      ],
+      "emi_burden_ratio": [
+        "TXN_63c33ee6-32e",
+        "TXN_7fc77b93-fac",
+        "TXN_8ec9443d-cde",
+        "TXN_5acdfd69-ea0",
+        "TXN_4762ff30-b5a",
+        "TXN_94ee3230-832",
+        "TXN_41ca57b0-b28",
+        "TXN_151bc5cb-5a9",
+        "TXN_39e802ca-a41",
+        "TXN_6dd5291b-46d",
+        "TXN_ff757150-9ef",
+        "TXN_77875bdd-5bd",
+        "TXN_547488e6-f4a",
+        "TXN_03ed687c-e52",
+        "TXN_88a754ea-267",
+        "TXN_b167c800-739",
+        "TXN_80f8b6dc-2c7",
+        "TXN_ee23cf3d-274",
+        "TXN_a3cc6762-799",
+        "TXN_73e6efe3-b71",
+        "TXN_5156cf20-eda"
+      ],
+      "upi_activity_volume": [
+        "TXN_177c0a63-352",
+        "TXN_8ae59db0-121",
+        "TXN_adb223cf-310",
+        "TXN_63c33ee6-32e",
+        "TXN_e08bda44-3d7",
+        "TXN_b693b540-12d",
+        "TXN_e45c7eaa-481",
+        "TXN_5b4238f0-9fc",
+        "TXN_1c0638f4-bc7",
+        "TXN_2f12fc0a-0d8"
+      ],
+      "rent_payment_regularity": [
+        "TXN_2f12fc0a-0d8",
+        "TXN_f460c5eb-67a",
+        "TXN_d8ea4532-9bb",
+        "TXN_7498acde-f9f",
+        "TXN_f470e7ee-5ed",
+        "TXN_bc06310b-567",
+        "TXN_c5581773-89b",
+        "TXN_4241f07d-53f"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_c0a48678-106",
+        "TXN_79ad698d-b42",
+        "TXN_31a15667-9d8",
+        "TXN_b361a407-73a",
+        "TXN_fb6d26f6-3a2",
+        "TXN_d80686cb-1bd",
+        "TXN_6b67297e-489"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0019",
+    "lineage": {
+      "income_regularity": [
+        "TXN_b9d3c643-d88",
+        "TXN_1f9f1ec0-162",
+        "TXN_e9bb3d4b-0b7",
+        "TXN_19a5c386-79f",
+        "TXN_e422f30c-0a2",
+        "TXN_15c4bb65-9a6",
+        "TXN_4806c2fb-ef5",
+        "TXN_f7af779c-60b",
+        "TXN_89178d28-826",
+        "TXN_b52c0126-72a"
+      ],
+      "spending_consistency": [
+        "TXN_56402de2-4a9",
+        "TXN_219f0d3f-607",
+        "TXN_635e741c-7a5",
+        "TXN_71619ece-6da",
+        "TXN_d1409b03-f98",
+        "TXN_07bb51b7-818",
+        "TXN_57441eaa-004",
+        "TXN_29951e5b-046",
+        "TXN_652394f8-693",
+        "TXN_25302f01-555"
+      ],
+      "bill_payment_ratio": [
+        "TXN_71619ece-6da",
+        "TXN_07bb51b7-818",
+        "TXN_8b952c7d-ce8",
+        "TXN_56a40812-1c0",
+        "TXN_9fd376f5-39e",
+        "TXN_13608613-ca8"
+      ],
+      "savings_rate": [
+        "TXN_56402de2-4a9",
+        "TXN_b9d3c643-d88",
+        "TXN_219f0d3f-607",
+        "TXN_635e741c-7a5",
+        "TXN_71619ece-6da",
+        "TXN_d1409b03-f98",
+        "TXN_07bb51b7-818",
+        "TXN_57441eaa-004",
+        "TXN_29951e5b-046",
+        "TXN_652394f8-693"
+      ],
+      "emi_burden_ratio": [
+        "TXN_635e741c-7a5",
+        "TXN_652394f8-693",
+        "TXN_53caf89f-ed2",
+        "TXN_7312b84f-10b",
+        "TXN_689c80b8-dbc",
+        "TXN_86ff97b9-25c",
+        "TXN_00392090-482",
+        "TXN_d9cff86f-5ca"
+      ],
+      "upi_activity_volume": [
+        "TXN_635e741c-7a5",
+        "TXN_d1409b03-f98",
+        "TXN_57441eaa-004",
+        "TXN_29951e5b-046",
+        "TXN_1f9f1ec0-162",
+        "TXN_c2fa7c2e-316",
+        "TXN_e9bb3d4b-0b7",
+        "TXN_19a5c386-79f",
+        "TXN_689c80b8-dbc",
+        "TXN_cc2b8602-0ac"
+      ],
+      "rent_payment_regularity": [
+        "TXN_56402de2-4a9",
+        "TXN_57441eaa-004",
+        "TXN_fbbfe8c8-816",
+        "TXN_1e7bc12d-b55"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_219f0d3f-607",
+        "TXN_25302f01-555",
+        "TXN_78abfbdd-9d4",
+        "TXN_f6f41972-f61",
+        "TXN_56942f91-b33",
+        "TXN_11e10173-cf1",
+        "TXN_9b6874c0-291"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0020",
+    "lineage": {
+      "income_regularity": [
+        "TXN_38dd6035-40c",
+        "TXN_eed48e15-6d6",
+        "TXN_0cfa0abd-933",
+        "TXN_9fb3b701-305",
+        "TXN_1f98b22d-a98",
+        "TXN_c5c1631c-55b",
+        "TXN_6f947db4-4aa",
+        "TXN_c05ad659-16f",
+        "TXN_6892a92d-929",
+        "TXN_15b7808f-6f9"
+      ],
+      "spending_consistency": [
+        "TXN_f6e49c07-95a",
+        "TXN_855779a0-bea",
+        "TXN_4dc67842-2b6",
+        "TXN_28bf56b6-7b9",
+        "TXN_1b7b0d78-f0d",
+        "TXN_692350fd-6b5",
+        "TXN_a5d9017d-9e4",
+        "TXN_84866b25-518",
+        "TXN_56e28e53-45b",
+        "TXN_8f7cf33f-7d1"
+      ],
+      "bill_payment_ratio": [
+        "TXN_f6e49c07-95a",
+        "TXN_a5d9017d-9e4",
+        "TXN_6c5a20ab-a70",
+        "TXN_4d5716ca-a2d",
+        "TXN_2509790e-4d6",
+        "TXN_d0105297-f98",
+        "TXN_97434d19-e20",
+        "TXN_6febe072-02d",
+        "TXN_c032a47b-994"
+      ],
+      "savings_rate": [
+        "TXN_38dd6035-40c",
+        "TXN_f6e49c07-95a",
+        "TXN_855779a0-bea",
+        "TXN_4dc67842-2b6",
+        "TXN_28bf56b6-7b9",
+        "TXN_1b7b0d78-f0d",
+        "TXN_692350fd-6b5",
+        "TXN_eed48e15-6d6",
+        "TXN_a5d9017d-9e4",
+        "TXN_0cfa0abd-933"
+      ],
+      "emi_burden_ratio": [
+        "TXN_28bf56b6-7b9",
+        "TXN_3c1e202d-ef5",
+        "TXN_38cbd388-cf1",
+        "TXN_317843b7-4ef",
+        "TXN_c2852fe8-3ad",
+        "TXN_c583489e-e7d",
+        "TXN_7e96ee10-7d3",
+        "TXN_913f2d2a-946",
+        "TXN_3d85deef-d79",
+        "TXN_a4b00ac1-3e6",
+        "TXN_e2d02602-380"
+      ],
+      "upi_activity_volume": [
+        "TXN_f6e49c07-95a",
+        "TXN_28bf56b6-7b9",
+        "TXN_692350fd-6b5",
+        "TXN_56e28e53-45b",
+        "TXN_9fb3b701-305",
+        "TXN_1f98b22d-a98",
+        "TXN_c5c1631c-55b",
+        "TXN_a6beb14b-00e",
+        "TXN_6017f5ba-085",
+        "TXN_c05ad659-16f"
+      ],
+      "rent_payment_regularity": [
+        "TXN_4dc67842-2b6",
+        "TXN_692350fd-6b5",
+        "TXN_56e28e53-45b",
+        "TXN_e8321f8f-98d",
+        "TXN_f6612369-125",
+        "TXN_b6793ada-2db",
+        "TXN_6d167f0e-7be",
+        "TXN_49d7e233-9f1"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_855779a0-bea",
+        "TXN_65136288-dd4",
+        "TXN_a07e4128-565",
+        "TXN_34d42d1f-739",
+        "TXN_197c5f14-e6b",
+        "TXN_53bf52cb-078",
+        "TXN_0f907dec-7db"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0021",
+    "lineage": {
+      "income_regularity": [
+        "TXN_eb123532-a16",
+        "TXN_241380f6-460",
+        "TXN_5459618c-470",
+        "TXN_06ef8ffe-a4f",
+        "TXN_6a750f45-723",
+        "TXN_a9f878ac-026",
+        "TXN_9b889ed3-78a",
+        "TXN_b5f2d7ad-10a",
+        "TXN_faf5a0cb-354",
+        "TXN_b0ceb621-d71"
+      ],
+      "spending_consistency": [
+        "TXN_164bde87-da4",
+        "TXN_d192ce98-ac0",
+        "TXN_fd8bd64c-b49",
+        "TXN_2135b8cf-915",
+        "TXN_27099215-775",
+        "TXN_3a4db2b9-5bd",
+        "TXN_18c1a24a-a4c",
+        "TXN_1cb1770e-64a",
+        "TXN_87dd5359-3ba",
+        "TXN_b3429840-854"
+      ],
+      "bill_payment_ratio": [
+        "TXN_d192ce98-ac0",
+        "TXN_87dd5359-3ba",
+        "TXN_a6d6f616-4aa",
+        "TXN_0c24880a-267",
+        "TXN_4a10c4dc-1b1",
+        "TXN_fce26fd7-5c1",
+        "TXN_38cd1286-36e",
+        "TXN_21fe0492-a59",
+        "TXN_430a69fd-b14",
+        "TXN_51e3e042-2b0"
+      ],
+      "savings_rate": [
+        "TXN_eb123532-a16",
+        "TXN_164bde87-da4",
+        "TXN_d192ce98-ac0",
+        "TXN_fd8bd64c-b49",
+        "TXN_2135b8cf-915",
+        "TXN_27099215-775",
+        "TXN_3a4db2b9-5bd",
+        "TXN_18c1a24a-a4c",
+        "TXN_1cb1770e-64a",
+        "TXN_241380f6-460"
+      ],
+      "emi_burden_ratio": [
+        "TXN_2135b8cf-915",
+        "TXN_1cb1770e-64a",
+        "TXN_8fe29991-4d5",
+        "TXN_519f9abe-035",
+        "TXN_9f76fa2c-135",
+        "TXN_8e49c0ef-286",
+        "TXN_d21ec286-f5f",
+        "TXN_375a09d3-b2c",
+        "TXN_45aee6b3-23f",
+        "TXN_dd055f33-fae"
+      ],
+      "upi_activity_volume": [
+        "TXN_eb123532-a16",
+        "TXN_2135b8cf-915",
+        "TXN_3a4db2b9-5bd",
+        "TXN_241380f6-460",
+        "TXN_5459618c-470",
+        "TXN_06ef8ffe-a4f",
+        "TXN_6a750f45-723",
+        "TXN_bb0a8bfb-a77",
+        "TXN_2e9266f2-d8f",
+        "TXN_8ad9a38e-e6e"
+      ],
+      "rent_payment_regularity": [
+        "TXN_3a4db2b9-5bd",
+        "TXN_d09bf9d0-6c2",
+        "TXN_4f58f78f-6c1",
+        "TXN_6562aaeb-aeb",
+        "TXN_970fe44e-df6",
+        "TXN_65a91063-2fd"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_b3429840-854",
+        "TXN_d4afdca6-98c",
+        "TXN_ac3f496b-b15",
+        "TXN_243255b2-00e",
+        "TXN_d9cfbfad-c89",
+        "TXN_0169e531-b68",
+        "TXN_b9795931-93c",
+        "TXN_a80ad957-84e",
+        "TXN_70b2eb95-e65"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0022",
+    "lineage": {
+      "income_regularity": [
+        "TXN_af550e1b-8e1",
+        "TXN_7eaa7347-b82",
+        "TXN_b745cfe8-08b",
+        "TXN_4eee1e97-30b",
+        "TXN_5a013e9a-bfc",
+        "TXN_909c0162-971",
+        "TXN_f05d5d61-386",
+        "TXN_3e52d329-a79",
+        "TXN_77e804a6-86a",
+        "TXN_597010b8-959"
+      ],
+      "spending_consistency": [
+        "TXN_56b54bdc-97b",
+        "TXN_b7bac029-9e8",
+        "TXN_f301cfe6-e68",
+        "TXN_537d0caa-4ed",
+        "TXN_e26ce329-61e",
+        "TXN_d17cc581-3e1",
+        "TXN_bdc79bfa-d18",
+        "TXN_8ebdc303-304",
+        "TXN_2e625883-e0d",
+        "TXN_8cfd0693-50e"
+      ],
+      "bill_payment_ratio": [
+        "TXN_b7bac029-9e8",
+        "TXN_8ebdc303-304",
+        "TXN_2b1ef5b4-bb6",
+        "TXN_e51faf96-c78",
+        "TXN_5285e483-7c0",
+        "TXN_3f9c1fd4-4a0"
+      ],
+      "savings_rate": [
+        "TXN_56b54bdc-97b",
+        "TXN_b7bac029-9e8",
+        "TXN_f301cfe6-e68",
+        "TXN_af550e1b-8e1",
+        "TXN_537d0caa-4ed",
+        "TXN_e26ce329-61e",
+        "TXN_7eaa7347-b82",
+        "TXN_d17cc581-3e1",
+        "TXN_b745cfe8-08b",
+        "TXN_4eee1e97-30b"
+      ],
+      "emi_burden_ratio": [
+        "TXN_37d31f3d-eae",
+        "TXN_dcdac1fb-ea8",
+        "TXN_39ae8aab-804",
+        "TXN_50358609-4c5",
+        "TXN_33a3f36e-e6f",
+        "TXN_65f5706a-f52",
+        "TXN_23fdc7ba-712",
+        "TXN_1a1fbc21-fff",
+        "TXN_3bcd4cee-415"
+      ],
+      "upi_activity_volume": [
+        "TXN_d17cc581-3e1",
+        "TXN_b745cfe8-08b",
+        "TXN_4eee1e97-30b",
+        "TXN_5a013e9a-bfc",
+        "TXN_8ebdc303-304",
+        "TXN_909c0162-971",
+        "TXN_8cfd0693-50e",
+        "TXN_ebbe1858-e07",
+        "TXN_249279f2-40b",
+        "TXN_b82f34c2-e7e"
+      ],
+      "rent_payment_regularity": [
+        "TXN_bdc79bfa-d18",
+        "TXN_8cfd0693-50e",
+        "TXN_3a857553-9b8",
+        "TXN_dedc3730-761"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_537d0caa-4ed",
+        "TXN_e26ce329-61e",
+        "TXN_2e625883-e0d",
+        "TXN_94142fe6-8ce",
+        "TXN_a45a67ac-708",
+        "TXN_e5372016-cc7",
+        "TXN_15dc1c1d-526",
+        "TXN_67b54c74-3d0",
+        "TXN_bf3265fe-e6d"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0023",
+    "lineage": {
+      "income_regularity": [
+        "TXN_408beed4-ca4",
+        "TXN_fd4bee21-0d3",
+        "TXN_7aaa85b4-5c5",
+        "TXN_d6e508c6-2c2",
+        "TXN_5dab2876-01c",
+        "TXN_acccc18a-ae4",
+        "TXN_5a9097dd-48d",
+        "TXN_566032ad-612",
+        "TXN_27e10b37-294",
+        "TXN_05d3d4ab-b59"
+      ],
+      "spending_consistency": [
+        "TXN_d0028db0-5db",
+        "TXN_8f4305e8-0a7",
+        "TXN_b9b80329-7df",
+        "TXN_7bc30e5c-b4b",
+        "TXN_41683928-c17",
+        "TXN_ba49b110-a18",
+        "TXN_e6d134e2-ad7",
+        "TXN_1fc2d43c-cc3",
+        "TXN_c2ee876d-61b",
+        "TXN_4bce19db-ea1"
+      ],
+      "bill_payment_ratio": [
+        "TXN_8f4305e8-0a7",
+        "TXN_e6d134e2-ad7",
+        "TXN_d66d6d7f-1cd",
+        "TXN_61cafa53-238",
+        "TXN_cfd21ab9-fd0",
+        "TXN_ee716640-106"
+      ],
+      "savings_rate": [
+        "TXN_408beed4-ca4",
+        "TXN_d0028db0-5db",
+        "TXN_fd4bee21-0d3",
+        "TXN_8f4305e8-0a7",
+        "TXN_b9b80329-7df",
+        "TXN_7bc30e5c-b4b",
+        "TXN_41683928-c17",
+        "TXN_ba49b110-a18",
+        "TXN_e6d134e2-ad7",
+        "TXN_1fc2d43c-cc3"
+      ],
+      "emi_burden_ratio": [
+        "TXN_41683928-c17",
+        "TXN_7403d0d4-4b1"
+      ],
+      "upi_activity_volume": [
+        "TXN_408beed4-ca4",
+        "TXN_fd4bee21-0d3",
+        "TXN_8f4305e8-0a7",
+        "TXN_b9b80329-7df",
+        "TXN_41683928-c17",
+        "TXN_c2ee876d-61b",
+        "TXN_7aaa85b4-5c5",
+        "TXN_4bce19db-ea1",
+        "TXN_d6e508c6-2c2",
+        "TXN_ffb71e09-ec6"
+      ],
+      "rent_payment_regularity": [
+        "TXN_ffb71e09-ec6",
+        "TXN_00d87ea2-256",
+        "TXN_99bf8d64-e22",
+        "TXN_4b2d4c2d-8dd",
+        "TXN_b9740c69-29c",
+        "TXN_34a24bce-0b7",
+        "TXN_f1e482a4-9a3"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_d0028db0-5db",
+        "TXN_1fc2d43c-cc3",
+        "TXN_7987367c-ce4",
+        "TXN_b39adbe6-164",
+        "TXN_23fbdeeb-a22",
+        "TXN_50773367-d1c",
+        "TXN_93465e91-bc7"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0024",
+    "lineage": {
+      "income_regularity": [
+        "TXN_05591747-b71",
+        "TXN_2da6bbb1-5ab",
+        "TXN_824e6ad0-025",
+        "TXN_65a73ef8-569",
+        "TXN_6a9e7916-772",
+        "TXN_915984da-d6d",
+        "TXN_af01db1a-e77",
+        "TXN_10bbe54e-a7f",
+        "TXN_46faab20-8dd",
+        "TXN_63cdde09-8cd"
+      ],
+      "spending_consistency": [
+        "TXN_1d9a9553-bc0",
+        "TXN_1dcd55ba-92a",
+        "TXN_27f44e19-322",
+        "TXN_7e57f515-0e5",
+        "TXN_f9ceef7a-a3f",
+        "TXN_037107d6-d2f",
+        "TXN_b44bf3f6-6b9",
+        "TXN_2f4893e0-1d6",
+        "TXN_83b0ded0-256",
+        "TXN_c7b71af0-d8e"
+      ],
+      "bill_payment_ratio": [
+        "TXN_1dcd55ba-92a",
+        "TXN_f9ceef7a-a3f",
+        "TXN_037107d6-d2f",
+        "TXN_83b0ded0-256",
+        "TXN_47f943d0-f0a",
+        "TXN_8d97d06d-741",
+        "TXN_564a803e-644",
+        "TXN_df75a2fc-230",
+        "TXN_41524287-813",
+        "TXN_93f0e446-a4e",
+        "TXN_d50d6fc4-dff",
+        "TXN_ac674d9c-333",
+        "TXN_19291111-ff3"
+      ],
+      "savings_rate": [
+        "TXN_05591747-b71",
+        "TXN_2da6bbb1-5ab",
+        "TXN_824e6ad0-025",
+        "TXN_1d9a9553-bc0",
+        "TXN_1dcd55ba-92a",
+        "TXN_65a73ef8-569",
+        "TXN_27f44e19-322",
+        "TXN_6a9e7916-772",
+        "TXN_915984da-d6d",
+        "TXN_7e57f515-0e5"
+      ],
+      "emi_burden_ratio": [
+        "TXN_27f44e19-322",
+        "TXN_7e57f515-0e5",
+        "TXN_c7b71af0-d8e",
+        "TXN_8322e867-236",
+        "TXN_82faf201-6ea",
+        "TXN_350950bf-e89",
+        "TXN_30f851b5-280",
+        "TXN_10ed13ba-177",
+        "TXN_9300d894-e7d",
+        "TXN_929d46e0-ec5",
+        "TXN_ec753732-5fa",
+        "TXN_b3c8d188-2ec",
+        "TXN_3fb983dc-9bf",
+        "TXN_a639d2f7-fb1",
+        "TXN_8150c1f5-4b9",
+        "TXN_5d5f50b3-b56",
+        "TXN_0c8b053a-af2",
+        "TXN_24102781-cd5",
+        "TXN_8d5c3e43-292",
+        "TXN_146a0cc1-a5a",
+        "TXN_6e35732d-2a7",
+        "TXN_8fa3cb3b-0f0",
+        "TXN_38b35a53-894",
+        "TXN_cc6f5fec-899"
+      ],
+      "upi_activity_volume": [
+        "TXN_2da6bbb1-5ab",
+        "TXN_65a73ef8-569",
+        "TXN_6a9e7916-772",
+        "TXN_915984da-d6d",
+        "TXN_f9ceef7a-a3f",
+        "TXN_037107d6-d2f",
+        "TXN_8322e867-236",
+        "TXN_63cdde09-8cd",
+        "TXN_211dda73-613",
+        "TXN_350950bf-e89"
+      ],
+      "rent_payment_regularity": [
+        "TXN_b44bf3f6-6b9",
+        "TXN_802eeb2f-f6d",
+        "TXN_8da4340a-62c",
+        "TXN_653eb62f-19d",
+        "TXN_292beaa3-571",
+        "TXN_4800c68e-992"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_1d9a9553-bc0",
+        "TXN_2f4893e0-1d6"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0025",
+    "lineage": {
+      "income_regularity": [
+        "TXN_2a40d455-b4c",
+        "TXN_7562e6f3-104",
+        "TXN_5597d81e-462",
+        "TXN_a8984994-7d1",
+        "TXN_4f423032-5aa",
+        "TXN_6105cdc6-e7f",
+        "TXN_3d55d388-718",
+        "TXN_50299ec9-0a7",
+        "TXN_45224419-ff6",
+        "TXN_a5a6e9e2-f9f"
+      ],
+      "spending_consistency": [
+        "TXN_cb0198d6-de5",
+        "TXN_afc06522-489",
+        "TXN_268796bc-ad2",
+        "TXN_191812cc-c22",
+        "TXN_3b2e88f5-bd1",
+        "TXN_96ee14f8-68b",
+        "TXN_82c96db5-041",
+        "TXN_070990c3-8e4",
+        "TXN_4473beab-7eb",
+        "TXN_61b5d1d7-642"
+      ],
+      "bill_payment_ratio": [
+        "TXN_afc06522-489",
+        "TXN_7608a350-ed7",
+        "TXN_ee22b4c0-563"
+      ],
+      "savings_rate": [
+        "TXN_2a40d455-b4c",
+        "TXN_cb0198d6-de5",
+        "TXN_afc06522-489",
+        "TXN_7562e6f3-104",
+        "TXN_268796bc-ad2",
+        "TXN_5597d81e-462",
+        "TXN_a8984994-7d1",
+        "TXN_191812cc-c22",
+        "TXN_3b2e88f5-bd1",
+        "TXN_4f423032-5aa"
+      ],
+      "emi_burden_ratio": [
+        "TXN_96ee14f8-68b",
+        "TXN_070990c3-8e4",
+        "TXN_4473beab-7eb",
+        "TXN_b74ab9eb-292",
+        "TXN_40e152d7-375",
+        "TXN_623fa98c-e24"
+      ],
+      "upi_activity_volume": [
+        "TXN_2a40d455-b4c",
+        "TXN_afc06522-489",
+        "TXN_7562e6f3-104",
+        "TXN_a8984994-7d1",
+        "TXN_191812cc-c22",
+        "TXN_3b2e88f5-bd1",
+        "TXN_4f423032-5aa",
+        "TXN_6105cdc6-e7f",
+        "TXN_3d55d388-718",
+        "TXN_50299ec9-0a7"
+      ],
+      "rent_payment_regularity": [
+        "TXN_abfeb7a5-153"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_cb0198d6-de5",
+        "TXN_82c96db5-041",
+        "TXN_bc523073-777",
+        "TXN_663b0120-43d"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0026",
+    "lineage": {
+      "income_regularity": [
+        "TXN_16d56944-bf2",
+        "TXN_e435d9da-998",
+        "TXN_a6b57547-a4b",
+        "TXN_936ad66c-dc8",
+        "TXN_415295fe-41a",
+        "TXN_892f7d93-88d",
+        "TXN_8e386a57-bd9",
+        "TXN_3bdb0d8a-0fa",
+        "TXN_b8ffef26-b92",
+        "TXN_91015221-33d"
+      ],
+      "spending_consistency": [
+        "TXN_1bc52f4c-d01",
+        "TXN_c379f932-cd0",
+        "TXN_7cf4a0a1-341",
+        "TXN_060157cf-04e",
+        "TXN_a116f213-821",
+        "TXN_6658b065-482",
+        "TXN_fe7593aa-a2e",
+        "TXN_1e81d6bb-42d",
+        "TXN_e543a395-0df",
+        "TXN_edf60116-ef0"
+      ],
+      "bill_payment_ratio": [
+        "TXN_fe7593aa-a2e",
+        "TXN_4321b4ee-f9e",
+        "TXN_1592c07b-999",
+        "TXN_5e69824f-263",
+        "TXN_7d4daca4-b6d",
+        "TXN_14e3d40b-926",
+        "TXN_2c043284-210"
+      ],
+      "savings_rate": [
+        "TXN_1bc52f4c-d01",
+        "TXN_16d56944-bf2",
+        "TXN_c379f932-cd0",
+        "TXN_7cf4a0a1-341",
+        "TXN_060157cf-04e",
+        "TXN_a116f213-821",
+        "TXN_6658b065-482",
+        "TXN_fe7593aa-a2e",
+        "TXN_e435d9da-998",
+        "TXN_a6b57547-a4b"
+      ],
+      "emi_burden_ratio": [
+        "TXN_1bc52f4c-d01",
+        "TXN_060157cf-04e",
+        "TXN_1e81d6bb-42d",
+        "TXN_3fcfcbe0-05d",
+        "TXN_8f236f9d-c58",
+        "TXN_0d9026b2-ade",
+        "TXN_06c7d1c6-b17",
+        "TXN_029e33fb-5ec",
+        "TXN_0c1615ba-92c",
+        "TXN_26a5053a-cdb",
+        "TXN_5210d9d9-342"
+      ],
+      "upi_activity_volume": [
+        "TXN_c379f932-cd0",
+        "TXN_a116f213-821",
+        "TXN_6658b065-482",
+        "TXN_a6b57547-a4b",
+        "TXN_936ad66c-dc8",
+        "TXN_edf60116-ef0",
+        "TXN_892f7d93-88d",
+        "TXN_c6064b08-ce3",
+        "TXN_72b430a9-972",
+        "TXN_de14c156-1e9"
+      ],
+      "rent_payment_regularity": [
+        "TXN_e543a395-0df",
+        "TXN_50590666-3fa",
+        "TXN_72b430a9-972",
+        "TXN_c32f784f-40d",
+        "TXN_994ded09-03b",
+        "TXN_784bbd25-a5d",
+        "TXN_47af7128-8dc"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_7cf4a0a1-341",
+        "TXN_1bee3fbe-32e",
+        "TXN_e4cf3661-5b4",
+        "TXN_a87d908f-901"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0027",
+    "lineage": {
+      "income_regularity": [
+        "TXN_5983f583-4bd",
+        "TXN_ad66bbbb-107",
+        "TXN_9b375d3b-5f8",
+        "TXN_dec00b18-268",
+        "TXN_53f17e96-e7e",
+        "TXN_44d7c17f-f06",
+        "TXN_ecf23fe8-cb0",
+        "TXN_478ff17e-28c",
+        "TXN_327b5634-71e",
+        "TXN_9c8eb565-a09"
+      ],
+      "spending_consistency": [
+        "TXN_4cecb1ef-90b",
+        "TXN_a902350b-cbe",
+        "TXN_27280509-cb9",
+        "TXN_01f508a2-d66",
+        "TXN_1fbbfe4b-a8f",
+        "TXN_7e236aff-705",
+        "TXN_a1c96f57-ca7",
+        "TXN_a26f0465-6c3",
+        "TXN_3a9fc3bb-b05",
+        "TXN_ecd3c678-79a"
+      ],
+      "bill_payment_ratio": [
+        "TXN_1f786496-607",
+        "TXN_670947f7-a27",
+        "TXN_4e0f61de-8c1",
+        "TXN_810f1153-d71",
+        "TXN_039eb172-c7e"
+      ],
+      "savings_rate": [
+        "TXN_4cecb1ef-90b",
+        "TXN_a902350b-cbe",
+        "TXN_27280509-cb9",
+        "TXN_5983f583-4bd",
+        "TXN_ad66bbbb-107",
+        "TXN_9b375d3b-5f8",
+        "TXN_01f508a2-d66",
+        "TXN_1fbbfe4b-a8f",
+        "TXN_dec00b18-268",
+        "TXN_7e236aff-705"
+      ],
+      "emi_burden_ratio": [
+        "TXN_27280509-cb9",
+        "TXN_7e236aff-705",
+        "TXN_3a9fc3bb-b05",
+        "TXN_8f2c8c84-bf1",
+        "TXN_5beb01a5-737",
+        "TXN_4b66f1e5-505",
+        "TXN_6fa7d9ab-11b",
+        "TXN_670c0b9f-aa1",
+        "TXN_b9c50398-b75"
+      ],
+      "upi_activity_volume": [
+        "TXN_ad66bbbb-107",
+        "TXN_9b375d3b-5f8",
+        "TXN_7e236aff-705",
+        "TXN_ecd3c678-79a",
+        "TXN_53f17e96-e7e",
+        "TXN_75cd1da0-ffd",
+        "TXN_44d7c17f-f06",
+        "TXN_ecf23fe8-cb0",
+        "TXN_670947f7-a27",
+        "TXN_f1976f1c-abd"
+      ],
+      "rent_payment_regularity": [
+        "TXN_01f508a2-d66",
+        "TXN_96baa05b-4cb",
+        "TXN_8f53a4fc-820"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_4cecb1ef-90b",
+        "TXN_1fbbfe4b-a8f",
+        "TXN_a1c96f57-ca7",
+        "TXN_7b8effbe-6b2",
+        "TXN_2689381c-9d6",
+        "TXN_d8cfc72a-6c6",
+        "TXN_510c2354-66b"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0028",
+    "lineage": {
+      "income_regularity": [
+        "TXN_63426540-da2",
+        "TXN_62371c47-7ce",
+        "TXN_73f9cce6-74b",
+        "TXN_30cbe0cb-acd",
+        "TXN_c471c1e7-cd7",
+        "TXN_e6ede210-e12",
+        "TXN_d120448a-c23",
+        "TXN_593dc63e-53b",
+        "TXN_b6a27f8b-96f",
+        "TXN_fbe5cd2b-9fe"
+      ],
+      "spending_consistency": [
+        "TXN_ba6dd6db-764",
+        "TXN_46a77b65-dd1",
+        "TXN_a0dc0429-b76",
+        "TXN_e6394d60-19d",
+        "TXN_3193491d-12c",
+        "TXN_2a226cf5-c06",
+        "TXN_cf45817e-754",
+        "TXN_323b56b7-aff",
+        "TXN_a68e627d-49a",
+        "TXN_d1506228-64b"
+      ],
+      "bill_payment_ratio": [
+        "TXN_ba6dd6db-764",
+        "TXN_46a77b65-dd1",
+        "TXN_a0dc0429-b76",
+        "TXN_cf45817e-754",
+        "TXN_d1506228-64b",
+        "TXN_51a1e2a4-589",
+        "TXN_4a0e5b9a-2bc",
+        "TXN_ab2b8b30-6b8",
+        "TXN_5fc7b178-5be",
+        "TXN_12df6d65-f49",
+        "TXN_67e613b6-357",
+        "TXN_bf0b3f82-085",
+        "TXN_abdf2fb5-873",
+        "TXN_51430134-875",
+        "TXN_3cf49b97-bac",
+        "TXN_4d2949de-d79",
+        "TXN_c52e0782-c1a",
+        "TXN_cbf945f9-921",
+        "TXN_0223c2f9-d01"
+      ],
+      "savings_rate": [
+        "TXN_63426540-da2",
+        "TXN_62371c47-7ce",
+        "TXN_ba6dd6db-764",
+        "TXN_46a77b65-dd1",
+        "TXN_a0dc0429-b76",
+        "TXN_e6394d60-19d",
+        "TXN_3193491d-12c",
+        "TXN_73f9cce6-74b",
+        "TXN_2a226cf5-c06",
+        "TXN_30cbe0cb-acd"
+      ],
+      "emi_burden_ratio": [
+        "TXN_3193491d-12c",
+        "TXN_9270025c-ff3",
+        "TXN_b82772d5-f8d",
+        "TXN_b562ed22-d88",
+        "TXN_276b5feb-253",
+        "TXN_66e13c95-510",
+        "TXN_b0382546-960",
+        "TXN_dc2e724d-3a1",
+        "TXN_8d1bb892-7af",
+        "TXN_b807d0a1-f31",
+        "TXN_a23af0c9-ab3",
+        "TXN_7ec5f8aa-b9d",
+        "TXN_05cb4969-2d4",
+        "TXN_2b742ae1-d0d",
+        "TXN_6b6e7a04-051",
+        "TXN_893d7e2f-30d",
+        "TXN_52059f35-5b1",
+        "TXN_3d4e8b15-93b",
+        "TXN_baa25e67-713",
+        "TXN_ef21d9a8-de7"
+      ],
+      "upi_activity_volume": [
+        "TXN_63426540-da2",
+        "TXN_62371c47-7ce",
+        "TXN_e6394d60-19d",
+        "TXN_3193491d-12c",
+        "TXN_73f9cce6-74b",
+        "TXN_30cbe0cb-acd",
+        "TXN_323b56b7-aff",
+        "TXN_a68e627d-49a",
+        "TXN_eeef938d-aa2",
+        "TXN_99badd6a-2a5"
+      ],
+      "rent_payment_regularity": [
+        "TXN_e6394d60-19d",
+        "TXN_99badd6a-2a5",
+        "TXN_28b1f678-f2f",
+        "TXN_6c824dde-529",
+        "TXN_dc0ead26-2ca",
+        "TXN_d8f0527c-2dc",
+        "TXN_e0450bbf-838",
+        "TXN_0aff423f-c2d",
+        "TXN_63e39b53-7e4"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_2a226cf5-c06",
+        "TXN_eebef194-ab1",
+        "TXN_9fe98331-150",
+        "TXN_5e6934e2-eee",
+        "TXN_e0e7992c-c55",
+        "TXN_329a8a61-b25",
+        "TXN_edccfcdd-aa7",
+        "TXN_584f4921-9ea",
+        "TXN_6db5ef67-751",
+        "TXN_ec7497f4-4d8"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0029",
+    "lineage": {
+      "income_regularity": [
+        "TXN_8e971df9-4e0",
+        "TXN_55ec5cf0-01b",
+        "TXN_67609b87-0cf",
+        "TXN_9610e078-faa",
+        "TXN_215bbf82-f90",
+        "TXN_68e60ba4-6c2",
+        "TXN_cdaf4951-fcf",
+        "TXN_6d4ce7b4-8fc",
+        "TXN_757d0797-0e1",
+        "TXN_c680cc48-470"
+      ],
+      "spending_consistency": [
+        "TXN_b91ac539-f56",
+        "TXN_113398c5-e7b",
+        "TXN_3d64d27d-953",
+        "TXN_e7d1a800-872",
+        "TXN_e878185c-ac8",
+        "TXN_8e00fa01-64f",
+        "TXN_6f66aeaf-e31",
+        "TXN_5e48f80a-7dc",
+        "TXN_4625f93d-408",
+        "TXN_c85ca287-0fc"
+      ],
+      "bill_payment_ratio": [
+        "TXN_3d64d27d-953",
+        "TXN_8e00fa01-64f",
+        "TXN_6f66aeaf-e31",
+        "TXN_5e48f80a-7dc",
+        "TXN_c7d9d43b-bea",
+        "TXN_72129ce7-60c",
+        "TXN_ee240ef3-797",
+        "TXN_f0bb3683-c96",
+        "TXN_ac26f2ae-5c9",
+        "TXN_f7a5e392-5c0",
+        "TXN_d0dd7e84-3cd",
+        "TXN_77647188-817",
+        "TXN_6f494ca2-852",
+        "TXN_782ba971-23f"
+      ],
+      "savings_rate": [
+        "TXN_8e971df9-4e0",
+        "TXN_b91ac539-f56",
+        "TXN_113398c5-e7b",
+        "TXN_3d64d27d-953",
+        "TXN_e7d1a800-872",
+        "TXN_55ec5cf0-01b",
+        "TXN_e878185c-ac8",
+        "TXN_8e00fa01-64f",
+        "TXN_67609b87-0cf",
+        "TXN_6f66aeaf-e31"
+      ],
+      "emi_burden_ratio": [
+        "TXN_4625f93d-408",
+        "TXN_97960f1b-ba2",
+        "TXN_bfd688be-a16",
+        "TXN_136913e8-b42",
+        "TXN_62126e80-298",
+        "TXN_49dbfd38-099",
+        "TXN_47311ec9-e14",
+        "TXN_af54a9bb-757",
+        "TXN_30b146f1-bce",
+        "TXN_e1b84dbd-b61"
+      ],
+      "upi_activity_volume": [
+        "TXN_113398c5-e7b",
+        "TXN_3d64d27d-953",
+        "TXN_e7d1a800-872",
+        "TXN_55ec5cf0-01b",
+        "TXN_67609b87-0cf",
+        "TXN_6f66aeaf-e31",
+        "TXN_9610e078-faa",
+        "TXN_4625f93d-408",
+        "TXN_215bbf82-f90",
+        "TXN_c85ca287-0fc"
+      ],
+      "rent_payment_regularity": [
+        "TXN_c85ca287-0fc",
+        "TXN_5affcd14-164",
+        "TXN_68f16732-e4d",
+        "TXN_57a26804-bf6",
+        "TXN_3b9bbf7a-cef",
+        "TXN_0b7b41bc-bb2",
+        "TXN_56b60c7e-367",
+        "TXN_049be04c-a6c",
+        "TXN_a88768d1-e4c"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_b91ac539-f56",
+        "TXN_e878185c-ac8",
+        "TXN_5a415ed1-958",
+        "TXN_5f675c6c-edb",
+        "TXN_8cb136da-2d2",
+        "TXN_b3a86ac5-b8e",
+        "TXN_a63fd243-6ff",
+        "TXN_b7bf4e19-0b9",
+        "TXN_11fd3fe1-0ad"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0030",
+    "lineage": {
+      "income_regularity": [
+        "TXN_d6d3e3f2-8fc",
+        "TXN_4af1b541-8a2",
+        "TXN_ddb4a0c9-abf",
+        "TXN_5ff5ccc2-193",
+        "TXN_61baaab5-a77",
+        "TXN_ce67f65b-a29",
+        "TXN_dbbaf102-ea6",
+        "TXN_b2b53265-15a",
+        "TXN_c08c3333-d22",
+        "TXN_76aac2bb-d9e"
+      ],
+      "spending_consistency": [
+        "TXN_b1545c5c-adf",
+        "TXN_ae505d15-800",
+        "TXN_c2a008c0-d6f",
+        "TXN_d2f5a2aa-207",
+        "TXN_eaebcc5c-a9e",
+        "TXN_025d2e95-acd",
+        "TXN_f229480d-3d2",
+        "TXN_17cf4ef5-6fe",
+        "TXN_b26dc7ed-79c",
+        "TXN_7f0b8b20-e5a"
+      ],
+      "bill_payment_ratio": [
+        "TXN_c2a008c0-d6f",
+        "TXN_eaebcc5c-a9e",
+        "TXN_938b8d85-b15",
+        "TXN_012e0d2e-e34",
+        "TXN_6a8f4e8c-864"
+      ],
+      "savings_rate": [
+        "TXN_b1545c5c-adf",
+        "TXN_ae505d15-800",
+        "TXN_c2a008c0-d6f",
+        "TXN_d2f5a2aa-207",
+        "TXN_eaebcc5c-a9e",
+        "TXN_d6d3e3f2-8fc",
+        "TXN_025d2e95-acd",
+        "TXN_f229480d-3d2",
+        "TXN_17cf4ef5-6fe",
+        "TXN_4af1b541-8a2"
+      ],
+      "emi_burden_ratio": [
+        "TXN_025d2e95-acd",
+        "TXN_f229480d-3d2",
+        "TXN_b7499f72-b47",
+        "TXN_09c5ed9f-16d",
+        "TXN_a93df3e5-3e7",
+        "TXN_58ffe4d7-b43",
+        "TXN_c0735ad4-280",
+        "TXN_f9ed0474-2b2",
+        "TXN_cfc4f952-e6e",
+        "TXN_25a7c3a9-e51",
+        "TXN_27db9b6d-d4b",
+        "TXN_1b8573e3-703",
+        "TXN_0823521b-ac8",
+        "TXN_55902b8b-101"
+      ],
+      "upi_activity_volume": [
+        "TXN_ae505d15-800",
+        "TXN_eaebcc5c-a9e",
+        "TXN_d6d3e3f2-8fc",
+        "TXN_17cf4ef5-6fe",
+        "TXN_b26dc7ed-79c",
+        "TXN_ddb4a0c9-abf",
+        "TXN_5ff5ccc2-193",
+        "TXN_61baaab5-a77",
+        "TXN_09c5ed9f-16d",
+        "TXN_e919823b-386"
+      ],
+      "rent_payment_regularity": [
+        "TXN_d2f5a2aa-207",
+        "TXN_e919823b-386",
+        "TXN_d69038ac-bec",
+        "TXN_c6e7cd3e-833",
+        "TXN_f6703154-29e",
+        "TXN_82849d0b-b23"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_21ab8c81-aaf",
+        "TXN_5d73437b-e33",
+        "TXN_fbf4efcb-cdc"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0031",
+    "lineage": {
+      "income_regularity": [
+        "TXN_dda3b9d3-262",
+        "TXN_7fec8077-410",
+        "TXN_2db7b4f3-7cd",
+        "TXN_6707e48b-37f",
+        "TXN_0dcf05e5-ff4",
+        "TXN_a20b9d4c-222",
+        "TXN_74b0f7d9-b9b",
+        "TXN_61116d12-385",
+        "TXN_1916d358-a37",
+        "TXN_225f943d-c0e"
+      ],
+      "spending_consistency": [
+        "TXN_e9c0c1c9-290",
+        "TXN_ba0a187f-a85",
+        "TXN_6d6bfe0a-372",
+        "TXN_f4f2c407-010",
+        "TXN_b42fa23a-303",
+        "TXN_eae17e84-548",
+        "TXN_429eec79-215",
+        "TXN_0f97fe85-620",
+        "TXN_d15551a8-588",
+        "TXN_8b826243-e98"
+      ],
+      "bill_payment_ratio": [
+        "TXN_eae17e84-548",
+        "TXN_7cf5e10a-b03",
+        "TXN_4cff8739-316",
+        "TXN_633a736e-282",
+        "TXN_7d8ff3f1-5c2",
+        "TXN_f920c6c1-5d3",
+        "TXN_19c53aa4-4c6",
+        "TXN_43149ad0-69a",
+        "TXN_97fe8367-e96"
+      ],
+      "savings_rate": [
+        "TXN_dda3b9d3-262",
+        "TXN_e9c0c1c9-290",
+        "TXN_ba0a187f-a85",
+        "TXN_6d6bfe0a-372",
+        "TXN_7fec8077-410",
+        "TXN_f4f2c407-010",
+        "TXN_2db7b4f3-7cd",
+        "TXN_b42fa23a-303",
+        "TXN_6707e48b-37f",
+        "TXN_eae17e84-548"
+      ],
+      "emi_burden_ratio": [
+        "TXN_d15551a8-588",
+        "TXN_61d89481-f7a",
+        "TXN_683112e9-b2b",
+        "TXN_c76ef876-28d",
+        "TXN_66e66147-546",
+        "TXN_88d3e0d6-ed0",
+        "TXN_f545e36d-c6c",
+        "TXN_9bffc29c-292",
+        "TXN_ac1ff783-748",
+        "TXN_4888c969-709"
+      ],
+      "upi_activity_volume": [
+        "TXN_dda3b9d3-262",
+        "TXN_e9c0c1c9-290",
+        "TXN_6d6bfe0a-372",
+        "TXN_7fec8077-410",
+        "TXN_f4f2c407-010",
+        "TXN_2db7b4f3-7cd",
+        "TXN_6707e48b-37f",
+        "TXN_429eec79-215",
+        "TXN_0f97fe85-620",
+        "TXN_8b826243-e98"
+      ],
+      "rent_payment_regularity": [
+        "TXN_ba0a187f-a85",
+        "TXN_6d6bfe0a-372",
+        "TXN_ee720201-ac4",
+        "TXN_e3b0f1df-cc4",
+        "TXN_117b3286-0ef",
+        "TXN_5440c2e5-e84",
+        "TXN_02d20e52-2c2"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_2e50c82d-04c",
+        "TXN_36cb23b1-f3d",
+        "TXN_37c4adc4-743",
+        "TXN_443d3322-787",
+        "TXN_db7cad59-c63",
+        "TXN_584990c9-d57",
+        "TXN_e1f183e3-41a",
+        "TXN_35be189b-62a"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0032",
+    "lineage": {
+      "income_regularity": [
+        "TXN_6f4a5a93-ca8",
+        "TXN_9682809a-565",
+        "TXN_45d647bc-2ba",
+        "TXN_f6d8bd7d-528",
+        "TXN_7ee4cc81-8a9",
+        "TXN_56560227-902",
+        "TXN_c4b5bcaf-5f7",
+        "TXN_a3684186-c7e",
+        "TXN_d15bbace-6db",
+        "TXN_c17445a3-c7b"
+      ],
+      "spending_consistency": [
+        "TXN_f0774753-f92",
+        "TXN_8a9ae2ba-45d",
+        "TXN_6cfd5063-2b2",
+        "TXN_2368133c-5dc",
+        "TXN_5a4aa4c4-4c0",
+        "TXN_1fb5cbc8-abd",
+        "TXN_bdd723e6-5a9",
+        "TXN_4b31c95b-80a",
+        "TXN_43c67144-28e",
+        "TXN_84cad3b7-227"
+      ],
+      "bill_payment_ratio": [
+        "TXN_84cad3b7-227",
+        "TXN_0e73f88d-9a7",
+        "TXN_88ca3bf5-750",
+        "TXN_154ef97f-9a3",
+        "TXN_ddf149b2-033",
+        "TXN_01f909df-ab5",
+        "TXN_e677a4b2-97c"
+      ],
+      "savings_rate": [
+        "TXN_f0774753-f92",
+        "TXN_8a9ae2ba-45d",
+        "TXN_6cfd5063-2b2",
+        "TXN_2368133c-5dc",
+        "TXN_5a4aa4c4-4c0",
+        "TXN_1fb5cbc8-abd",
+        "TXN_bdd723e6-5a9",
+        "TXN_4b31c95b-80a",
+        "TXN_43c67144-28e",
+        "TXN_84cad3b7-227"
+      ],
+      "emi_burden_ratio": [
+        "TXN_1fb5cbc8-abd",
+        "TXN_b7e56539-3c3",
+        "TXN_29e4fdb1-b7d",
+        "TXN_92c280fc-cd2",
+        "TXN_423719a2-a97",
+        "TXN_26480a00-a87"
+      ],
+      "upi_activity_volume": [
+        "TXN_4b31c95b-80a",
+        "TXN_de6dfe96-4bd",
+        "TXN_6f4a5a93-ca8",
+        "TXN_535c549b-2bb",
+        "TXN_9682809a-565",
+        "TXN_af85f248-36d",
+        "TXN_88ca3bf5-750",
+        "TXN_45d647bc-2ba",
+        "TXN_154ef97f-9a3",
+        "TXN_e3e3b402-cc0"
+      ],
+      "rent_payment_regularity": [
+        "TXN_5a4aa4c4-4c0",
+        "TXN_de6dfe96-4bd",
+        "TXN_9e1d3a4e-8bb"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_f0774753-f92",
+        "TXN_6cfd5063-2b2",
+        "TXN_2368133c-5dc",
+        "TXN_18f17fbf-33e",
+        "TXN_dd33f104-6ef",
+        "TXN_109afd06-b80"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0033",
+    "lineage": {
+      "income_regularity": [
+        "TXN_2c9e4ee7-9b6",
+        "TXN_aa88618c-c21",
+        "TXN_27463d15-fdc",
+        "TXN_8cacdc6a-71f",
+        "TXN_b8380ff1-6c8",
+        "TXN_ec53339c-d19",
+        "TXN_ee84b277-663",
+        "TXN_4cda833d-2e4",
+        "TXN_7720c8cf-3ca"
+      ],
+      "spending_consistency": [
+        "TXN_0345a7ce-fe4",
+        "TXN_5b0c1dd2-332",
+        "TXN_fe889417-395",
+        "TXN_c5cce45e-0dd",
+        "TXN_dc06db5f-364",
+        "TXN_d094dd32-5d4",
+        "TXN_87e57ae2-226",
+        "TXN_978b534d-8d7",
+        "TXN_7cf24ab7-00b",
+        "TXN_35fbe09c-81e"
+      ],
+      "bill_payment_ratio": [
+        "TXN_900637c4-93d",
+        "TXN_f586dc0b-dca",
+        "TXN_e6c2805e-bda",
+        "TXN_b592aec4-e34"
+      ],
+      "savings_rate": [
+        "TXN_0345a7ce-fe4",
+        "TXN_5b0c1dd2-332",
+        "TXN_fe889417-395",
+        "TXN_c5cce45e-0dd",
+        "TXN_dc06db5f-364",
+        "TXN_d094dd32-5d4",
+        "TXN_87e57ae2-226",
+        "TXN_978b534d-8d7",
+        "TXN_7cf24ab7-00b",
+        "TXN_35fbe09c-81e"
+      ],
+      "emi_burden_ratio": [
+        "TXN_5b0c1dd2-332",
+        "TXN_c5cce45e-0dd",
+        "TXN_dc06db5f-364",
+        "TXN_b66109d0-ac1",
+        "TXN_bb996793-25c",
+        "TXN_9c598c84-7b9",
+        "TXN_ca674d34-872",
+        "TXN_5bf63330-cd5",
+        "TXN_06f7a32e-12c",
+        "TXN_e36e7af9-0cf",
+        "TXN_ea5106a9-e9d",
+        "TXN_e2dd7c0b-9e5",
+        "TXN_db36a6ea-82b",
+        "TXN_3d01001a-27f"
+      ],
+      "upi_activity_volume": [
+        "TXN_0345a7ce-fe4",
+        "TXN_c5cce45e-0dd",
+        "TXN_87e57ae2-226",
+        "TXN_978b534d-8d7",
+        "TXN_7cf24ab7-00b",
+        "TXN_35fbe09c-81e",
+        "TXN_900637c4-93d",
+        "TXN_f586dc0b-dca",
+        "TXN_57d1e8eb-47d",
+        "TXN_27463d15-fdc"
+      ],
+      "rent_payment_regularity": [
+        "TXN_73d3cb31-35e",
+        "TXN_c94252ba-dbc"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_009645ed-c24",
+        "TXN_6e24e3c4-9f5",
+        "TXN_e079be62-36b",
+        "TXN_43a6b5ca-114"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0034",
+    "lineage": {
+      "income_regularity": [
+        "TXN_e5bf1bb0-dd4",
+        "TXN_f2920eb8-07c",
+        "TXN_ae1a2548-a4b",
+        "TXN_3252fb12-bbd",
+        "TXN_4ee9328e-7c6",
+        "TXN_fa28df8f-951",
+        "TXN_78ac3696-b7f",
+        "TXN_965b067c-437",
+        "TXN_152f3295-359",
+        "TXN_226d68eb-cf9"
+      ],
+      "spending_consistency": [
+        "TXN_e31f3f8a-ba8",
+        "TXN_5feb3ea3-ef5",
+        "TXN_514fc7d7-b3c",
+        "TXN_d3a68f48-267",
+        "TXN_b061b407-0a9",
+        "TXN_b1f1d986-1ca",
+        "TXN_d6f2df01-bd8",
+        "TXN_68aa6913-79c",
+        "TXN_935ede0a-3e9",
+        "TXN_b8bae421-27e"
+      ],
+      "bill_payment_ratio": [
+        "TXN_5feb3ea3-ef5",
+        "TXN_514fc7d7-b3c",
+        "TXN_935ede0a-3e9",
+        "TXN_b39e5c8c-0b1",
+        "TXN_b7ffa7f3-68e",
+        "TXN_70c20185-ba1",
+        "TXN_0536060b-640",
+        "TXN_1d41ea68-f7e",
+        "TXN_e3c324c6-1d8",
+        "TXN_12e7e5db-f22",
+        "TXN_49f5fecc-ddf",
+        "TXN_90e07d39-b68",
+        "TXN_cdec1f4b-860"
+      ],
+      "savings_rate": [
+        "TXN_e5bf1bb0-dd4",
+        "TXN_e31f3f8a-ba8",
+        "TXN_f2920eb8-07c",
+        "TXN_5feb3ea3-ef5",
+        "TXN_514fc7d7-b3c",
+        "TXN_ae1a2548-a4b",
+        "TXN_d3a68f48-267",
+        "TXN_b061b407-0a9",
+        "TXN_b1f1d986-1ca",
+        "TXN_d6f2df01-bd8"
+      ],
+      "emi_burden_ratio": [
+        "TXN_b061b407-0a9",
+        "TXN_54dec622-4f4",
+        "TXN_db1075cd-70f",
+        "TXN_57113c37-0f7",
+        "TXN_4eae532f-c24",
+        "TXN_80ee8178-7fd",
+        "TXN_156f190e-7b1",
+        "TXN_542c4a59-2b0",
+        "TXN_7750c206-c95"
+      ],
+      "upi_activity_volume": [
+        "TXN_e5bf1bb0-dd4",
+        "TXN_f2920eb8-07c",
+        "TXN_514fc7d7-b3c",
+        "TXN_d6f2df01-bd8",
+        "TXN_b8bae421-27e",
+        "TXN_3252fb12-bbd",
+        "TXN_455e0914-93c",
+        "TXN_fa28df8f-951",
+        "TXN_78ac3696-b7f",
+        "TXN_965b067c-437"
+      ],
+      "rent_payment_regularity": [
+        "TXN_68aa6913-79c",
+        "TXN_4138e927-523",
+        "TXN_008bf758-dcf",
+        "TXN_4ec7eea6-22d",
+        "TXN_de32ee5b-26f",
+        "TXN_465b363f-0c9",
+        "TXN_f6d2b3da-490",
+        "TXN_54b70cd2-220",
+        "TXN_1d7af097-0a7",
+        "TXN_6195bf0a-d10",
+        "TXN_c9731e41-5fc",
+        "TXN_39bd3fd7-354"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_e31f3f8a-ba8",
+        "TXN_d3a68f48-267",
+        "TXN_8d4f7898-f5b",
+        "TXN_34202a1f-caf",
+        "TXN_06ac8eea-678",
+        "TXN_90e0548a-8d8",
+        "TXN_479cc70c-e2a",
+        "TXN_1077e95c-fdb",
+        "TXN_81449839-a2a",
+        "TXN_c56ad283-885"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0035",
+    "lineage": {
+      "income_regularity": [
+        "TXN_98a9611a-b3c",
+        "TXN_f110e1aa-1f8",
+        "TXN_319b2165-244",
+        "TXN_52970e28-2ea",
+        "TXN_48bf1cc3-9c0",
+        "TXN_62b90dbd-d45",
+        "TXN_99c343fa-24b",
+        "TXN_f7946274-e29",
+        "TXN_9b14e7d9-f3d",
+        "TXN_13fd4109-8c5"
+      ],
+      "spending_consistency": [
+        "TXN_4865d3b4-dde",
+        "TXN_2a65a9d4-e1b",
+        "TXN_a2dd2505-c20",
+        "TXN_1307d9d5-a10",
+        "TXN_861a09d1-dd3",
+        "TXN_4a0c89a3-f9f",
+        "TXN_2325e8f5-7c9",
+        "TXN_d8ff1b05-0e7",
+        "TXN_e6476d1c-dfd",
+        "TXN_e607c374-37c"
+      ],
+      "bill_payment_ratio": [
+        "TXN_861a09d1-dd3",
+        "TXN_e6476d1c-dfd",
+        "TXN_bb1101f4-814",
+        "TXN_02fea825-52c",
+        "TXN_24b775d1-5ba",
+        "TXN_7b7545c1-c46",
+        "TXN_d2c325a0-c34",
+        "TXN_57f6a6f6-c30",
+        "TXN_50f63151-bff",
+        "TXN_40c91729-a57",
+        "TXN_01620e81-a10",
+        "TXN_14ec4146-ef2",
+        "TXN_708e4e7b-ed0",
+        "TXN_071c76b6-d5a",
+        "TXN_202b6af5-5ad"
+      ],
+      "savings_rate": [
+        "TXN_98a9611a-b3c",
+        "TXN_4865d3b4-dde",
+        "TXN_f110e1aa-1f8",
+        "TXN_2a65a9d4-e1b",
+        "TXN_a2dd2505-c20",
+        "TXN_1307d9d5-a10",
+        "TXN_861a09d1-dd3",
+        "TXN_4a0c89a3-f9f",
+        "TXN_2325e8f5-7c9",
+        "TXN_319b2165-244"
+      ],
+      "emi_burden_ratio": [
+        "TXN_4a0c89a3-f9f",
+        "TXN_2325e8f5-7c9",
+        "TXN_e607c374-37c",
+        "TXN_a9d78642-0cb",
+        "TXN_96dfb495-a16",
+        "TXN_e3daae40-c8a",
+        "TXN_fc292e82-f53",
+        "TXN_45756757-85f",
+        "TXN_e872091d-f9c",
+        "TXN_051378e5-b28",
+        "TXN_7cf8fd85-612",
+        "TXN_ec2b7901-2e9",
+        "TXN_3596af2f-b3c",
+        "TXN_1c134b1e-a68",
+        "TXN_984a01b8-52c",
+        "TXN_6ca1926d-c44",
+        "TXN_fa6e88d2-493"
+      ],
+      "upi_activity_volume": [
+        "TXN_4865d3b4-dde",
+        "TXN_f110e1aa-1f8",
+        "TXN_1307d9d5-a10",
+        "TXN_861a09d1-dd3",
+        "TXN_319b2165-244",
+        "TXN_52970e28-2ea",
+        "TXN_62b90dbd-d45",
+        "TXN_6c688096-211",
+        "TXN_9db86732-86d",
+        "TXN_d961df84-506"
+      ],
+      "rent_payment_regularity": [
+        "TXN_2a65a9d4-e1b",
+        "TXN_7191b533-8d9",
+        "TXN_5d2272d8-353",
+        "TXN_ae32a594-080",
+        "TXN_1e5f5544-1d2",
+        "TXN_3cf42f18-3b4",
+        "TXN_0c64bdaf-726",
+        "TXN_b3a18efd-bd8",
+        "TXN_c959a5e5-03d",
+        "TXN_4378042a-f1b",
+        "TXN_20820244-ad6"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_d8ff1b05-0e7",
+        "TXN_7a196e04-fa1",
+        "TXN_bc988080-d84",
+        "TXN_fb36aaa3-505",
+        "TXN_37f5825d-216",
+        "TXN_1bf68b81-8d7",
+        "TXN_b3f06d39-8cf"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0036",
+    "lineage": {
+      "income_regularity": [
+        "TXN_72cf3fd6-9f3",
+        "TXN_f502d33b-31e",
+        "TXN_b52cf906-155",
+        "TXN_f637147b-318",
+        "TXN_fe468de3-94f",
+        "TXN_5e78fdfd-b67",
+        "TXN_35d80fb2-53f",
+        "TXN_f37f19c3-7ae",
+        "TXN_4c975947-48f",
+        "TXN_29c618b8-97d"
+      ],
+      "spending_consistency": [
+        "TXN_5f5f0707-16d",
+        "TXN_50d8400a-45d",
+        "TXN_d15991a8-ee0",
+        "TXN_543afa04-625",
+        "TXN_b889157f-88c",
+        "TXN_deba0828-65f",
+        "TXN_b2f2e362-159",
+        "TXN_7112ea98-7f5",
+        "TXN_a56678ff-d09",
+        "TXN_d9d6e3f8-e40"
+      ],
+      "bill_payment_ratio": [
+        "TXN_d15991a8-ee0",
+        "TXN_a56678ff-d09",
+        "TXN_301bc354-739",
+        "TXN_b8f1934f-0a2",
+        "TXN_fb22f2b6-11e",
+        "TXN_34037d44-c15",
+        "TXN_ab1d8732-51a",
+        "TXN_11d1272b-e7c",
+        "TXN_400d434b-648",
+        "TXN_38bef423-3be",
+        "TXN_d812f012-b05",
+        "TXN_dda474c2-49e"
+      ],
+      "savings_rate": [
+        "TXN_72cf3fd6-9f3",
+        "TXN_5f5f0707-16d",
+        "TXN_f502d33b-31e",
+        "TXN_50d8400a-45d",
+        "TXN_d15991a8-ee0",
+        "TXN_b52cf906-155",
+        "TXN_f637147b-318",
+        "TXN_fe468de3-94f",
+        "TXN_543afa04-625",
+        "TXN_b889157f-88c"
+      ],
+      "emi_burden_ratio": [
+        "TXN_b2f2e362-159",
+        "TXN_58721bd8-096",
+        "TXN_d7b5f91b-41c",
+        "TXN_d70670a1-4d5",
+        "TXN_0aea446c-304",
+        "TXN_8f31becb-a38",
+        "TXN_bb9a0f58-2f9",
+        "TXN_836eb8ef-369",
+        "TXN_cfe996db-9c6",
+        "TXN_03ae822e-41c",
+        "TXN_aa3e0a60-31a",
+        "TXN_0c40ddcc-294",
+        "TXN_af3d646e-3e6",
+        "TXN_9fb2f5e3-3a7"
+      ],
+      "upi_activity_volume": [
+        "TXN_f502d33b-31e",
+        "TXN_50d8400a-45d",
+        "TXN_d15991a8-ee0",
+        "TXN_b52cf906-155",
+        "TXN_f637147b-318",
+        "TXN_fe468de3-94f",
+        "TXN_b889157f-88c",
+        "TXN_5e78fdfd-b67",
+        "TXN_b2f2e362-159",
+        "TXN_a56678ff-d09"
+      ],
+      "rent_payment_regularity": [
+        "TXN_deba0828-65f",
+        "TXN_6a907c0d-c5a",
+        "TXN_c0633cc2-dba",
+        "TXN_cc901583-16b",
+        "TXN_55f18484-d1f",
+        "TXN_ad526fea-1bf",
+        "TXN_68185e5d-6c4"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_d9d6e3f8-e40",
+        "TXN_866db927-0e6",
+        "TXN_693c72cb-215",
+        "TXN_a47aefde-c35",
+        "TXN_bf51b3ac-759",
+        "TXN_c1e7bf74-346"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0037",
+    "lineage": {
+      "income_regularity": [
+        "TXN_2ff1aa1f-fd9",
+        "TXN_eed9be85-de5",
+        "TXN_3dcaa8b8-1d2",
+        "TXN_0824d8db-126",
+        "TXN_495e4497-9a7",
+        "TXN_15e3d9d4-119",
+        "TXN_82107efc-c13",
+        "TXN_53449a9d-77b",
+        "TXN_d0634ad0-93c",
+        "TXN_70b36a49-edf"
+      ],
+      "spending_consistency": [
+        "TXN_4522a053-221",
+        "TXN_1936e17d-7b9",
+        "TXN_9c6322cf-b14",
+        "TXN_1226552a-b30",
+        "TXN_543e4106-c78",
+        "TXN_909ece94-090",
+        "TXN_342cdded-c38",
+        "TXN_c952befa-635",
+        "TXN_2edddab9-947",
+        "TXN_6161a313-9de"
+      ],
+      "bill_payment_ratio": [
+        "TXN_543e4106-c78",
+        "TXN_256e7d7b-a70",
+        "TXN_54919893-45e",
+        "TXN_5666d69c-641",
+        "TXN_73662f28-50c",
+        "TXN_83fd97c8-b40",
+        "TXN_2fd8d550-d21",
+        "TXN_d423da88-5ba",
+        "TXN_e48925f7-f24",
+        "TXN_ecc8ffc1-93c",
+        "TXN_c86221d3-135"
+      ],
+      "savings_rate": [
+        "TXN_4522a053-221",
+        "TXN_2ff1aa1f-fd9",
+        "TXN_1936e17d-7b9",
+        "TXN_9c6322cf-b14",
+        "TXN_1226552a-b30",
+        "TXN_eed9be85-de5",
+        "TXN_543e4106-c78",
+        "TXN_909ece94-090",
+        "TXN_3dcaa8b8-1d2",
+        "TXN_342cdded-c38"
+      ],
+      "emi_burden_ratio": [
+        "TXN_4522a053-221",
+        "TXN_2edddab9-947",
+        "TXN_6161a313-9de",
+        "TXN_b7490fbd-802",
+        "TXN_4aaf981c-2f5",
+        "TXN_8d52bbf2-fdd",
+        "TXN_8746463e-ed9",
+        "TXN_eaa298d0-9b2",
+        "TXN_bc8d396f-939",
+        "TXN_da98a30a-0f0",
+        "TXN_1cc0be0d-e11",
+        "TXN_0c2797b9-a0b",
+        "TXN_4f14fba7-7ff",
+        "TXN_0626df95-cce"
+      ],
+      "upi_activity_volume": [
+        "TXN_9c6322cf-b14",
+        "TXN_1226552a-b30",
+        "TXN_eed9be85-de5",
+        "TXN_909ece94-090",
+        "TXN_3dcaa8b8-1d2",
+        "TXN_0824d8db-126",
+        "TXN_495e4497-9a7",
+        "TXN_c952befa-635",
+        "TXN_2edddab9-947",
+        "TXN_15e3d9d4-119"
+      ],
+      "rent_payment_regularity": [
+        "TXN_1936e17d-7b9",
+        "TXN_342cdded-c38",
+        "TXN_e05f03f6-94e",
+        "TXN_d7b6ee5d-d9e",
+        "TXN_a78cebfc-778",
+        "TXN_59ebee53-4fc",
+        "TXN_ee17ac3a-8e1"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_b6bfc53f-054",
+        "TXN_f9daf846-87b",
+        "TXN_78b18d76-aab",
+        "TXN_14ec3915-058",
+        "TXN_89dbfbeb-e0e",
+        "TXN_7e897a16-e97",
+        "TXN_b967a075-86c",
+        "TXN_4d18305e-a45"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0038",
+    "lineage": {
+      "income_regularity": [
+        "TXN_d43f852d-9d5",
+        "TXN_2d4ca4f5-ad1",
+        "TXN_743d60f5-826",
+        "TXN_90509fd6-53f",
+        "TXN_84ebf8aa-129",
+        "TXN_1ff1253d-e55",
+        "TXN_21c16abc-046",
+        "TXN_b2fff8ba-17a",
+        "TXN_a9eeefa8-45d",
+        "TXN_e1a586cd-2b1"
+      ],
+      "spending_consistency": [
+        "TXN_7edc18b3-908",
+        "TXN_deb8f87a-a98",
+        "TXN_f1e5017d-a4a",
+        "TXN_6c5e5d43-c9e",
+        "TXN_3de24de9-e6a",
+        "TXN_928f5846-5a0",
+        "TXN_fe8faa39-76f",
+        "TXN_04983220-c24",
+        "TXN_2632f552-479",
+        "TXN_128b527d-6cf"
+      ],
+      "bill_payment_ratio": [
+        "TXN_f1e5017d-a4a",
+        "TXN_928f5846-5a0",
+        "TXN_0012731b-201",
+        "TXN_57d1e6b3-e91",
+        "TXN_ae359ac3-6b8",
+        "TXN_547fc08d-3dd",
+        "TXN_5c2dd6e8-270"
+      ],
+      "savings_rate": [
+        "TXN_7edc18b3-908",
+        "TXN_d43f852d-9d5",
+        "TXN_deb8f87a-a98",
+        "TXN_f1e5017d-a4a",
+        "TXN_6c5e5d43-c9e",
+        "TXN_3de24de9-e6a",
+        "TXN_928f5846-5a0",
+        "TXN_fe8faa39-76f",
+        "TXN_04983220-c24",
+        "TXN_2632f552-479"
+      ],
+      "emi_burden_ratio": [
+        "TXN_0c50862b-f4d",
+        "TXN_65b35629-081",
+        "TXN_c3601dd4-82a",
+        "TXN_baf587ce-9c4"
+      ],
+      "upi_activity_volume": [
+        "TXN_d43f852d-9d5",
+        "TXN_deb8f87a-a98",
+        "TXN_f1e5017d-a4a",
+        "TXN_6c5e5d43-c9e",
+        "TXN_3de24de9-e6a",
+        "TXN_04983220-c24",
+        "TXN_2632f552-479",
+        "TXN_2d4ca4f5-ad1",
+        "TXN_d0edea86-3e7",
+        "TXN_0012731b-201"
+      ],
+      "rent_payment_regularity": [
+        "TXN_7edc18b3-908",
+        "TXN_fe8faa39-76f",
+        "TXN_cee83831-5a1",
+        "TXN_3770cfac-94e",
+        "TXN_74802db3-f4f"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_128b527d-6cf",
+        "TXN_b06794f2-c49",
+        "TXN_8b4c7c23-102"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0039",
+    "lineage": {
+      "income_regularity": [
+        "TXN_bc8912ef-5bb",
+        "TXN_16f23449-849",
+        "TXN_df582739-462",
+        "TXN_689d8f02-8a2",
+        "TXN_1f49967b-329",
+        "TXN_223b7125-e76",
+        "TXN_46878a3f-753",
+        "TXN_f4cf7364-3f3",
+        "TXN_38b93d1d-e5b"
+      ],
+      "spending_consistency": [
+        "TXN_92bef3fb-6d2",
+        "TXN_e35b2104-771",
+        "TXN_d655411f-ca7",
+        "TXN_a893a0fc-7d3",
+        "TXN_8e4b58b2-aee",
+        "TXN_e4159199-1f9",
+        "TXN_97b3b573-238",
+        "TXN_77ffc5d8-246",
+        "TXN_4f798d2b-c86",
+        "TXN_64112ad9-c08"
+      ],
+      "bill_payment_ratio": [
+        "TXN_e35b2104-771",
+        "TXN_97b3b573-238",
+        "TXN_0ba9ae16-854",
+        "TXN_66649dfe-cda"
+      ],
+      "savings_rate": [
+        "TXN_92bef3fb-6d2",
+        "TXN_e35b2104-771",
+        "TXN_bc8912ef-5bb",
+        "TXN_d655411f-ca7",
+        "TXN_a893a0fc-7d3",
+        "TXN_8e4b58b2-aee",
+        "TXN_16f23449-849",
+        "TXN_e4159199-1f9",
+        "TXN_97b3b573-238",
+        "TXN_77ffc5d8-246"
+      ],
+      "emi_burden_ratio": [
+        "TXN_d655411f-ca7",
+        "TXN_e4159199-1f9",
+        "TXN_2fdd5c6a-697",
+        "TXN_544a0adf-87b"
+      ],
+      "upi_activity_volume": [
+        "TXN_92bef3fb-6d2",
+        "TXN_d655411f-ca7",
+        "TXN_8e4b58b2-aee",
+        "TXN_16f23449-849",
+        "TXN_e4159199-1f9",
+        "TXN_97b3b573-238",
+        "TXN_4f798d2b-c86",
+        "TXN_2fdd5c6a-697",
+        "TXN_544a0adf-87b",
+        "TXN_4e076d9b-a77"
+      ],
+      "rent_payment_regularity": [
+        "TXN_a893a0fc-7d3",
+        "TXN_d2f6b880-82d"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_64112ad9-c08",
+        "TXN_4e6cd5a4-260"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0040",
+    "lineage": {
+      "income_regularity": [
+        "TXN_07b4db33-8e6",
+        "TXN_b23c219a-f44",
+        "TXN_43ed7a68-772",
+        "TXN_3cadb7f5-6e2",
+        "TXN_04f0d1f3-129",
+        "TXN_9f7f33c0-dec",
+        "TXN_029893f4-f22",
+        "TXN_1ecd1650-74b",
+        "TXN_336b42af-09e",
+        "TXN_5d645b03-cae"
+      ],
+      "spending_consistency": [
+        "TXN_1ff50f40-c03",
+        "TXN_d380d0f7-4cb",
+        "TXN_e930a6bf-f2c",
+        "TXN_2a9f9d65-814",
+        "TXN_c3d7ae9c-429",
+        "TXN_2bf1db95-017",
+        "TXN_ac6268e3-39d",
+        "TXN_056c655d-489",
+        "TXN_7ee00417-480",
+        "TXN_3c1b0e38-3fd"
+      ],
+      "bill_payment_ratio": [
+        "TXN_2bf1db95-017",
+        "TXN_505a3331-00d",
+        "TXN_86bf9d41-c72",
+        "TXN_5312c7ea-7b3",
+        "TXN_5e4b983c-9b0",
+        "TXN_1f71633f-616",
+        "TXN_1bcd99fd-841",
+        "TXN_0f68e486-eb1",
+        "TXN_2de35ad8-1c6"
+      ],
+      "savings_rate": [
+        "TXN_1ff50f40-c03",
+        "TXN_d380d0f7-4cb",
+        "TXN_e930a6bf-f2c",
+        "TXN_07b4db33-8e6",
+        "TXN_2a9f9d65-814",
+        "TXN_c3d7ae9c-429",
+        "TXN_2bf1db95-017",
+        "TXN_b23c219a-f44",
+        "TXN_43ed7a68-772",
+        "TXN_3cadb7f5-6e2"
+      ],
+      "emi_burden_ratio": [
+        "TXN_1ff50f40-c03",
+        "TXN_056c655d-489",
+        "TXN_9352a955-e5f",
+        "TXN_f456d27c-f19",
+        "TXN_5d7d5327-f29",
+        "TXN_a3855432-cb5",
+        "TXN_84f0acd1-7d8",
+        "TXN_db3bf338-b9b",
+        "TXN_cbdd33fb-0d2",
+        "TXN_eea583da-e17",
+        "TXN_2b1651a9-aeb",
+        "TXN_9fa72967-0c8",
+        "TXN_39e75d72-7dd",
+        "TXN_a8815152-f1f"
+      ],
+      "upi_activity_volume": [
+        "TXN_d380d0f7-4cb",
+        "TXN_e930a6bf-f2c",
+        "TXN_c3d7ae9c-429",
+        "TXN_b23c219a-f44",
+        "TXN_43ed7a68-772",
+        "TXN_ac6268e3-39d",
+        "TXN_04f0d1f3-129",
+        "TXN_9f7f33c0-dec",
+        "TXN_7ee00417-480",
+        "TXN_1ecd1650-74b"
+      ],
+      "rent_payment_regularity": [
+        "TXN_d380d0f7-4cb",
+        "TXN_2a9f9d65-814",
+        "TXN_ac6268e3-39d",
+        "TXN_9be3a986-8fa",
+        "TXN_e4694350-3ba",
+        "TXN_7a2d074a-b21",
+        "TXN_3f1643e4-b82",
+        "TXN_31b40da5-8b9",
+        "TXN_e1d0b98a-ec1",
+        "TXN_82c76bd4-004",
+        "TXN_280adf28-69e",
+        "TXN_47f24531-6aa"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_2f2172b4-90a",
+        "TXN_807e03d8-880",
+        "TXN_5cf0bd5d-1c6",
+        "TXN_9099f7be-a8e",
+        "TXN_4730086e-330",
+        "TXN_4a883e42-560"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0041",
+    "lineage": {
+      "income_regularity": [
+        "TXN_d52246fd-9c8",
+        "TXN_f5fd61c6-a96",
+        "TXN_660535a5-046",
+        "TXN_b09453a3-033",
+        "TXN_d5b11918-b46",
+        "TXN_70250bbb-d41",
+        "TXN_cd970678-af3",
+        "TXN_6db4451a-682",
+        "TXN_875fdbcb-625",
+        "TXN_c2b0c3be-8f7"
+      ],
+      "spending_consistency": [
+        "TXN_5d194e0a-94a",
+        "TXN_cc8331b4-af0",
+        "TXN_bb4bfcf1-de5",
+        "TXN_2209dd01-b41",
+        "TXN_63d4d4e6-d3c",
+        "TXN_386c84a3-453",
+        "TXN_687fe333-fc7",
+        "TXN_57478c1b-6be",
+        "TXN_941b47a6-b4b",
+        "TXN_90627ce1-8c6"
+      ],
+      "bill_payment_ratio": [
+        "TXN_2209dd01-b41",
+        "TXN_fa7f903f-503",
+        "TXN_d9c543ff-53d",
+        "TXN_a573f808-94f"
+      ],
+      "savings_rate": [
+        "TXN_5d194e0a-94a",
+        "TXN_d52246fd-9c8",
+        "TXN_cc8331b4-af0",
+        "TXN_f5fd61c6-a96",
+        "TXN_bb4bfcf1-de5",
+        "TXN_2209dd01-b41",
+        "TXN_63d4d4e6-d3c",
+        "TXN_386c84a3-453",
+        "TXN_687fe333-fc7",
+        "TXN_660535a5-046"
+      ],
+      "emi_burden_ratio": [
+        "TXN_cc8331b4-af0",
+        "TXN_386c84a3-453",
+        "TXN_687fe333-fc7",
+        "TXN_57478c1b-6be",
+        "TXN_3a28e75e-987",
+        "TXN_fe28f4bd-b67",
+        "TXN_4bf4a488-83c",
+        "TXN_50c68075-a13",
+        "TXN_d0971340-38e",
+        "TXN_383c7bdc-002",
+        "TXN_60000249-746",
+        "TXN_8b7005e8-8d1"
+      ],
+      "upi_activity_volume": [
+        "TXN_5d194e0a-94a",
+        "TXN_d52246fd-9c8",
+        "TXN_cc8331b4-af0",
+        "TXN_687fe333-fc7",
+        "TXN_660535a5-046",
+        "TXN_57478c1b-6be",
+        "TXN_fbb20acb-ac1",
+        "TXN_d5b11918-b46",
+        "TXN_cd970678-af3",
+        "TXN_6db4451a-682"
+      ],
+      "rent_payment_regularity": [
+        "TXN_941b47a6-b4b",
+        "TXN_e2527717-1d8",
+        "TXN_97126d54-ba1",
+        "TXN_eb2085be-22d",
+        "TXN_7c2d4064-815",
+        "TXN_7d96af69-1ea",
+        "TXN_28fe2d7b-713",
+        "TXN_f23efb6e-fe9",
+        "TXN_eb5215f4-737"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_9e6d7ce3-b59",
+        "TXN_88aee7ed-302",
+        "TXN_31c307d0-a9a",
+        "TXN_644edcd7-cd4",
+        "TXN_1d280df5-ccc",
+        "TXN_753f0fe6-3ab"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0042",
+    "lineage": {
+      "income_regularity": [
+        "TXN_1b686e2a-8e8",
+        "TXN_801062c5-7c2",
+        "TXN_5f075309-44c",
+        "TXN_0d016082-51f",
+        "TXN_9ab8791a-b3b",
+        "TXN_c3ca482b-a50",
+        "TXN_e7fa25a8-9d1",
+        "TXN_6621cdd7-c82",
+        "TXN_20354fa0-3af",
+        "TXN_4458e8da-9a1"
+      ],
+      "spending_consistency": [
+        "TXN_4038ca1a-bbb",
+        "TXN_08350080-cb0",
+        "TXN_681954cd-83b",
+        "TXN_806b7e49-572",
+        "TXN_65b92234-9c3",
+        "TXN_e11fdbbe-a60",
+        "TXN_37c97dc8-598",
+        "TXN_f72ae6f0-87e",
+        "TXN_ae99f154-a43",
+        "TXN_726287af-ed9"
+      ],
+      "bill_payment_ratio": [
+        "TXN_e11fdbbe-a60",
+        "TXN_80ecc990-aee",
+        "TXN_d7fec9d5-881",
+        "TXN_965d9703-5d4",
+        "TXN_9c073266-dc2"
+      ],
+      "savings_rate": [
+        "TXN_4038ca1a-bbb",
+        "TXN_08350080-cb0",
+        "TXN_681954cd-83b",
+        "TXN_806b7e49-572",
+        "TXN_65b92234-9c3",
+        "TXN_e11fdbbe-a60",
+        "TXN_37c97dc8-598",
+        "TXN_f72ae6f0-87e",
+        "TXN_ae99f154-a43",
+        "TXN_726287af-ed9"
+      ],
+      "emi_burden_ratio": [
+        "TXN_4038ca1a-bbb",
+        "TXN_681954cd-83b",
+        "TXN_ae99f154-a43",
+        "TXN_726287af-ed9",
+        "TXN_5f1a89e6-daa",
+        "TXN_e7c20682-4b6",
+        "TXN_fa8db52c-1e9",
+        "TXN_3efb71ab-5ca"
+      ],
+      "upi_activity_volume": [
+        "TXN_08350080-cb0",
+        "TXN_e11fdbbe-a60",
+        "TXN_37c97dc8-598",
+        "TXN_ae99f154-a43",
+        "TXN_5f1a89e6-daa",
+        "TXN_3976009a-499",
+        "TXN_1b686e2a-8e8",
+        "TXN_801062c5-7c2",
+        "TXN_5f075309-44c",
+        "TXN_d7fec9d5-881"
+      ],
+      "rent_payment_regularity": [
+        "TXN_806b7e49-572",
+        "TXN_65b92234-9c3",
+        "TXN_8d717c56-dc0",
+        "TXN_e82f71ea-71a",
+        "TXN_03d3581e-e33"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_f72ae6f0-87e",
+        "TXN_446fcba9-448",
+        "TXN_5945cb4d-1a8",
+        "TXN_628a86c2-92f",
+        "TXN_c88e5ce0-d52"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0043",
+    "lineage": {
+      "income_regularity": [
+        "TXN_d79e1b2d-96e",
+        "TXN_c26bf72b-165",
+        "TXN_cb94d8b9-6a9",
+        "TXN_2dda1dc2-744",
+        "TXN_c4c1e89a-b2c",
+        "TXN_ab294591-4c6",
+        "TXN_cf0bf9d8-e7b",
+        "TXN_38a38e02-131",
+        "TXN_04065312-e19",
+        "TXN_43505687-521"
+      ],
+      "spending_consistency": [
+        "TXN_00f5fdad-44b",
+        "TXN_5f664173-49a",
+        "TXN_28bc0c1e-0f1",
+        "TXN_c2c7605e-593",
+        "TXN_3ca0f8f4-b78",
+        "TXN_f71bcfd1-00d",
+        "TXN_bfc60ca9-3e3",
+        "TXN_05aa4305-c1e",
+        "TXN_547cb531-083",
+        "TXN_57135a85-322"
+      ],
+      "bill_payment_ratio": [
+        "TXN_c797c5d1-a19",
+        "TXN_f4d7af69-1cb",
+        "TXN_d791660b-32a",
+        "TXN_61227f58-d63",
+        "TXN_bc5a58af-27e",
+        "TXN_37825167-f4f",
+        "TXN_946f6af0-f17",
+        "TXN_38d933cf-a15",
+        "TXN_36b650d8-635",
+        "TXN_5d68316f-c4c",
+        "TXN_6baffb3e-765",
+        "TXN_fd530b4b-b2d"
+      ],
+      "savings_rate": [
+        "TXN_00f5fdad-44b",
+        "TXN_5f664173-49a",
+        "TXN_28bc0c1e-0f1",
+        "TXN_d79e1b2d-96e",
+        "TXN_c2c7605e-593",
+        "TXN_3ca0f8f4-b78",
+        "TXN_c26bf72b-165",
+        "TXN_cb94d8b9-6a9",
+        "TXN_f71bcfd1-00d",
+        "TXN_2dda1dc2-744"
+      ],
+      "emi_burden_ratio": [
+        "TXN_f71bcfd1-00d",
+        "TXN_6b2a744f-fa4",
+        "TXN_cb76f66a-4ff",
+        "TXN_bf1f2f19-fd6",
+        "TXN_6f45e717-c5e",
+        "TXN_14334f86-5a6",
+        "TXN_e93b1ca7-1b6",
+        "TXN_5ef75a08-6b4",
+        "TXN_85f0a3ca-6d2",
+        "TXN_1127dd83-8b7",
+        "TXN_bb6e157a-a04",
+        "TXN_a65b0f2d-d37",
+        "TXN_b89b594c-ae4",
+        "TXN_f7770a8a-754",
+        "TXN_d9b86b4d-758",
+        "TXN_bf306734-da2",
+        "TXN_4716b45c-b2e",
+        "TXN_1d3e2ed9-5b8",
+        "TXN_796fa944-0c5",
+        "TXN_273e1316-b65"
+      ],
+      "upi_activity_volume": [
+        "TXN_28bc0c1e-0f1",
+        "TXN_d79e1b2d-96e",
+        "TXN_3ca0f8f4-b78",
+        "TXN_c26bf72b-165",
+        "TXN_cb94d8b9-6a9",
+        "TXN_f71bcfd1-00d",
+        "TXN_bfc60ca9-3e3",
+        "TXN_05aa4305-c1e",
+        "TXN_547cb531-083",
+        "TXN_c4c1e89a-b2c"
+      ],
+      "rent_payment_regularity": [
+        "TXN_5f664173-49a",
+        "TXN_c2c7605e-593",
+        "TXN_a2d2d7d0-fc2",
+        "TXN_b92a838b-a8c"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_5c34e802-d9b",
+        "TXN_51b22aa4-cd8",
+        "TXN_76b754ce-fcb",
+        "TXN_5a61e761-bdf",
+        "TXN_12d859e0-016"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0044",
+    "lineage": {
+      "income_regularity": [
+        "TXN_3c2cd542-301",
+        "TXN_cad047a6-01a",
+        "TXN_dae53e36-dec",
+        "TXN_c1dfa7a0-78a",
+        "TXN_086489cb-933",
+        "TXN_b6275b86-009",
+        "TXN_71cacc83-198",
+        "TXN_8781c3dd-4ea",
+        "TXN_98288562-891",
+        "TXN_14ba2b48-80d"
+      ],
+      "spending_consistency": [
+        "TXN_39b2b74c-d84",
+        "TXN_b1193ee9-282",
+        "TXN_0e0e7571-85e",
+        "TXN_cb6ed3da-21c",
+        "TXN_15ca779f-3d2",
+        "TXN_0768f527-259",
+        "TXN_831a491c-06d",
+        "TXN_7dced533-7fb",
+        "TXN_7691b672-812",
+        "TXN_291a8655-59a"
+      ],
+      "bill_payment_ratio": [
+        "TXN_0768f527-259",
+        "TXN_831a491c-06d",
+        "TXN_63381935-1bc",
+        "TXN_00a49c7e-bc6",
+        "TXN_8e308668-838",
+        "TXN_115694a2-7e9",
+        "TXN_eb358dbf-137",
+        "TXN_eddbc089-818",
+        "TXN_a3a9f898-29f",
+        "TXN_0055f83a-c6e"
+      ],
+      "savings_rate": [
+        "TXN_39b2b74c-d84",
+        "TXN_3c2cd542-301",
+        "TXN_cad047a6-01a",
+        "TXN_b1193ee9-282",
+        "TXN_0e0e7571-85e",
+        "TXN_cb6ed3da-21c",
+        "TXN_dae53e36-dec",
+        "TXN_15ca779f-3d2",
+        "TXN_0768f527-259",
+        "TXN_831a491c-06d"
+      ],
+      "emi_burden_ratio": [
+        "TXN_0e0e7571-85e",
+        "TXN_15ca779f-3d2",
+        "TXN_7dced533-7fb",
+        "TXN_7691b672-812",
+        "TXN_2141efee-506",
+        "TXN_635ef730-fe8",
+        "TXN_d93039cf-b88",
+        "TXN_f05425a8-66b",
+        "TXN_2017d6ea-e77",
+        "TXN_e2628124-852",
+        "TXN_734545f2-48a",
+        "TXN_8db62cd4-0de",
+        "TXN_020452dd-a29",
+        "TXN_78a2e554-397",
+        "TXN_a2e68c53-a5a",
+        "TXN_d04c8cfc-670"
+      ],
+      "upi_activity_volume": [
+        "TXN_39b2b74c-d84",
+        "TXN_3c2cd542-301",
+        "TXN_0e0e7571-85e",
+        "TXN_dae53e36-dec",
+        "TXN_c1dfa7a0-78a",
+        "TXN_7691b672-812",
+        "TXN_7d8b9297-d01",
+        "TXN_2141efee-506",
+        "TXN_f6fe2ecd-a6b",
+        "TXN_d7c62b47-e08"
+      ],
+      "rent_payment_regularity": [
+        "TXN_39b2b74c-d84",
+        "TXN_d650fbde-28b",
+        "TXN_c09a57f5-28d",
+        "TXN_4e64ef3b-1e7",
+        "TXN_00969c94-642",
+        "TXN_b68893a0-1b9"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_cb6ed3da-21c",
+        "TXN_291a8655-59a",
+        "TXN_c2fa8651-721",
+        "TXN_75d8f9df-e45",
+        "TXN_122a1ee6-8b0"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0045",
+    "lineage": {
+      "income_regularity": [
+        "TXN_f1ef424d-999",
+        "TXN_aea28fea-e79",
+        "TXN_4b34e683-5ea",
+        "TXN_0730e3bb-c78",
+        "TXN_12d9bcae-33b",
+        "TXN_b532391d-a76",
+        "TXN_4d1076f2-d2f",
+        "TXN_f935af85-b3b",
+        "TXN_9052a837-7fd",
+        "TXN_f34052ff-ceb"
+      ],
+      "spending_consistency": [
+        "TXN_19214d78-a29",
+        "TXN_57c732a1-7fa",
+        "TXN_01cf4970-537",
+        "TXN_c16ae2ce-5a9",
+        "TXN_e0856785-2ea",
+        "TXN_04cc7e3b-860",
+        "TXN_1738a7c5-64e",
+        "TXN_df54846a-ddd",
+        "TXN_557ae4b2-a00",
+        "TXN_d25dc7e5-7c8"
+      ],
+      "bill_payment_ratio": [
+        "TXN_04cc7e3b-860",
+        "TXN_a0c2346f-5ba",
+        "TXN_c7c0542a-cbb",
+        "TXN_db712df3-d04",
+        "TXN_5834fe4b-2f9",
+        "TXN_026fbde0-6c7",
+        "TXN_9ce99a97-5dc",
+        "TXN_c54fcdfb-28c"
+      ],
+      "savings_rate": [
+        "TXN_19214d78-a29",
+        "TXN_57c732a1-7fa",
+        "TXN_01cf4970-537",
+        "TXN_f1ef424d-999",
+        "TXN_aea28fea-e79",
+        "TXN_c16ae2ce-5a9",
+        "TXN_e0856785-2ea",
+        "TXN_04cc7e3b-860",
+        "TXN_1738a7c5-64e",
+        "TXN_df54846a-ddd"
+      ],
+      "emi_burden_ratio": [
+        "TXN_57c732a1-7fa",
+        "TXN_63c95ae1-cf6",
+        "TXN_58a87b7e-6a6",
+        "TXN_1ea53cd7-5a5",
+        "TXN_312f0e33-f04",
+        "TXN_d2a48187-9f5",
+        "TXN_6940008f-d93",
+        "TXN_f2bd5754-7b5",
+        "TXN_809c8a92-4ae",
+        "TXN_0519dd3d-9d7",
+        "TXN_e805d609-4b3",
+        "TXN_ac690967-773",
+        "TXN_49eab70e-a7d",
+        "TXN_537a86e5-cbc",
+        "TXN_dd373bb3-292",
+        "TXN_6e473f4f-b14",
+        "TXN_7e5952cb-624",
+        "TXN_9c993c73-dbb"
+      ],
+      "upi_activity_volume": [
+        "TXN_19214d78-a29",
+        "TXN_01cf4970-537",
+        "TXN_f1ef424d-999",
+        "TXN_04cc7e3b-860",
+        "TXN_1738a7c5-64e",
+        "TXN_df54846a-ddd",
+        "TXN_d25dc7e5-7c8",
+        "TXN_241819c3-9b0",
+        "TXN_4b34e683-5ea",
+        "TXN_63c95ae1-cf6"
+      ],
+      "rent_payment_regularity": [
+        "TXN_296e3992-717",
+        "TXN_03d2e97a-55c",
+        "TXN_4552746c-90f",
+        "TXN_67fa12b0-5e6",
+        "TXN_88c1b8f9-540",
+        "TXN_a9617e74-7b5",
+        "TXN_bac35be2-3b1",
+        "TXN_33f54a2a-57b"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_c16ae2ce-5a9",
+        "TXN_e0856785-2ea",
+        "TXN_557ae4b2-a00",
+        "TXN_cb09f5c6-2e7",
+        "TXN_5179c0ac-71a",
+        "TXN_f54696f6-d3e",
+        "TXN_7a1d9e6d-d04",
+        "TXN_9a32eb91-34e",
+        "TXN_6f1a58f1-9a5",
+        "TXN_d8cac46a-004"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0046",
+    "lineage": {
+      "income_regularity": [
+        "TXN_e88e746b-e01",
+        "TXN_9fa79693-77f",
+        "TXN_1e4190f7-95d",
+        "TXN_a5fc9a6d-1d4",
+        "TXN_29708e45-690",
+        "TXN_1735f2bf-76e",
+        "TXN_b7a2b043-49d",
+        "TXN_12b7190a-fc6",
+        "TXN_4abf8f0a-519",
+        "TXN_aa51fbe8-12e"
+      ],
+      "spending_consistency": [
+        "TXN_40b2a5cb-5c2",
+        "TXN_cb977a55-460",
+        "TXN_901b211f-7a0",
+        "TXN_a855721b-078",
+        "TXN_50f6e5e8-ec0",
+        "TXN_3963a0b0-863",
+        "TXN_d834a9d4-0c2",
+        "TXN_7aaaccaa-302",
+        "TXN_5abcb413-831",
+        "TXN_ad533fb5-960"
+      ],
+      "bill_payment_ratio": [
+        "TXN_40b2a5cb-5c2",
+        "TXN_cb977a55-460",
+        "TXN_3b57a366-813",
+        "TXN_9ab24cbf-1db",
+        "TXN_2cbc5515-7f8",
+        "TXN_9f1dfc1a-fb3",
+        "TXN_46ea9ddd-d53",
+        "TXN_fdb52fc8-353",
+        "TXN_17543a24-2ad",
+        "TXN_fa044f65-4aa",
+        "TXN_9aaf83ca-6b7",
+        "TXN_3bc1fe39-ccc",
+        "TXN_2690a3b6-81b",
+        "TXN_9f5a58e8-a1c",
+        "TXN_1a848342-fd7",
+        "TXN_833c9dc7-dd5",
+        "TXN_46b7d5f6-d4b"
+      ],
+      "savings_rate": [
+        "TXN_40b2a5cb-5c2",
+        "TXN_cb977a55-460",
+        "TXN_901b211f-7a0",
+        "TXN_a855721b-078",
+        "TXN_50f6e5e8-ec0",
+        "TXN_3963a0b0-863",
+        "TXN_d834a9d4-0c2",
+        "TXN_7aaaccaa-302",
+        "TXN_5abcb413-831",
+        "TXN_e88e746b-e01"
+      ],
+      "emi_burden_ratio": [
+        "TXN_2affa06b-7f2",
+        "TXN_c8d8973d-8cb",
+        "TXN_ce8ce06a-a82",
+        "TXN_ef0226a7-8b7",
+        "TXN_31cf2ab5-a78",
+        "TXN_2680d1fd-e76",
+        "TXN_117a5d90-b18"
+      ],
+      "upi_activity_volume": [
+        "TXN_cb977a55-460",
+        "TXN_a855721b-078",
+        "TXN_50f6e5e8-ec0",
+        "TXN_7aaaccaa-302",
+        "TXN_5abcb413-831",
+        "TXN_e88e746b-e01",
+        "TXN_9fa79693-77f",
+        "TXN_be09444e-27b",
+        "TXN_15cf6b3a-ded",
+        "TXN_b9e2c212-b94"
+      ],
+      "rent_payment_regularity": [
+        "TXN_d834a9d4-0c2",
+        "TXN_5abcb413-831",
+        "TXN_26de3cb1-2e9",
+        "TXN_f800fca2-dc4",
+        "TXN_b34c7264-b67",
+        "TXN_8edc797d-1d1"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_901b211f-7a0",
+        "TXN_3963a0b0-863",
+        "TXN_ad533fb5-960",
+        "TXN_b5edc1e6-d80",
+        "TXN_6079a531-588",
+        "TXN_2e4d1b2c-34d",
+        "TXN_1ffa9724-1e2",
+        "TXN_810c8d3b-ddc"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0047",
+    "lineage": {
+      "income_regularity": [
+        "TXN_a58f0fb1-f81",
+        "TXN_d629bbeb-1d4",
+        "TXN_3818ea0b-dd0",
+        "TXN_1332c809-9d0",
+        "TXN_2858b84b-606",
+        "TXN_fe553f9d-44d",
+        "TXN_3e0bfc0a-2be",
+        "TXN_20f5e2f2-91c",
+        "TXN_d6722e29-a08",
+        "TXN_a97ea6db-f90"
+      ],
+      "spending_consistency": [
+        "TXN_cce8cf57-bf2",
+        "TXN_4187d402-350",
+        "TXN_2d4e57e1-1d3",
+        "TXN_9a352630-edb",
+        "TXN_42d2cf7d-010",
+        "TXN_67387ffa-a2f",
+        "TXN_aae95e10-bc0",
+        "TXN_afed4dbc-eb5",
+        "TXN_a7d2dc8a-ee0",
+        "TXN_84e7a885-e2d"
+      ],
+      "bill_payment_ratio": [
+        "TXN_07d4058e-eb1",
+        "TXN_ac335bd9-509",
+        "TXN_1613c3d6-ba6",
+        "TXN_859820f4-49d",
+        "TXN_0a3df20f-111",
+        "TXN_9cc2d413-e14",
+        "TXN_d8a79dad-f7c",
+        "TXN_d7e38c3f-30f"
+      ],
+      "savings_rate": [
+        "TXN_a58f0fb1-f81",
+        "TXN_cce8cf57-bf2",
+        "TXN_4187d402-350",
+        "TXN_2d4e57e1-1d3",
+        "TXN_d629bbeb-1d4",
+        "TXN_3818ea0b-dd0",
+        "TXN_9a352630-edb",
+        "TXN_42d2cf7d-010",
+        "TXN_67387ffa-a2f",
+        "TXN_aae95e10-bc0"
+      ],
+      "emi_burden_ratio": [
+        "TXN_cce8cf57-bf2",
+        "TXN_2d4e57e1-1d3",
+        "TXN_42d2cf7d-010",
+        "TXN_f6887a61-47b",
+        "TXN_6fc58889-7f1",
+        "TXN_8581cb3f-0ff",
+        "TXN_ecab5997-bfd",
+        "TXN_9c925501-3ef",
+        "TXN_389ac483-f89",
+        "TXN_0fa664c4-ffd"
+      ],
+      "upi_activity_volume": [
+        "TXN_4187d402-350",
+        "TXN_d629bbeb-1d4",
+        "TXN_3818ea0b-dd0",
+        "TXN_afed4dbc-eb5",
+        "TXN_84e7a885-e2d",
+        "TXN_1e249cc0-7d1",
+        "TXN_a7cf7759-c24",
+        "TXN_07d4058e-eb1",
+        "TXN_912d0d18-a3c",
+        "TXN_1332c809-9d0"
+      ],
+      "rent_payment_regularity": [
+        "TXN_0ce4f60e-701",
+        "TXN_cee0b7f4-9e3",
+        "TXN_6e72d49c-bf4"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_aae95e10-bc0",
+        "TXN_a7d2dc8a-ee0",
+        "TXN_838d8e45-b49",
+        "TXN_3ab612a6-550",
+        "TXN_e1372460-1c0",
+        "TXN_8365b6b6-96e",
+        "TXN_bce29ead-ebd",
+        "TXN_58c82671-0da"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0048",
+    "lineage": {
+      "income_regularity": [
+        "TXN_b3f42fb7-2e1",
+        "TXN_eb378abb-e09",
+        "TXN_dd12790f-bdf",
+        "TXN_e5c187b3-c21",
+        "TXN_4300887c-adf",
+        "TXN_88ce11e8-ad0",
+        "TXN_5fa447ad-35d",
+        "TXN_23b60370-883"
+      ],
+      "spending_consistency": [
+        "TXN_fd1e87e6-bf6",
+        "TXN_32e8b600-07b",
+        "TXN_909898bf-101",
+        "TXN_7028fe99-0d5",
+        "TXN_c2800048-b55",
+        "TXN_97e47095-7cb",
+        "TXN_e207849e-e93",
+        "TXN_3ddc1dac-ab3",
+        "TXN_27c1641b-612",
+        "TXN_2e7b724e-af0"
+      ],
+      "bill_payment_ratio": [
+        "TXN_7028fe99-0d5",
+        "TXN_e5aa4731-4eb",
+        "TXN_b4f04db4-178"
+      ],
+      "savings_rate": [
+        "TXN_fd1e87e6-bf6",
+        "TXN_32e8b600-07b",
+        "TXN_909898bf-101",
+        "TXN_7028fe99-0d5",
+        "TXN_c2800048-b55",
+        "TXN_b3f42fb7-2e1",
+        "TXN_97e47095-7cb",
+        "TXN_e207849e-e93",
+        "TXN_3ddc1dac-ab3",
+        "TXN_27c1641b-612"
+      ],
+      "emi_burden_ratio": [
+        "TXN_fd1e87e6-bf6",
+        "TXN_c3b02ced-2a8",
+        "TXN_94306688-86b",
+        "TXN_dc860d79-8d5"
+      ],
+      "upi_activity_volume": [
+        "TXN_32e8b600-07b",
+        "TXN_909898bf-101",
+        "TXN_c2800048-b55",
+        "TXN_b3f42fb7-2e1",
+        "TXN_97e47095-7cb",
+        "TXN_27c1641b-612",
+        "TXN_2e7b724e-af0",
+        "TXN_eb378abb-e09",
+        "TXN_b772ece1-5c0",
+        "TXN_94306688-86b"
+      ],
+      "rent_payment_regularity": [
+        "TXN_909898bf-101",
+        "TXN_c2800048-b55",
+        "TXN_97e47095-7cb",
+        "TXN_49b40cd9-1d1"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_c7620d7c-415",
+        "TXN_d4f1d659-554",
+        "TXN_ff7c7691-b9d",
+        "TXN_5917637b-03f",
+        "TXN_7eeeb8d5-a64"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0049",
+    "lineage": {
+      "income_regularity": [
+        "TXN_e8a3d820-327",
+        "TXN_7d3451f8-c8f",
+        "TXN_c7b9378f-494",
+        "TXN_9c6d7c92-143",
+        "TXN_5e599950-c98",
+        "TXN_7bd893ac-8a8",
+        "TXN_62e52dc9-10f",
+        "TXN_09e4ec01-def",
+        "TXN_69620014-b01",
+        "TXN_0300869d-3ff"
+      ],
+      "spending_consistency": [
+        "TXN_28305c78-3f2",
+        "TXN_b98fec8a-e98",
+        "TXN_10e6f612-73a",
+        "TXN_c0daa604-6d7",
+        "TXN_deeda31f-ce4",
+        "TXN_931ce18b-c02",
+        "TXN_1428e2e8-7e0",
+        "TXN_fc94ad66-2ce",
+        "TXN_817373b4-8f3",
+        "TXN_725578d0-d43"
+      ],
+      "bill_payment_ratio": [
+        "TXN_1428e2e8-7e0",
+        "TXN_725578d0-d43",
+        "TXN_1e99b456-88e"
+      ],
+      "savings_rate": [
+        "TXN_e8a3d820-327",
+        "TXN_28305c78-3f2",
+        "TXN_b98fec8a-e98",
+        "TXN_10e6f612-73a",
+        "TXN_c0daa604-6d7",
+        "TXN_deeda31f-ce4",
+        "TXN_931ce18b-c02",
+        "TXN_7d3451f8-c8f",
+        "TXN_c7b9378f-494",
+        "TXN_9c6d7c92-143"
+      ],
+      "emi_burden_ratio": [
+        "TXN_28305c78-3f2",
+        "TXN_b98fec8a-e98",
+        "TXN_817373b4-8f3",
+        "TXN_00af1d82-931",
+        "TXN_75d18c94-639"
+      ],
+      "upi_activity_volume": [
+        "TXN_28305c78-3f2",
+        "TXN_c0daa604-6d7",
+        "TXN_931ce18b-c02",
+        "TXN_7d3451f8-c8f",
+        "TXN_c7b9378f-494",
+        "TXN_9c6d7c92-143",
+        "TXN_1428e2e8-7e0",
+        "TXN_fc94ad66-2ce",
+        "TXN_817373b4-8f3",
+        "TXN_5e599950-c98"
+      ],
+      "rent_payment_regularity": [
+        "TXN_deeda31f-ce4",
+        "TXN_931ce18b-c02"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_515b6e9f-480",
+        "TXN_5f36de15-2e6",
+        "TXN_10dbaaba-e58",
+        "TXN_92ad840f-854"
+      ]
+    }
+  },
+  {
+    "user_id": "USR_0050",
+    "lineage": {
+      "income_regularity": [
+        "TXN_608cf292-d4a",
+        "TXN_579b012d-d1a",
+        "TXN_4dd61f43-7f1",
+        "TXN_19417121-ff8",
+        "TXN_77fa35a9-441",
+        "TXN_0c5e1087-904",
+        "TXN_f3da3c0f-e76",
+        "TXN_72c64194-296",
+        "TXN_4ec325b1-6c4",
+        "TXN_0b1fe0cb-69f"
+      ],
+      "spending_consistency": [
+        "TXN_8951bad2-549",
+        "TXN_d94cd1fe-418",
+        "TXN_b55f8d5f-a75",
+        "TXN_61d1f835-1d8",
+        "TXN_de76a254-19e",
+        "TXN_34f72b31-e4c",
+        "TXN_c8dfa7e7-96a",
+        "TXN_1a68d724-68c",
+        "TXN_88697ebc-2a3",
+        "TXN_b2eed873-498"
+      ],
+      "bill_payment_ratio": [
+        "TXN_de76a254-19e",
+        "TXN_c8dfa7e7-96a",
+        "TXN_b2eed873-498",
+        "TXN_87092dd7-bc4",
+        "TXN_01976448-9bb",
+        "TXN_10e7b51b-28a",
+        "TXN_d3502a57-608",
+        "TXN_9e9e093a-49b"
+      ],
+      "savings_rate": [
+        "TXN_8951bad2-549",
+        "TXN_d94cd1fe-418",
+        "TXN_b55f8d5f-a75",
+        "TXN_61d1f835-1d8",
+        "TXN_de76a254-19e",
+        "TXN_608cf292-d4a",
+        "TXN_579b012d-d1a",
+        "TXN_4dd61f43-7f1",
+        "TXN_34f72b31-e4c",
+        "TXN_c8dfa7e7-96a"
+      ],
+      "emi_burden_ratio": [
+        "TXN_8951bad2-549",
+        "TXN_b55f8d5f-a75",
+        "TXN_1a68d724-68c",
+        "TXN_9c22587c-ae3",
+        "TXN_810a8eca-50d",
+        "TXN_c993fb0f-52e",
+        "TXN_6b2e2e1d-386",
+        "TXN_377cdb01-d93",
+        "TXN_16a7bd04-dfb",
+        "TXN_08566d17-277",
+        "TXN_4f60f2d5-956",
+        "TXN_e86bf426-bec",
+        "TXN_5cd1c375-853",
+        "TXN_8ee274a0-160",
+        "TXN_6f1db134-be4",
+        "TXN_5ca68b92-02f"
+      ],
+      "upi_activity_volume": [
+        "TXN_8951bad2-549",
+        "TXN_b55f8d5f-a75",
+        "TXN_de76a254-19e",
+        "TXN_608cf292-d4a",
+        "TXN_4dd61f43-7f1",
+        "TXN_34f72b31-e4c",
+        "TXN_19417121-ff8",
+        "TXN_b2eed873-498",
+        "TXN_77fa35a9-441",
+        "TXN_f3da3c0f-e76"
+      ],
+      "rent_payment_regularity": [
+        "TXN_d4ae3136-fc9",
+        "TXN_80f310c3-95c",
+        "TXN_c8da58cc-361",
+        "TXN_7452f870-0c6"
+      ],
+      "cash_withdrawal_ratio": [
+        "TXN_88697ebc-2a3",
+        "TXN_694e8b36-437",
+        "TXN_02bfe4d0-766",
+        "TXN_be4ed17e-e21",
+        "TXN_f9eeb63a-6fc",
+        "TXN_96f8b45b-eb8",
+        "TXN_2f9e3197-909",
+        "TXN_d6a931d5-752",
+        "TXN_5ee79365-afc"
+      ]
+    }
+  }
+]

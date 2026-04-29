@@ -1,0 +1,109 @@
+{% extends 'loans/base.html' %}
+{% block title %}Banker Overview — Smart Money Lender{% endblock %}
+{% block content %}
+<div style="display:flex;flex-direction:column;gap:32px;">
+
+  <!-- Header -->
+  <div>
+    <h1 style="font-size:28px;font-weight:700;color:#0f172a;letter-spacing:-.02em;">Banker Overview</h1>
+    <p style="color:#64748b;font-size:14px;margin-top:4px;">Review applications and monitor portfolio risk.</p>
+  </div>
+
+  <!-- Stats -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;">
+    <div class="stat-card">
+      <div class="stat-label">Pending Review</div>
+      <div class="stat-value" style="color:#d97706;">{{ stats.pending_review }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Avg Risk Score</div>
+      <div class="stat-value" style="color:{% if stats.avg_risk > 60 %}#e11d48{% elif stats.avg_risk > 30 %}#d97706{% else %}#059669{% endif %};">{{ stats.avg_risk }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total Approved</div>
+      <div class="stat-value" style="color:#059669;">{{ stats.total_approved }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total Disbursed</div>
+      <div class="stat-value" style="font-size:20px;">₹{{ stats.total_disbursed|floatformat:0 }}</div>
+    </div>
+  </div>
+
+  <!-- Table Card -->
+  <div class="card" style="overflow:hidden;">
+    <div style="padding:16px 24px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div class="card-title">Applications Queue</div>
+      <form method="get" style="display:flex;align-items:center;gap:8px;">
+        <label style="font-size:13px;color:#64748b;">Filter:</label>
+        <select name="status" onchange="this.form.submit()"
+          style="padding:6px 28px 6px 10px;border:1px solid #d1d5db;border-radius:8px;font-size:13px;outline:none;background:white;appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 8px center;cursor:pointer;">
+          <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>Pending Review</option>
+          <option value="approved" {% if status_filter == 'approved' %}selected{% endif %}>Approved</option>
+          <option value="rejected" {% if status_filter == 'rejected' %}selected{% endif %}>Rejected</option>
+          <option value="all" {% if status_filter == 'all' %}selected{% endif %}>All Applications</option>
+        </select>
+      </form>
+    </div>
+
+    {% if apps %}
+    <div style="overflow-x:auto;">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Applicant</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th style="text-align:center;">Risk Score</th>
+            <th>AI Recommendation</th>
+            <th>Final Status</th>
+            <th style="text-align:right;">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for app in apps %}
+          <tr>
+            <td>
+              <div style="font-weight:600;color:#0f172a;">{{ app.user.get_full_name|default:app.user.username }}</div>
+              <div style="font-size:12px;color:#94a3b8;">{{ app.user.email }}</div>
+              {% if not app.fairness_check_passed %}
+                <span style="font-size:11px;color:#d97706;">⚠ Fairness Flag</span>
+              {% endif %}
+            </td>
+            <td style="text-transform:capitalize;">{{ app.loan_type }}</td>
+            <td style="font-weight:500;">₹{{ app.loan_amount_rupees|floatformat:0 }}</td>
+            <td style="text-align:center;">
+              <span class="badge {% if app.risk_score < 30 %}badge-approved{% elif app.risk_score < 60 %}badge-pending{% else %}badge-rejected{% endif %}">
+                {{ app.risk_score|floatformat:0 }}
+              </span>
+            </td>
+            <td>
+              <span class="badge {% if app.ai_decision == 'approved' %}badge-approved{% else %}badge-rejected{% endif %}">
+                {{ app.ai_decision|upper }}
+              </span>
+            </td>
+            <td>
+              <span class="badge {% if app.final_status == 'approved' %}badge-approved{% elif app.final_status == 'rejected' %}badge-rejected{% else %}badge-pending{% endif %}">
+                {% if app.final_status == 'approved' %}✓{% elif app.final_status == 'rejected' %}✕{% else %}⏳{% endif %}
+                {{ app.final_status|upper }}
+              </span>
+            </td>
+            <td style="text-align:right;">
+              <a href="{% url 'banker_loan_detail' app.pk %}" class="btn btn-sm {% if app.final_status == 'pending' %}btn-primary{% else %}btn-outline{% endif %}">
+                {% if app.final_status == 'pending' %}Review{% else %}View{% endif %}
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div style="padding:64px 24px;text-align:center;color:#94a3b8;font-size:14px;">
+      No applications found for the selected status.
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}
