@@ -141,8 +141,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-# STATICFILES_DIRS only needed if you have a custom static folder
-# STATICFILES_DIRS = [BASE_DIR / 'static']
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Media (user uploads)
 MEDIA_URL = '/media/'

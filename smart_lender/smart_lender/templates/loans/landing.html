@@ -1,70 +1,255 @@
 {% extends 'loans/base.html' %}
-{% block title %}Smart Money Lender — Fair, Explainable Financial Decisions{% endblock %}
+{% load static %}
+{% block title %}Loanix — Smarter Loans. Faster Decisions.{% endblock %}
 {% block content_public %}
-<div style="min-height:100vh;background:hsl(210,20%,98%);display:flex;flex-direction:column;font-family:'Inter',system-ui,sans-serif;">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',system-ui,sans-serif;background:#F8FAFC;color:#0f172a;overflow-x:hidden;}
+#loanix-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(248,250,252,0.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(226,232,240,0.6);transition:background 0.3s;}
+#loanix-nav .logo{display:flex;align-items:center;gap:9px;font-size:20px;font-weight:800;letter-spacing:-0.03em;color:hsl(226,58%,39%);text-decoration:none;}
+#loanix-nav .logo span{color:#0f172a;}
+#loanix-nav .nav-links{display:flex;align-items:center;gap:10px;}
+#loanix-nav .nav-links a{padding:8px 16px;border-radius:8px;font-size:14px;font-weight:500;color:#374151;text-decoration:none;transition:background 0.15s;}
+#loanix-nav .nav-links a:hover{background:#f1f5f9;}
+#loanix-nav .nav-links .cta{background:hsl(226,58%,39%);color:white!important;padding:8px 20px;border-radius:8px;}
+#loanix-nav .nav-links .cta:hover{background:hsl(226,58%,32%)!important;}
+#hero-section{position:relative;height:400vh;background:#0a0a0f;}
+#canvas-wrapper{position:sticky;top:0;width:100vw;height:100vh;overflow:hidden;background:#0a0a0f;}
+#hero-canvas{display:block;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
+#hero-text{position:absolute;bottom:12%;left:50%;transform:translateX(-50%);text-align:center;pointer-events:none;opacity:0;white-space:nowrap;}
+#hero-text h1{font-size:clamp(40px,7vw,88px);font-weight:900;letter-spacing:-0.04em;color:#ffffff;line-height:1;text-shadow:0 4px 40px rgba(0,0,0,0.6);}
+#hero-text h1 span{color:hsl(226,58%,65%);}
+#hero-text p{margin-top:14px;font-size:clamp(15px,2vw,22px);font-weight:400;color:rgba(255,255,255,0.72);letter-spacing:0.01em;}
+#scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:rgba(255,255,255,0.5);font-size:12px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;animation:bounce 2s infinite;}
+#scroll-hint svg{opacity:0.5;}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(8px);}}
+#loading-overlay{position:fixed;inset:0;z-index:9999;background:#0a0a0f;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity 0.6s ease;}
+#loading-overlay .load-logo{font-size:32px;font-weight:900;letter-spacing:-0.04em;color:white;}
+#loading-overlay .load-logo span{color:hsl(226,58%,65%);}
+#loading-bar-track{width:220px;height:3px;background:rgba(255,255,255,0.12);border-radius:99px;overflow:hidden;}
+#loading-bar-fill{height:100%;width:0%;background:hsl(226,58%,65%);border-radius:99px;transition:width 0.1s linear;}
+#loading-pct{font-size:13px;color:rgba(255,255,255,0.4);font-variant-numeric:tabular-nums;}
+#below-hero{background:#F8FAFC;position:relative;z-index:2;}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;max-width:1000px;margin:0 auto;padding:0 24px;}
+.feat-card{background:white;border:1px solid #e2e8f0;border-radius:20px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,0.05);transition:transform 0.2s,box-shadow 0.2s;}
+.feat-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,0.10);}
+.feat-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.feat-card h3{font-size:17px;font-weight:700;color:#0f172a;margin-bottom:8px;}
+.feat-card p{font-size:14px;color:#64748b;line-height:1.65;}
+.cta-strip{background:hsl(226,58%,39%);border-radius:24px;padding:56px 40px;text-align:center;max-width:860px;margin:0 auto;}
+.cta-strip h2{font-size:clamp(26px,4vw,42px);font-weight:800;letter-spacing:-0.03em;color:white;margin-bottom:14px;}
+.cta-strip p{font-size:16px;color:rgba(255,255,255,0.75);margin-bottom:28px;}
+.cta-strip .btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.cta-strip .btn-white{padding:13px 28px;border-radius:10px;font-size:15px;font-weight:600;background:white;color:hsl(226,58%,39%);text-decoration:none;transition:opacity 0.15s;}
+.cta-strip .btn-white:hover{opacity:0.9;}
+.cta-strip .btn-ghost-white{padding:13px 28px;border-radius:10px;font-size:15px;font-weight:600;background:rgba(255,255,255,0.12);color:white;text-decoration:none;border:1px solid rgba(255,255,255,0.25);transition:background 0.15s;}
+.cta-strip .btn-ghost-white:hover{background:rgba(255,255,255,0.2);}
+.site-footer{padding:28px 24px;text-align:center;font-size:13px;color:#94a3b8;border-top:1px solid #e2e8f0;}
+</style>
 
-  <!-- Header -->
-  <header style="height:64px;border-bottom:1px solid #e2e8f0;background:white;display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:50;">
-    <div style="display:flex;align-items:center;gap:8px;color:hsl(226,58%,39%);font-weight:700;font-size:18px;">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      Smart Money Lender
-    </div>
-    <div style="flex:1;"></div>
-    <div style="display:flex;align-items:center;gap:12px;">
-      <a href="{% url 'login' %}" style="padding:8px 16px;border-radius:8px;font-size:14px;font-weight:500;color:#374151;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='transparent'">Sign In</a>
-      <a href="{% url 'register' %}" style="padding:8px 16px;border-radius:8px;font-size:14px;font-weight:500;background:hsl(226,58%,39%);color:white;text-decoration:none;">Get Started</a>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <main style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;text-align:center;">
-    <div style="max-width:720px;">
-      <div style="display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:9999px;background:hsl(226,58%,95%);color:hsl(226,58%,39%);font-size:13px;font-weight:500;margin-bottom:24px;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        AI-Powered Lending Decisions
-      </div>
-      <h1 style="font-size:clamp(36px,6vw,64px);font-weight:700;line-height:1.1;color:#0f172a;margin-bottom:20px;letter-spacing:-.02em;">
-        Fair, Explainable<br/>
-        <span style="color:hsl(226,58%,39%);">Financial Decisions</span>
-      </h1>
-      <p style="font-size:18px;color:#64748b;max-width:560px;margin:0 auto 36px;line-height:1.6;">
-        A professional platform assisting bankers with data-driven insights. We provide transparent risk assessments and ensure compliance across all demographics.
-      </p>
-      <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
-        <a href="{% url 'register' %}" style="padding:12px 28px;border-radius:8px;font-size:15px;font-weight:600;background:hsl(226,58%,39%);color:white;text-decoration:none;">Apply as User</a>
-        <a href="{% url 'login' %}" style="padding:12px 28px;border-radius:8px;font-size:15px;font-weight:600;background:white;color:#374151;border:1px solid #d1d5db;text-decoration:none;">Banker / Regulator Login</a>
-      </div>
-    </div>
-
-    <!-- Feature cards -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;max-width:960px;width:100%;margin-top:80px;">
-      <div style="background:white;border:1px solid #e2e8f0;border-radius:16px;padding:24px;text-align:left;box-shadow:0 1px 3px rgba(0,0,0,.06);">
-        <div style="width:48px;height:48px;border-radius:10px;background:hsl(226,58%,95%);display:flex;align-items:center;justify-content:center;color:hsl(226,58%,39%);margin-bottom:16px;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        </div>
-        <h3 style="font-size:17px;font-weight:600;color:#0f172a;margin-bottom:8px;">Fast Processing</h3>
-        <p style="font-size:14px;color:#64748b;line-height:1.6;">AI-driven analysis provides instant preliminary risk assessments, speeding up the approval process.</p>
-      </div>
-      <div style="background:white;border:1px solid #e2e8f0;border-radius:16px;padding:24px;text-align:left;box-shadow:0 1px 3px rgba(0,0,0,.06);">
-        <div style="width:48px;height:48px;border-radius:10px;background:#f0fdf4;display:flex;align-items:center;justify-content:center;color:#059669;margin-bottom:16px;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <h3 style="font-size:17px;font-weight:600;color:#0f172a;margin-bottom:8px;">Fairness Monitored</h3>
-        <p style="font-size:14px;color:#64748b;line-height:1.6;">Continuous model drift tracking and bias checks ensure equitable lending across all demographics.</p>
-      </div>
-      <div style="background:white;border:1px solid #e2e8f0;border-radius:16px;padding:24px;text-align:left;box-shadow:0 1px 3px rgba(0,0,0,.06);">
-        <div style="width:48px;height:48px;border-radius:10px;background:#eff6ff;display:flex;align-items:center;justify-content:center;color:#2563eb;margin-bottom:16px;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-        </div>
-        <h3 style="font-size:17px;font-weight:600;color:#0f172a;margin-bottom:8px;">Explainable AI</h3>
-        <p style="font-size:14px;color:#64748b;line-height:1.6;">Every decision includes SHAP factors, making AI recommendations transparent and understandable.</p>
-      </div>
-    </div>
-  </main>
-
-  <!-- Footer -->
-  <footer style="padding:24px;text-align:center;font-size:13px;color:#94a3b8;border-top:1px solid #e2e8f0;">
-    &copy; 2026 Smart Money Lender. All rights reserved.
-  </footer>
+<!-- Loading overlay -->
+<div id="loading-overlay">
+  <div class="load-logo">Loan<span>ix</span></div>
+  <div id="loading-bar-track"><div id="loading-bar-fill"></div></div>
+  <div id="loading-pct">Loading 0%</div>
 </div>
+
+<!-- Navbar -->
+<nav id="loanix-nav">
+  <a href="#" class="logo">Loan<span>ix</span></a>
+  <div class="nav-links">
+    <a href="{% url 'login' %}">Sign In</a>
+    <a href="{% url 'register' %}" class="cta">Get Started</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section id="hero-section">
+  <div id="canvas-wrapper">
+    <canvas id="hero-canvas"></canvas>
+    <div id="hero-text">
+      <h1>Loan<span>ix</span></h1>
+      <p>Smarter loans. Faster decisions.</p>
+    </div>
+    <div id="scroll-hint">
+      <span>Scroll</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- Below hero -->
+<div id="below-hero">
+  <section style="padding:96px 24px 80px;">
+    <div style="text-align:center;margin-bottom:56px;">
+      <div style="display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:9999px;background:hsl(226,58%,95%);color:hsl(226,58%,39%);font-size:13px;font-weight:600;margin-bottom:18px;">✦ Why Loanix</div>
+      <h2 style="font-size:clamp(28px,4vw,46px);font-weight:800;letter-spacing:-0.03em;color:#0f172a;line-height:1.15;">Built for the future of lending</h2>
+      <p style="font-size:17px;color:#64748b;max-width:520px;margin:14px auto 0;line-height:1.65;">Behavior-based AI that works for everyone — with or without a credit score.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon" style="background:hsl(226,58%,95%);color:hsl(226,58%,39%);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <h3>Instant AI Decisions</h3>
+        <p>Our XGBoost model analyses 8 behavioral signals and returns a risk score in milliseconds — no waiting, no guessing.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:#f0fdf4;color:#059669;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>No CIBIL? No Problem</h3>
+        <p>We score users on transaction behavior — income regularity, savings rate, UPI activity — not just a three-digit number.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:#eff6ff;color:#2563eb;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+        <h3>SHAP Explainability</h3>
+        <p>Every decision comes with a plain-English explanation powered by SHAP values — transparent to users, auditors, and regulators.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:#fdf4ff;color:#9333ea;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <h3>Fairness by Design</h3>
+        <p>No age, gender, state, or employment type enters the ML model. Bias monitoring runs continuously across all decisions.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:#fff7ed;color:#ea580c;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <h3>Multi-Role Platform</h3>
+        <p>Separate dashboards for users, bankers, and regulators — each with the right level of detail and control.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:#f0fdf4;color:#16a34a;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9S3 16.97 3 12 7.03 3 12 3s9 4.03 9 9z"/></svg></div>
+        <h3>Tamper-Proof Audit Log</h3>
+        <p>Every decision is hash-chained into an immutable audit trail — giving regulators full confidence in the process.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:0 24px 96px;">
+    <div class="cta-strip">
+      <h2>Ready to get your loan decision?</h2>
+      <p>Join thousands of users who got fair, explainable decisions in seconds.</p>
+      <div class="btn-row">
+        <a href="{% url 'register' %}" class="btn-white">Apply Now — It's Free</a>
+        <a href="{% url 'login' %}" class="btn-ghost-white">Banker / Regulator Login</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">&copy; 2026 Loanix. All rights reserved. &nbsp;·&nbsp; Powered by XGBoost + SHAP</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const TOTAL_FRAMES = 192;
+  const FRAME_FIRST  = 1;
+  const IMG_BASE_PATH = "{% static '3d images/' %}";
+
+  function padNum(n){ return String(n).padStart(3,"0"); }
+  function frameSrc(i){ return IMG_BASE_PATH + "ezgif-frame-" + padNum(i + FRAME_FIRST) + ".jpg"; }
+
+  const canvas     = document.getElementById("hero-canvas");
+  const ctx        = canvas.getContext("2d");
+  const overlay    = document.getElementById("loading-overlay");
+  const barFill    = document.getElementById("loading-bar-fill");
+  const pctLabel   = document.getElementById("loading-pct");
+  const heroText   = document.getElementById("hero-text");
+  const scrollHint = document.getElementById("scroll-hint");
+
+  const images = new Array(TOTAL_FRAMES);
+  let loadedCount = 0;
+  let nativeW = 1920, nativeH = 1080;
+  let currentFrame = 0;
+
+  function resizeCanvas(){
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const imgRatio = nativeW / nativeH, vpRatio = vw / vh;
+    let drawW, drawH;
+    if(vpRatio > imgRatio){ drawW = vw; drawH = vw / imgRatio; }
+    else { drawH = vh; drawW = vh * imgRatio; }
+    canvas.width  = Math.round(drawW);
+    canvas.height = Math.round(drawH);
+    canvas.style.width  = Math.round(drawW) + "px";
+    canvas.style.height = Math.round(drawH) + "px";
+  }
+  window.addEventListener("resize", ()=>{ resizeCanvas(); drawFrame(currentFrame); });
+
+  function drawFrame(index){
+    const i = Math.max(0, Math.min(TOTAL_FRAMES-1, Math.round(index)));
+    const img = images[i];
+    if(!img || !img.complete) return;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(img,0,0,canvas.width,canvas.height);
+  }
+
+  function preloadImages(){
+    for(let i=0; i<TOTAL_FRAMES; i++){
+      const img = new Image();
+      img.src = frameSrc(i);
+      img.onload = function(){
+        loadedCount++;
+        if(i===0){
+          nativeW = img.naturalWidth  || 1920;
+          nativeH = img.naturalHeight || 1080;
+          resizeCanvas();
+          drawFrame(0);
+        }
+        const pct = Math.round((loadedCount/TOTAL_FRAMES)*100);
+        barFill.style.width = pct + "%";
+        pctLabel.textContent = "Loading " + pct + "%";
+        if(loadedCount === TOTAL_FRAMES){
+          overlay.style.opacity = "0";
+          setTimeout(()=>{ overlay.style.display="none"; }, 650);
+          initScrollAnimation();
+        }
+      };
+      img.onerror = function(){
+        loadedCount++;
+        if(loadedCount === TOTAL_FRAMES){
+          overlay.style.opacity = "0";
+          setTimeout(()=>{ overlay.style.display="none"; }, 650);
+          initScrollAnimation();
+        }
+      };
+      images[i] = img;
+    }
+  }
+
+  function initScrollAnimation(){
+    gsap.registerPlugin(ScrollTrigger);
+    const state = { frame: 0 };
+    gsap.to(state, {
+      frame: TOTAL_FRAMES - 1,
+      snap: "frame",
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#hero-section",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.5,
+        onUpdate: (self) => {
+          const f = Math.round(self.progress * (TOTAL_FRAMES-1));
+          if(f !== currentFrame){ currentFrame = f; drawFrame(currentFrame); }
+          if(self.progress > 0.05){
+            scrollHint.style.opacity = "0";
+            scrollHint.style.transition = "opacity 0.4s";
+          } else { scrollHint.style.opacity = "1"; }
+        },
+      },
+      onUpdate: function(){ drawFrame(Math.round(state.frame)); },
+    });
+    gsap.fromTo(heroText, { opacity:0, y:30 }, {
+      opacity:1, y:0, ease:"power2.out",
+      scrollTrigger: {
+        trigger: "#hero-section",
+        start: "80% top",
+        end: "95% top",
+        scrub: true,
+      },
+    });
+  }
+
+  resizeCanvas();
+  preloadImages();
+})();
+</script>
 {% endblock %}
