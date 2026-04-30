@@ -35,39 +35,54 @@ def compute_monthly_expenses(csv_user_id):
         return 0
     
     try:
-        from django.db.models import Sum, Count
-        from django.db.models.functions import Extract
-        from django.db.models import Q
-        
+        from datetime import datetime
+
         # Get all debit transactions EXCLUDING EMI (which is tracked separately)
+        # Note: model field is `txn_type` (not `type`) and `timestamp` is stored as string.
         transactions = CsvTransaction.objects.filter(
             csv_user_id=csv_user_id,
-            type='debit'
+            txn_type__iexact='debit'
         ).exclude(
-            category__in=['emi', 'loan_payment']  # These are tracked separately
+            category__in=['emi', 'loan_payment']
         )
-        
+
         if not transactions.exists():
-            return 0
-        
-        # Group by year-month and sum
-        monthly_data = transactions.values('timestamp__year', 'timestamp__month').annotate(
-            total=Sum('amount')
-        )
-        
-        if not monthly_data:
-            return 0
-        
-        # Calculate average
-        months = len(monthly_data)
-        total_expenses = sum(m['total'] for m in monthly_data)
-        avg_monthly = total_expenses / months if months > 0 else 0
-        
+            return 0.0
+
+        # Aggregate in Python by parsing timestamp strings into year-month buckets
+        monthly_sums = {}
+        for t in transactions:
+            ts = (t.timestamp or '').strip()
+            if not ts:
+                continue
+            dt = None
+            try:
+                # Try ISO first
+                dt = datetime.fromisoformat(ts)
+            except Exception:
+                try:
+                    dt = datetime.strptime(ts, '%Y-%m-%d %H:%M:%S')
+                except Exception:
+                    try:
+                        dt = datetime.strptime(ts, '%Y-%m-%d')
+                    except Exception:
+                        # Could not parse timestamp — skip this record
+                        continue
+
+            key = (dt.year, dt.month)
+            monthly_sums[key] = monthly_sums.get(key, 0.0) + (t.amount or 0.0)
+
+        if not monthly_sums:
+            return 0.0
+
+        months = len(monthly_sums)
+        total_expenses = sum(monthly_sums.values())
+        avg_monthly = total_expenses / months if months > 0 else 0.0
         return float(avg_monthly)
-        
+
     except Exception as e:
         print(f"Error computing monthly expenses: {e}")
-        return 0
+        return 0.0
 
 
 # ─── Auth ─────────────────────────────────────────────────────────────────────
